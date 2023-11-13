@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./index.scss";
 
-const users = [
+const usersTemp = [
   {
     id: 0,
     name: "Patryk",
@@ -10,7 +10,6 @@ const users = [
     password: 1234,
     role: "user",
     picture: "aaa",
-    active: false,
   },
   {
     id: 1,
@@ -20,18 +19,51 @@ const users = [
     password: 4321,
     role: "user",
     picture: "bbb",
-    active: true,
   },
 ];
 
 function App() {
-  return <SideBar />;
+  const [activeUser, setActiveUser] = useState({});
+  return (
+    <div style={{ display: "flex" }}>
+      <SideBar activeUser={activeUser} onActiveUser={setActiveUser} />
+      {activeUser.name ? <UserCard user={activeUser} /> : ""}
+    </div>
+  );
 }
 
-function SideBar() {
-  const handleSearch = () => {
-    console.log(1);
+function UserCard({ user }) {
+  return (
+    <div className="user-card">
+      {console.log(user)}
+      <h1 className="selected-user-card">
+        {user.name} {user.surname}
+      </h1>
+
+      <div className="tasks">
+        <h6>To do: 3</h6>
+        <h6>In progress: 3</h6>
+        <h6>Done: 3</h6>
+      </div>
+    </div>
+  );
+}
+
+function SideBar({ activeUser, onActiveUser }) {
+  const [users, setUsers] = useState(usersTemp);
+
+  const handleChangeUser = (id) => {
+    const updatedUsers = users.map((user) => ({
+      ...user,
+      active: user.id === id,
+    }));
+    onActiveUser(updatedUsers.find((user) => user.id === id));
   };
+
+  const handleSearch = () => {
+    // TO DO
+  };
+
   return (
     <div className="left-side">
       <div className="search-bar">
@@ -43,32 +75,33 @@ function SideBar() {
       <div className="users">
         {users.map((user) => (
           <User
-            id={user.id}
-            name={user.name}
-            surname={user.surname}
-            picture={user.picture}
-            active={user.active}
+            key={user.id}
+            user={user}
+            active={user.id === activeUser?.id}
+            changeUserFunction={handleChangeUser}
           />
         ))}
       </div>
-      <div className="logo"></div>
+      <div className="logo">Tablica Kanban - Patryk Grochowski</div>
     </div>
   );
 }
 
+function User({ user, active, changeUserFunction }) {
+  return (
+    <div
+      onClick={() => changeUserFunction(user.id)}
+      className={`user ${active ? "active" : ""}`}
+    >
+      <h5>
+        {user.name} {user.surname}
+      </h5>
+    </div>
+  );
+}
 function Button({ onClick, children, styles }) {
   return (
     <button className={`btn${styles ? `-${styles}` : ""}`}>{children}</button>
-  );
-}
-
-function User({ id, name, surname, picture, active }) {
-  return (
-    <div className={`user ${active ? "active" : ""}`}>
-      <h5>
-        {name} {surname}
-      </h5>
-    </div>
   );
 }
 export default App;
