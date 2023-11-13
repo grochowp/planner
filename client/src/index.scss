@@ -1,0 +1,81 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+$primary: #ddd;
+$gray-300: #a3a3a3;
+$active-user: #b4a4a4;
+
+.left-side {
+  background-color: $primary;
+  float: left;
+  min-width: 10rem;
+  width: 20vw;
+  height: 100%;
+  border-right: 1px solid $gray-300;
+  padding: 1rem 2rem 1rem 1rem;
+}
+
+.search-bar {
+  display: flex;
+  border-bottom: 1px solid $gray-300;
+  padding: 0 0 1rem 0;
+  gap: 0.5rem;
+  height: 3rem;
+}
+
+.search-bar-input {
+  border: 1px solid $gray-300;
+  border-radius: 1rem;
+  min-width: 7rem;
+  width: 15vw;
+  font-size: 1rem;
+  padding-left: 0.5rem;
+}
+
+.btn-search-bar {
+  border: 1px solid $gray-300;
+  border-radius: 1rem;
+  min-width: 3rem;
+  width: 5vw;
+  cursor: pointer;
+}
+
+.users {
+  display: flex;
+  flex-direction: column;
+  min-width: 11rem;
+  width: 20vw;
+  height: 80vh;
+}
+
+.user {
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  height: 3rem;
+  padding: 0 0 0 0.5rem;
+  border-radius: 1rem;
+}
+
+.active {
+  background-color: $active-user;
+}
+
+.logo {
+  display: flex;
+  width: 20vw;
+  gap: 0.5rem;
+  height: 8vh;
+}
