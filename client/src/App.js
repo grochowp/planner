@@ -68,9 +68,9 @@ function SideBar({ activeUser, onActiveUser }) {
     <div className="left-side">
       <div className="search-bar">
         <input placeholder="search..." className="search-bar-input"></input>
-        <Button onClick={handleSearch} styles={"search-bar"}>
+        {/* <Button onClick={handleSearch} styles={"search-bar"}>
           Find
-        </Button>
+        </Button> */}
       </div>
       <div className="users">
         {users.map((user) => (
