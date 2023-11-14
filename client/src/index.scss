@@ -11,12 +11,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+$picture-path: "/pictures/kanban.jpg";
 
 $primary-main: #ddd;
 $primary-border: #a3a3a3;
 $primary-hover: #c4c3c3;
 $primary-btn-input: #f0f0f0;
 $active-user: #a09f9f;
+$primary-text: #0c0a0a;
 
 .left-side {
   background-color: $primary-main;
@@ -31,9 +33,12 @@ $active-user: #a09f9f;
 .search-bar {
   display: flex;
   border-bottom: 1px solid $primary-border;
-  padding: 0 0.5rem 1rem 0.5rem;
+  padding: 0 0 0.25rem 0;
   gap: 0.5rem;
-  height: 2.75rem;
+  height: 3rem;
+  justify-content: center;
+  font-size: 1.5rem;
+  align-items: center;
 }
 
 .search-bar-input {
@@ -55,12 +60,48 @@ $active-user: #a09f9f;
   background-color: $primary-btn-input;
 }
 
+.btn-apps {
+  position: relative;
+  width: 94%;
+  min-height: 5rem;
+  height: 10vh;
+  border-radius: 1rem;
+  border: 1px solid $primary-border;
+  cursor: pointer;
+  overflow: hidden; // Ukryj część zblurowanego obrazu, jeśli wymagane
+}
+.btn-apps::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("#{$picture-path}");
+  background-size: cover;
+  filter: blur(5px); // Dodaj efekt zblurowania tylko dla tła
+}
+
+// Styl dla tekstu na środku .btn-apps
+.btn-apps span {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $primary-text;
+  text-align: center;
+  font-size: 1.5rem;
+  text-wrap: nowrap;
+  font: 900;
+}
+
 .users {
   display: flex;
   flex-direction: column;
   min-width: 11rem;
   width: 15vw;
-  height: 80vh;
+  height: 84.5vh;
   gap: 0.3rem;
   margin: 1rem 0 0 1rem;
 }
@@ -90,7 +131,7 @@ $active-user: #a09f9f;
   align-items: center;
   width: 100%;
   gap: 0.5rem;
-  height: 8vh;
+  height: 4vh;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -124,4 +165,51 @@ $active-user: #a09f9f;
 
   /* Dodajmy padding-bottom */
   align-self: flex-end; /* Wyśrodkuj względem prawej strony */
+}
+
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+.login {
+  width: 20rem;
+  height: 20rem;
+  border: 1px solid $primary-border;
+  border-radius: 1rem;
+  background-color: $primary-main;
+  display: flex;
+  flex-direction: column; // Dodane, aby elementy wewnątrz były ustawione jeden pod drugim
+  align-items: center; // Dod
+}
+
+.login input {
+  width: 80%;
+  margin: 2rem 0 0rem 0rem;
+  display: flex;
+  border: 1px solid $primary-border;
+  border-radius: 0.75rem;
+  padding-left: 1rem;
+  height: 2.5rem;
+  justify-content: center;
+  font-size: 1rem;
+  align-items: center;
+}
+
+.login input::placeholder {
+  width: 80%; // left: 0%;
+}
+.register {
+  background-color: red;
+}
+
+.btn-login {
+  margin-top: 2.5rem;
+  width: 7.5rem;
+  height: 2.5rem;
+  border: 1px solid $primary-border;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }

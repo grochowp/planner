@@ -1,5 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./index.scss";
+import { SideBar } from "./SideBar";
+import { KanbanTree } from "./Routes/KanbanTree";
+import { Login } from "./Routes/Login";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const usersTemp = [
   {
@@ -22,86 +26,51 @@ const usersTemp = [
   },
 ];
 
+export const apps = [
+  {
+    id: 0,
+    name: "Tablica Kanban",
+    route: "/kanban",
+  },
+  {
+    id: 1,
+    name: "testApp",
+    route: "/test",
+  },
+];
+
 function App() {
-  const [activeUser, setActiveUser] = useState({});
-  return (
-    <div style={{ display: "flex" }}>
-      <SideBar activeUser={activeUser} onActiveUser={setActiveUser} />
-      {activeUser.name ? <UserCard user={activeUser} /> : ""}
-    </div>
-  );
-}
+  const [activeUser, setActiveUser] = useState();
 
-function UserCard({ user }) {
   return (
-    <div className="user-card">
-      {console.log(user)}
-      <h1 className="selected-user-card">
-        {user.name} {user.surname}
-      </h1>
-
-      <div className="tasks">
-        <h6>To do: 3</h6>
-        <h6>In progress: 3</h6>
-        <h6>Done: 3</h6>
+    <Router>
+      <div style={{ display: "flex" }}>
+        {activeUser ? (
+          <>
+            <SideBar activeUser={activeUser} />
+            <Routes>
+              <Route
+                path="/kanban"
+                element={<KanbanTree activeUser={activeUser} />}
+              />
+            </Routes>
+          </>
+        ) : (
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Login
+                  users={usersTemp}
+                  onSetUser={setActiveUser}
+                  onSetActiveUser={setActiveUser}
+                />
+              }
+            />
+          </Routes>
+        )}
       </div>
-    </div>
-  );
-}
-
-function SideBar({ activeUser, onActiveUser }) {
-  const [users, setUsers] = useState(usersTemp);
-
-  const handleChangeUser = (id) => {
-    const updatedUsers = users.map((user) => ({
-      ...user,
-      active: user.id === id,
-    }));
-    onActiveUser(updatedUsers.find((user) => user.id === id));
-  };
-
-  const handleSearch = () => {
-    // TO DO
-  };
-
-  return (
-    <div className="left-side">
-      <div className="search-bar">
-        <input placeholder="search..." className="search-bar-input"></input>
-        {/* <Button onClick={handleSearch} styles={"search-bar"}>
-          Find
-        </Button> */}
-      </div>
-      <div className="users">
-        {users.map((user) => (
-          <User
-            key={user.id}
-            user={user}
-            active={user.id === activeUser?.id}
-            changeUserFunction={handleChangeUser}
-          />
-        ))}
-      </div>
-      <div className="logo">Tablica Kanban - Patryk Grochowski</div>
-    </div>
-  );
-}
-
-function User({ user, active, changeUserFunction }) {
-  return (
-    <div
-      onClick={() => changeUserFunction(user.id)}
-      className={`user ${active ? "active" : ""}`}
-    >
-      <h5>
-        {user.name} {user.surname}
-      </h5>
-    </div>
-  );
-}
-function Button({ onClick, children, styles }) {
-  return (
-    <button className={`btn${styles ? `-${styles}` : ""}`}>{children}</button>
+    </Router>
   );
 }
 export default App;
