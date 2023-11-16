@@ -4,6 +4,7 @@ import { SideBar } from "./SideBar";
 import { KanbanTree } from "./Routes/KanbanTree";
 import { Login } from "./Routes/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { TestApp } from "./Routes/TestApp";
 
 const usersTemp = [
   {
@@ -14,6 +15,14 @@ const usersTemp = [
     password: 1234,
     role: "user",
     picture: "aaa",
+    tasks: [
+      {
+        task: "school",
+        ToDo: ["aaa", "bbb"],
+        InProgress: ["ccc", "ddd"],
+        Done: ["eee", "fff"],
+      },
+    ],
   },
   {
     id: 1,
@@ -40,7 +49,7 @@ export const apps = [
 ];
 
 function App() {
-  const [activeUser, setActiveUser] = useState();
+  const [activeUser, setActiveUser] = useState(usersTemp[0]);
 
   return (
     <Router>
@@ -53,6 +62,7 @@ function App() {
                 path="/kanban"
                 element={<KanbanTree activeUser={activeUser} />}
               />
+              <Route path="/test" element={<TestApp />} />
             </Routes>
           </>
         ) : (
