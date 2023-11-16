@@ -7,7 +7,7 @@ export function SideBar({ activeUser }) {
       <div className="search-bar">
         <h4 className="welcome-message">Witaj, {activeUser.name}!</h4>
       </div>
-      <div className="users">
+      <div className="apps">
         {apps.map((app) => (
           <Button key={app.id} styles="apps" route={app.route}>
             {app.name}
