@@ -18,12 +18,25 @@ const usersTemp = [
     tasks: [
       {
         task: "school",
-        ToDo: [
-          "zwalic konia kusznierukowi jego wlasna glowąaa aaa a a aa a aaaaaaa",
-          "bbb",
-        ],
+        ToDo: ["zaa a aaaaaaa", "bbb"],
         InProgress: ["ccc", "ddd"],
         Done: ["eee", "fff", "ddd", "eee", "fff", "ddd", "eee", "fff", "ddd"],
+      },
+      {
+        task: "work",
+        ToDo: ["kill yourself", "bbb"],
+        InProgress: ["masturbate", "ddd"],
+        Done: [
+          "precum",
+          "fff",
+          "ddd",
+          "eee",
+          "fff",
+          "ddd",
+          "eee",
+          "fff",
+          "ddd",
+        ],
       },
     ],
   },

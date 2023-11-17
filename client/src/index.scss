@@ -1,3 +1,5 @@
+@import url("https://unpkg.com/css.gg@2.0.0/icons/css/trash.css");
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -195,25 +197,50 @@ $primary-text: #0c0a0a;
   cursor: pointer;
 }
 
-.tasks-list-container {
-  width: 100%;
-  height: 45.5rem;
-  margin: 3rem 6rem 3rem 6rem;
-  // background-color: red;
+.kanbanTree {
+  width: 70vw;
 }
 
 .tasks-list-task-name {
   width: 100%;
-  height: 10%;
+  height: 5rem;
   justify-content: center;
   align-items: center;
   display: flex;
   border: 1px solid $primary-border;
 }
+.tasks-list-container {
+  width: 100%;
+  margin: 3rem 6rem 3rem 6rem;
+  // background-color: red;
+}
 
 .tasks-list-tasks {
   display: flex;
   height: 100%;
+}
+
+.tasks-list-progress {
+  margin: 1rem;
+  border: 1px solid $primary-border;
+  box-sizing: border-box;
+  flex: 1;
+  width: 33%;
+  max-width: 30rem;
+}
+
+@media (max-width: 1500px) {
+  .tasks-list-tasks {
+    flex-wrap: wrap; /* Na węższych ekranach, dodaj flex-wrap: wrap, aby elementy przechodziły do nowej linii */
+  }
+
+  .tasks-list-progress {
+    width: 70%; /* Na węższych ekranach, ustaw pełną szerokość dla tasks-list-progress */
+    max-width: none;
+  }
+  .tasks-list-container {
+    width: 80%;
+  }
 }
 
 // .tasks-list-tasks > div {
@@ -222,18 +249,9 @@ $primary-text: #0c0a0a;
 //   box-sizing: border-box;
 // }
 
-.tasks-list-progress {
-  margin: 1rem;
-  border: 1px solid $primary-border;
-  flex: 1;
-  width: 33%;
-  max-width: 30rem;
-  box-sizing: border-box;
-}
-
 .tasks-list-name {
   height: 3rem;
-  // background-color: red;
+  font-size: 2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -272,24 +290,17 @@ $primary-text: #0c0a0a;
 
 .btn-in-task {
   box-sizing: border-box;
-  width: 98.7%;
+  cursor: pointer;
+  width: 80%;
   display: flex;
-  border-top: 0;
+  margin-top: 1.5rem;
   justify-content: space-between;
 }
 
-.btn-in-task button {
-  flex: 1;
-  margin: 0 2%; /* Dodaj odstęp między przyciskami, możesz dostosować wartość według potrzeb */
-}
-
-.btn-in-task button:first-child {
+.btn-in-task i:first-child {
   margin-right: 2rem; /* Lekko oddal od lewej krawędzi */
 }
 
-.btn-in-task button:last-child {
+.btn-in-task i:last-child {
   margin-left: 2rem; /* Lekko oddal od prawej krawędzi */
-}
-
-.btn-task {
 }
