@@ -203,7 +203,7 @@ $primary-text: #0c0a0a;
 
 .tasks-list-task-name {
   width: 100%;
-  height: 5rem;
+  height: 2rem;
   justify-content: center;
   align-items: center;
   display: flex;
@@ -211,13 +211,12 @@ $primary-text: #0c0a0a;
 }
 .tasks-list-container {
   width: 100%;
-  margin: 3rem 6rem 3rem 6rem;
-  // background-color: red;
+  margin: 3rem 6rem;
 }
 
 .tasks-list-tasks {
   display: flex;
-  height: 100%;
+  flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
 }
 
 .tasks-list-progress {
@@ -225,21 +224,21 @@ $primary-text: #0c0a0a;
   border: 1px solid $primary-border;
   box-sizing: border-box;
   flex: 1;
-  width: 33%;
-  max-width: 30rem;
+  width: 100%; /* Take full width on smaller screens */
+  max-width: none;
 }
 
-@media (max-width: 1500px) {
+@media (max-width: 1200px) {
   .tasks-list-tasks {
-    flex-wrap: wrap; /* Na węższych ekranach, dodaj flex-wrap: wrap, aby elementy przechodziły do nowej linii */
+    flex-direction: column; /* Change to a column layout on smaller screens */
   }
 
-  .tasks-list-progress {
-    width: 70%; /* Na węższych ekranach, ustaw pełną szerokość dla tasks-list-progress */
-    max-width: none;
-  }
   .tasks-list-container {
-    width: 80%;
+    max-width: 90%;
+    margin: 3rem auto; /* Center the container on smaller screens */
+    .tasks-list-task-name {
+      width: 67vw;
+    }
   }
 }
 
@@ -251,7 +250,7 @@ $primary-text: #0c0a0a;
 
 .tasks-list-name {
   height: 3rem;
-  font-size: 2rem;
+  font-size: 2vw;
   display: flex;
   justify-content: center;
   align-items: center;
