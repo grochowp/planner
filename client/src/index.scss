@@ -1,4 +1,6 @@
 @import url("https://unpkg.com/css.gg@2.0.0/icons/css/trash.css");
+@import url("https://unpkg.com/css.gg@2.0.0/icons/css/push-chevron-right.css");
+@import url("https://unpkg.com/css.gg@2.0.0/icons/css/push-chevron-left.css");
 
 body {
   margin: 0;
@@ -14,6 +16,7 @@ code {
     monospace;
 }
 $picture-path: "/pictures/kanban.jpg";
+$picture2-path: "/pictures/tlo.jpg";
 
 $primary-main: #ddd;
 $primary-border: #a3a3a3;
@@ -26,10 +29,10 @@ $primary-text: #0c0a0a;
   background-color: $primary-main;
   float: left;
   min-width: 10rem;
-  width: 15vw;
-  height: 100%;
+  width: 20vw;
+  height: 96.7vh;
   border-right: 1px solid $primary-border;
-  padding: 1rem 2rem 1rem 1rem;
+  padding: 1rem 1rem 1rem 1rem;
 }
 
 .search-bar {
@@ -37,30 +40,51 @@ $primary-text: #0c0a0a;
   border-bottom: 1px solid $primary-border;
   padding: 0 0 0.25rem 0;
   gap: 0.5rem;
-  height: 3rem;
+  height: 5%;
   justify-content: center;
   font-size: 1.5rem;
   align-items: center;
 }
 
-.search-bar-input {
-  border: 1px solid $primary-border;
-  border-radius: 0.75rem;
-  min-width: 7rem;
+.apps {
+  display: flex;
+  flex-direction: column;
+  min-width: 11rem;
   width: 15vw;
-  font-size: 1rem;
-  padding-left: 0.75rem;
-  background-color: $primary-btn-input;
+  height: 85vh;
+  gap: 0.3rem;
+  margin: 1rem 0 0 1rem;
 }
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 0.5rem;
+  height: 5vh;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.7vw;
+}
+// .search-bar-input {
+//   border: 1px solid $primary-border;
+//   border-radius: 0.75rem;
+//   min-width: 7rem;
+//   width: 15vw;
+//   font-size: 1rem;
+//   padding-left: 0.75rem;
+//   background-color: $primary-btn-input;
+// }
 
-.btn-search-bar {
-  border: 1px solid $primary-border;
-  border-radius: 0.75rem;
-  min-width: 3rem;
-  width: 5vw;
-  cursor: pointer;
-  background-color: $primary-btn-input;
-}
+// .btn-search-bar {
+//   border: 1px solid $primary-border;
+//   border-radius: 0.75rem;
+//   min-width: 3rem;
+//   width: 5vw;
+//   cursor: pointer;
+//   background-color: $primary-btn-input;
+// }
 
 .btn-apps {
   position: relative;
@@ -72,6 +96,7 @@ $primary-text: #0c0a0a;
   cursor: pointer;
   overflow: hidden; // Ukryj część zblurowanego obrazu, jeśli wymagane
 }
+
 .btn-apps::before {
   content: "";
   position: absolute;
@@ -84,7 +109,6 @@ $primary-text: #0c0a0a;
   filter: blur(5px); // Dodaj efekt zblurowania tylko dla tła
 }
 
-// Styl dla tekstu na środku .btn-apps
 .btn-apps span {
   position: absolute;
   top: 50%;
@@ -96,29 +120,6 @@ $primary-text: #0c0a0a;
   font-size: 1.5rem;
   text-wrap: nowrap;
   font: 900;
-}
-
-.apps {
-  display: flex;
-  flex-direction: column;
-  min-width: 11rem;
-  width: 15vw;
-  height: 85vh;
-  gap: 0.3rem;
-  margin: 1rem 0 0 1rem;
-}
-
-.logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  gap: 0.5rem;
-  height: calc(100vh - 85vh - 10vh - 4px);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.7vw;
 }
 
 .user-card {
@@ -198,20 +199,26 @@ $primary-text: #0c0a0a;
 }
 
 .kanbanTree {
-  width: 70vw;
+  width: 100vw;
+  background-image: url("#{$picture2-path}");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .tasks-list-task-name {
   width: 100%;
-  height: 2rem;
+  height: 4rem;
+  background-color: rgba(159, 211, 199, 0.15);
+  font-size: 4rem;
   justify-content: center;
   align-items: center;
   display: flex;
   border: 1px solid $primary-border;
 }
 .tasks-list-container {
-  width: 100%;
   margin: 3rem 6rem;
+  height: 75vh;
 }
 
 .tasks-list-tasks {
@@ -226,6 +233,8 @@ $primary-text: #0c0a0a;
   flex: 1;
   width: 100%; /* Take full width on smaller screens */
   max-width: none;
+  background-color: rgba(29, 24, 24, 0.5);
+  border-radius: 0 0 1rem 1rem;
 }
 
 @media (max-width: 1200px) {
@@ -249,6 +258,7 @@ $primary-text: #0c0a0a;
 // }
 
 .tasks-list-name {
+  background-color: rgba(159, 211, 199, 0.2);
   height: 3rem;
   font-size: 2vw;
   display: flex;
@@ -264,12 +274,14 @@ $primary-text: #0c0a0a;
 }
 
 .tasks-list-task {
+  background-color: rgba(159, 211, 199, 0.2);
   display: flex;
   flex-direction: column;
   flex: 1; /* Rozciągnij tasks-list-task, aby zajmować dostępną przestrzeń */
-  margin: 0.5rem 0.5rem 0 0.5rem;
+  margin: 0.75rem 0.75rem 0 0.75rem;
   height: 4rem;
   border: 1px solid $primary-border;
+  border-radius: 1rem;
   overflow: hidden; /* Ukryj overflow, aby nie rozszerzał elementu */
   justify-content: center;
   text-align: center;
@@ -289,17 +301,38 @@ $primary-text: #0c0a0a;
 
 .btn-in-task {
   box-sizing: border-box;
-  cursor: pointer;
-  width: 80%;
+  // cursor: pointer;
+  width: 75%;
   display: flex;
   margin-top: 1.5rem;
   justify-content: space-between;
 }
 
 .btn-in-task i:first-child {
-  margin-right: 2rem; /* Lekko oddal od lewej krawędzi */
+  margin-right: 0.5rem; /* Lekko oddal od lewej krawędzi */
 }
 
 .btn-in-task i:last-child {
-  margin-left: 2rem; /* Lekko oddal od prawej krawędzi */
+  margin-left: 0.5rem; /* Lekko oddal od prawej krawędzi */
+}
+
+.btn-none {
+  background-color: rgba(159, 211, 199, 0.2);
+  border: 1px solid $primary-border;
+  cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-none span {
+  width: 2rem;
+  justify-content: center;
+}
+.gg-push-chevron-right {
+  position: relative;
+  right: 5px;
 }

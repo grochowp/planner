@@ -5,7 +5,9 @@ export const TasksList = ({ tasks }) => {
   const [currentTask, setCurrentTask] = useState(tasks[0]);
   return (
     <div className="tasks-list-container">
-      <div className="tasks-list-task-name">{currentTask.task}</div>
+      <div className="tasks-list-task-name">
+        {currentTask.task.toUpperCase()}
+      </div>
       <div className="tasks-list-tasks">
         <div className="tasks-list-progress">
           <div className="tasks-list-name">TO DO</div>
@@ -14,9 +16,15 @@ export const TasksList = ({ tasks }) => {
               <p className="tasks-list-task">
                 {el}
                 <div className="btn-in-task">
-                  <i class="gg-trash"></i>
-                  <i class="gg-trash"></i>
-                  <i class="gg-trash"></i>
+                  <Button styles="none">
+                    <i class="gg-trash"></i>
+                  </Button>
+                  <Button styles="none">
+                    <i class="gg-trash"></i>
+                  </Button>
+                  <Button styles="none">
+                    <i class="gg-push-chevron-right"></i>
+                  </Button>
                 </div>
               </p>
             </div>
@@ -31,9 +39,15 @@ export const TasksList = ({ tasks }) => {
                 <p className="tasks-list-task">
                   {el}
                   <div className="btn-in-task">
-                    <i class="gg-trash"></i>
-                    <i class="gg-trash"></i>
-                    <i class="gg-trash"></i>
+                    <Button styles="none">
+                      <i class="gg-push-chevron-left"></i>
+                    </Button>
+                    <Button styles="none">
+                      <i class="gg-trash"></i>
+                    </Button>
+                    <Button styles="none">
+                      <i class="gg-push-chevron-right"></i>
+                    </Button>
                   </div>
                 </p>
               </div>
@@ -49,9 +63,15 @@ export const TasksList = ({ tasks }) => {
                 <p className="tasks-list-task">
                   {el}
                   <div className="btn-in-task">
-                    <i class="gg-trash"></i>
-                    <i class="gg-trash"></i>
-                    <i class="gg-trash"></i>
+                    <Button styles="none">
+                      <i class="gg-push-chevron-left"></i>
+                    </Button>
+                    <Button styles="none">
+                      <i class="gg-trash"></i>
+                    </Button>
+                    <Button styles="none">
+                      <i class="gg-push-chevron-right"></i>
+                    </Button>
                   </div>
                 </p>
               </div>
