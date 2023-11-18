@@ -1,5 +1,5 @@
-import { Button } from "./Button";
-import { apps } from "./App";
+import { Button } from "../reusableComponents/Button";
+import { apps } from "../App";
 
 export function SideBar({ activeUser }) {
   return (

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { RenderTaskList } from "./renderTasksList";
+import React from "react";
+import { Task } from "./Task";
 
 export const TasksList = ({ activeUser, currentTask, setCurrentTask }) => {
   const handleTaskButtonClick = (selectedTask) => {
@@ -21,29 +21,53 @@ export const TasksList = ({ activeUser, currentTask, setCurrentTask }) => {
       </div>
 
       <div className="tasks-list-tasks">
-        <RenderTaskList
-          listType="ToDo"
-          tasks={currentTask}
-          setTasks={setCurrentTask}
-        >
-          TO DO
-        </RenderTaskList>
+        <div className="tasks-list-progress">
+          <div className="tasks-list-name">TO DO</div>
+          <div className="tasks-list-overflow">
+            {currentTask &&
+              currentTask["ToDo"].map((el, index) => (
+                <Task
+                  key={index}
+                  task={el}
+                  tasks={currentTask}
+                  setTasks={setCurrentTask}
+                  listType={"ToDo"}
+                />
+              ))}
+          </div>
+        </div>
 
-        <RenderTaskList
-          listType="InProgress"
-          tasks={currentTask}
-          setTasks={setCurrentTask}
-        >
-          IN PROGRESS
-        </RenderTaskList>
+        <div className="tasks-list-progress">
+          <div className="tasks-list-name">TO DO</div>
+          <div className="tasks-list-overflow">
+            {currentTask &&
+              currentTask["InProgress"].map((el, index) => (
+                <Task
+                  key={index}
+                  task={el}
+                  tasks={currentTask}
+                  setTasks={setCurrentTask}
+                  listType={"InProgress"}
+                />
+              ))}
+          </div>
+        </div>
 
-        <RenderTaskList
-          listType="Done"
-          tasks={currentTask}
-          setTasks={setCurrentTask}
-        >
-          DONE
-        </RenderTaskList>
+        <div className="tasks-list-progress">
+          <div className="tasks-list-name">TO DO</div>
+          <div className="tasks-list-overflow">
+            {currentTask &&
+              currentTask["Done"].map((el, index) => (
+                <Task
+                  key={index}
+                  task={el}
+                  tasks={currentTask}
+                  setTasks={setCurrentTask}
+                  listType={"Done"}
+                />
+              ))}
+          </div>
+        </div>
       </div>
     </div>
   );

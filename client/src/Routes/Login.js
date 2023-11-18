@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "../Button";
+import Button from "../reusableComponents/Button";
 
 export const Login = ({ users, onSetUser }) => {
   const [login, setLogin] = useState("");

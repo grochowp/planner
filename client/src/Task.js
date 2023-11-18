@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "./Button";
+import Button from "./reusableComponents/Button";
 
 export const Task = ({ task, tasks, setTasks, listType }) => {
   const moveTask = (fromList, toList, task) => {

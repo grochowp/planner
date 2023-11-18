@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./index.scss";
-import { SideBar } from "./SideBar";
+import { SideBar } from "./View/SideBar";
 import { KanbanTree } from "./Routes/KanbanTree";
 import { Login } from "./Routes/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -55,7 +55,7 @@ export const apps = [
 ];
 
 function App() {
-  const [activeUser, setActiveUser] = useState(usersTemp[0]);
+  const [activeUser, setActiveUser] = useState("");
 
   return (
     <Router>

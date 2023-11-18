@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UserCard } from "../UserCard";
+import { UserCard } from "../View/UserCard";
 import { TasksList } from "../TasksList";
 
 export function KanbanTree({ activeUser, usersTemp }) {
@@ -8,7 +8,11 @@ export function KanbanTree({ activeUser, usersTemp }) {
 
   return (
     <div className="kanbanTree">
-      <UserCard user={userData} currentTask={currentTask} />
+      <UserCard
+        user={userData}
+        currentTask={currentTask}
+        setUserData={setUserData}
+      />
       <TasksList
         activeUser={activeUser}
         currentTask={currentTask}
