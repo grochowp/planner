@@ -18,7 +18,11 @@ code {
 $picture-path: "/pictures/kanban.jpg";
 $picture2-path: "/pictures/tlo.jpg";
 
-$primary-main: #ddd;
+$primary-main: #ececec;
+$primary-second: #9fd3c7;
+$primary-third: #385170;
+$primary-fourth: #142d4c;
+
 $primary-border: #a3a3a3;
 $primary-hover: #c4c3c3;
 $primary-btn-input: #f0f0f0;
@@ -26,7 +30,7 @@ $active-user: #a09f9f;
 $primary-text: #0c0a0a;
 
 .left-side {
-  background-color: $primary-main;
+  background-color: $primary-fourth;
   float: left;
   min-width: 10rem;
   width: 20vw;
@@ -37,6 +41,7 @@ $primary-text: #0c0a0a;
 
 .search-bar {
   display: flex;
+  color: rgb(201, 192, 192);
   border-bottom: 1px solid $primary-border;
   padding: 0 0 0.25rem 0;
   gap: 0.5rem;
@@ -53,6 +58,7 @@ $primary-text: #0c0a0a;
   width: 15vw;
   height: 85vh;
   gap: 0.3rem;
+
   margin: 1rem 0 0 1rem;
 }
 .logo {
@@ -66,6 +72,7 @@ $primary-text: #0c0a0a;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 0.7vw;
+  color: rgb(201, 192, 192);
 }
 // .search-bar-input {
 //   border: 1px solid $primary-border;
@@ -95,6 +102,7 @@ $primary-text: #0c0a0a;
   border: 1px solid $primary-border;
   cursor: pointer;
   overflow: hidden; // Ukryj część zblurowanego obrazu, jeśli wymagane
+  background-color: rgba(159, 211, 199, 0.1);
 }
 
 .btn-apps::before {
@@ -104,7 +112,10 @@ $primary-text: #0c0a0a;
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("#{$picture-path}");
+  background-image: url("#{$picture2-path}");
+  background-position: top;
+  // background-image: url("#{$picture-path}");
+  // background-color: $primary-third;
   background-size: cover;
   filter: blur(5px); // Dodaj efekt zblurowania tylko dla tła
 }
@@ -115,7 +126,7 @@ $primary-text: #0c0a0a;
   width: 100%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: $primary-text;
+  color: rgb(201, 192, 192);
   text-align: center;
   font-size: 1.5rem;
   text-wrap: nowrap;
@@ -132,6 +143,7 @@ $primary-text: #0c0a0a;
 }
 
 .selected-user-card {
+  color: rgb(201, 192, 192);
   white-space: nowrap;
   padding-left: 3rem;
   align-self: flex-start;
@@ -139,6 +151,7 @@ $primary-text: #0c0a0a;
 }
 
 .tasks {
+  color: #818181;
   display: flex;
   position: absolute;
   top: 4rem;
@@ -231,6 +244,7 @@ $primary-text: #0c0a0a;
   border: 1px solid $primary-border;
   box-sizing: border-box;
   flex: 1;
+  height: 65vh;
   width: 100%; /* Take full width on smaller screens */
   max-width: none;
   background-color: rgba(29, 24, 24, 0.5);
@@ -245,9 +259,9 @@ $primary-text: #0c0a0a;
   .tasks-list-container {
     max-width: 90%;
     margin: 3rem auto; /* Center the container on smaller screens */
-    .tasks-list-task-name {
-      width: 67vw;
-    }
+  }
+  .tasks-list-task-name {
+    width: 72.5vw;
   }
 }
 

@@ -1,14 +1,13 @@
-export function UserCard({ user }) {
+export function UserCard({ user, currentTask }) {
   return (
     <div className="user-card">
       <h1 className="selected-user-card">
         {user.name} {user.surname}
       </h1>
-
       <div className="tasks">
-        <h6>To do: 3</h6>
-        <h6>In progress: 3</h6>
-        <h6>Done: 3</h6>
+        <h6>To o: {currentTask.ToDo.length}</h6>
+        <h6>In progress: {currentTask.InProgress.length}</h6>
+        <h6>Done: {currentTask.Done.length}</h6>
       </div>
     </div>
   );
