@@ -1,13 +1,29 @@
 import React from "react";
 import Button from "./reusableComponents/Button";
 
-export const Task = ({ task, tasks, setTasks, listType }) => {
+export const Task = ({ task, tasks, setTasks, listType, onSetActiveUser }) => {
   const moveTask = (fromList, toList, task) => {
     const updatedTasks = {
       ...tasks,
       [fromList]: tasks[fromList].filter((t) => t !== task),
       [toList]: [...tasks[toList], task],
     };
+    setTasks(updatedTasks);
+    onSetActiveUser((prevActiveUser) => ({
+      ...prevActiveUser,
+      tasks: prevActiveUser.tasks.map((task) =>
+        task.taskID === updatedTasks.taskID
+          ? { ...task, ...updatedTasks }
+          : task
+      ),
+    }));
+  };
+
+  const handleDeleteTask = () => {
+    const updatedTasks = { ...tasks };
+
+    updatedTasks[listType] = updatedTasks[listType].filter((t) => t !== task);
+
     setTasks(updatedTasks);
   };
 
@@ -22,7 +38,6 @@ export const Task = ({ task, tasks, setTasks, listType }) => {
       moveTask("Done", "InProgress", task);
     }
   };
-  const handleTrash = () => {};
 
   return (
     <div className="tasks-list-task-container">
@@ -35,7 +50,7 @@ export const Task = ({ task, tasks, setTasks, listType }) => {
             </Button>
           )}
           <Button styles="none">
-            <i className="gg-trash" onClick={handleTrash}></i>
+            <i className="gg-trash" onClick={handleDeleteTask}></i>
           </Button>
           {(listType === "InProgress" || listType === "ToDo") && (
             <Button styles="none" onClick={() => handleMove("right")}>

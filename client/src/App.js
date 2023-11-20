@@ -5,6 +5,7 @@ import { KanbanTree } from "./Routes/KanbanTree";
 import { Login } from "./Routes/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { TestApp } from "./Routes/TestApp";
+import { act } from "react-dom/test-utils";
 
 const usersTemp = [
   {
@@ -17,12 +18,14 @@ const usersTemp = [
     picture: "aaa",
     tasks: [
       {
+        taskID: 0,
         task: "school",
         ToDo: ["zaa a aaaaaaa", "bbb"],
         InProgress: ["ccc", "ddd"],
         Done: ["eee", "fff", "ddd"],
       },
       {
+        taskID: 1,
         task: "work",
         ToDo: ["kill yourself", "bbb"],
         InProgress: ["masturbate", "ddd"],
@@ -55,7 +58,7 @@ export const apps = [
 ];
 
 function App() {
-  const [activeUser, setActiveUser] = useState("");
+  const [activeUser, setActiveUser] = useState(usersTemp[0]);
 
   return (
     <Router>
@@ -66,7 +69,12 @@ function App() {
             <Routes>
               <Route
                 path="/kanban"
-                element={<KanbanTree activeUser={activeUser} />}
+                element={
+                  <KanbanTree
+                    activeUser={activeUser}
+                    onSetActiveUser={setActiveUser}
+                  />
+                }
               />
               <Route path="/test" element={<TestApp />} />
             </Routes>
@@ -75,13 +83,7 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={
-                <Login
-                  users={usersTemp}
-                  onSetUser={setActiveUser}
-                  onSetActiveUser={setActiveUser}
-                />
-              }
+              element={<Login users={usersTemp} onSetUser={setActiveUser} />}
             />
           </Routes>
         )}

@@ -1,7 +1,12 @@
 import React from "react";
 import { Task } from "./Task";
 
-export const TasksList = ({ activeUser, currentTask, setCurrentTask }) => {
+export const TasksList = ({
+  activeUser,
+  onSetActiveUser,
+  currentTask,
+  setCurrentTask,
+}) => {
   const handleTaskButtonClick = (selectedTask) => {
     setCurrentTask(selectedTask);
   };
@@ -30,6 +35,7 @@ export const TasksList = ({ activeUser, currentTask, setCurrentTask }) => {
                   key={index}
                   task={el}
                   tasks={currentTask}
+                  onSetActiveUser={onSetActiveUser}
                   setTasks={setCurrentTask}
                   listType={"ToDo"}
                 />
@@ -38,7 +44,7 @@ export const TasksList = ({ activeUser, currentTask, setCurrentTask }) => {
         </div>
 
         <div className="tasks-list-progress">
-          <div className="tasks-list-name">TO DO</div>
+          <div className="tasks-list-name">IN PROGRESS</div>
           <div className="tasks-list-overflow">
             {currentTask &&
               currentTask["InProgress"].map((el, index) => (
@@ -46,6 +52,7 @@ export const TasksList = ({ activeUser, currentTask, setCurrentTask }) => {
                   key={index}
                   task={el}
                   tasks={currentTask}
+                  onSetActiveUser={onSetActiveUser}
                   setTasks={setCurrentTask}
                   listType={"InProgress"}
                 />
@@ -54,7 +61,7 @@ export const TasksList = ({ activeUser, currentTask, setCurrentTask }) => {
         </div>
 
         <div className="tasks-list-progress">
-          <div className="tasks-list-name">TO DO</div>
+          <div className="tasks-list-name">DONE</div>
           <div className="tasks-list-overflow">
             {currentTask &&
               currentTask["Done"].map((el, index) => (
@@ -62,6 +69,7 @@ export const TasksList = ({ activeUser, currentTask, setCurrentTask }) => {
                   key={index}
                   task={el}
                   tasks={currentTask}
+                  onSetActiveUser={onSetActiveUser}
                   setTasks={setCurrentTask}
                   listType={"Done"}
                 />
