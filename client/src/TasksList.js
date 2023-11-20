@@ -1,27 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Task } from "./Task";
 
-export const TasksList = ({
-  activeUser,
-  onSetActiveUser,
-  currentTask,
-  setCurrentTask,
-}) => {
-  const handleTaskButtonClick = (selectedTask) => {
-    setCurrentTask(selectedTask);
-  };
+export const TasksList = ({ activeUser, onSetActiveUser }) => {
+  const [taskIndex, setTaskIndex] = useState(0);
 
+  const handleTaskButtonClick = (newIndex) => {
+    setTaskIndex(() => newIndex);
+  };
+  console.log(activeUser.tasks);
   return (
     <div className="tasks-list-container">
       <div className="tasks-list-task-name">
         <div className="tasks-list-task-name">
-          <button
-            onClick={() => handleTaskButtonClick(activeUser.tasks[1])}
-          ></button>
-          {currentTask.task.toUpperCase()}
-          <button
-            onClick={() => handleTaskButtonClick(activeUser.tasks[0])}
-          ></button>
+          <button onClick={() => handleTaskButtonClick(1)}></button>
+          {activeUser.tasks[taskIndex].task}
+          <button onClick={() => handleTaskButtonClick(0)}></button>
         </div>
       </div>
 
@@ -29,14 +22,14 @@ export const TasksList = ({
         <div className="tasks-list-progress">
           <div className="tasks-list-name">TO DO</div>
           <div className="tasks-list-overflow">
-            {currentTask &&
-              currentTask["ToDo"].map((el, index) => (
+            {activeUser.tasks[taskIndex] &&
+              activeUser.tasks[taskIndex].ToDo?.map((el, index) => (
                 <Task
                   key={index}
                   task={el}
-                  tasks={currentTask}
+                  taskIndex={taskIndex}
+                  activeUser={activeUser}
                   onSetActiveUser={onSetActiveUser}
-                  setTasks={setCurrentTask}
                   listType={"ToDo"}
                 />
               ))}
@@ -46,14 +39,14 @@ export const TasksList = ({
         <div className="tasks-list-progress">
           <div className="tasks-list-name">IN PROGRESS</div>
           <div className="tasks-list-overflow">
-            {currentTask &&
-              currentTask["InProgress"].map((el, index) => (
+            {activeUser.tasks[taskIndex] &&
+              activeUser.tasks[taskIndex].InProgress.map((el, index) => (
                 <Task
                   key={index}
                   task={el}
-                  tasks={currentTask}
+                  taskIndex={taskIndex}
+                  activeUser={activeUser}
                   onSetActiveUser={onSetActiveUser}
-                  setTasks={setCurrentTask}
                   listType={"InProgress"}
                 />
               ))}
@@ -63,14 +56,14 @@ export const TasksList = ({
         <div className="tasks-list-progress">
           <div className="tasks-list-name">DONE</div>
           <div className="tasks-list-overflow">
-            {currentTask &&
-              currentTask["Done"].map((el, index) => (
+            {activeUser.tasks[taskIndex] &&
+              activeUser.tasks[taskIndex].Done?.map((el, index) => (
                 <Task
                   key={index}
                   task={el}
-                  tasks={currentTask}
+                  taskIndex={taskIndex}
+                  activeUser={activeUser}
                   onSetActiveUser={onSetActiveUser}
-                  setTasks={setCurrentTask}
                   listType={"Done"}
                 />
               ))}

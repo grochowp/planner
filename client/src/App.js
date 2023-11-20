@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./index.scss";
 import { SideBar } from "./View/SideBar";
 import { KanbanTree } from "./Routes/KanbanTree";
 import { Login } from "./Routes/Login";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { TestApp } from "./Routes/TestApp";
-import { act } from "react-dom/test-utils";
 
 const usersTemp = [
   {

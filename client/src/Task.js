@@ -1,30 +1,45 @@
 import React from "react";
 import Button from "./reusableComponents/Button";
 
-export const Task = ({ task, tasks, setTasks, listType, onSetActiveUser }) => {
+export const Task = ({
+  task,
+  taskIndex,
+  activeUser,
+  onSetActiveUser,
+  listType,
+}) => {
   const moveTask = (fromList, toList, task) => {
     const updatedTasks = {
-      ...tasks,
-      [fromList]: tasks[fromList].filter((t) => t !== task),
-      [toList]: [...tasks[toList], task],
+      ...activeUser.tasks[taskIndex],
+      [fromList]: activeUser.tasks[taskIndex][fromList].filter(
+        (t) => t !== task
+      ),
+      [toList]: [...activeUser.tasks[taskIndex][toList], task],
     };
-    setTasks(updatedTasks);
+
     onSetActiveUser((prevActiveUser) => ({
       ...prevActiveUser,
-      tasks: prevActiveUser.tasks.map((task) =>
-        task.taskID === updatedTasks.taskID
-          ? { ...task, ...updatedTasks }
-          : task
+      tasks: prevActiveUser.tasks.map((userTask) =>
+        userTask.taskID === updatedTasks.taskID
+          ? {
+              ...userTask,
+              [fromList]: userTask[fromList].filter((t) => t !== task),
+              [toList]: [...userTask[toList], task],
+            }
+          : userTask
       ),
     }));
   };
 
   const handleDeleteTask = () => {
-    const updatedTasks = { ...tasks };
-
-    updatedTasks[listType] = updatedTasks[listType].filter((t) => t !== task);
-
-    setTasks(updatedTasks);
+    // const updatedTasks = { ...tasks };
+    // updatedTasks[listType] = updatedTasks[listType].filter((t) => t !== task);
+    // setTasks(updatedTasks);
+    // onSetActiveUser((prevActiveUser) => ({
+    //   ...prevActiveUser,
+    //   tasks: prevActiveUser.tasks,
+    //   ...updatedTasks,
+    // }));
   };
 
   const handleMove = (direction) => {
