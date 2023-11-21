@@ -31,15 +31,17 @@ export const Task = ({
     }));
   };
 
-  const handleDeleteTask = () => {
-    // const updatedTasks = { ...tasks };
-    // updatedTasks[listType] = updatedTasks[listType].filter((t) => t !== task);
-    // setTasks(updatedTasks);
-    // onSetActiveUser((prevActiveUser) => ({
-    //   ...prevActiveUser,
-    //   tasks: prevActiveUser.tasks,
-    //   ...updatedTasks,
-    // }));
+  const handleDeleteTask = (task, fromList) => {
+    const updatedTasks = { ...activeUser.tasks[taskIndex] };
+    updatedTasks[listType] = updatedTasks[listType].filter((t) => t !== task);
+    console.log(updatedTasks);
+
+    onSetActiveUser((prevActiveUser) => ({
+      ...prevActiveUser,
+      tasks: prevActiveUser.tasks.map((userTask) =>
+        userTask.taskID === updatedTasks.taskID ? { ...updatedTasks } : userTask
+      ),
+    }));
   };
 
   const handleMove = (direction) => {
@@ -65,7 +67,7 @@ export const Task = ({
             </Button>
           )}
           <Button styles="none">
-            <i className="gg-trash" onClick={handleDeleteTask}></i>
+            <i className="gg-trash" onClick={() => handleDeleteTask(task)}></i>
           </Button>
           {(listType === "InProgress" || listType === "ToDo") && (
             <Button styles="none" onClick={() => handleMove("right")}>

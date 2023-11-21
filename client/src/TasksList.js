@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Task } from "./Task";
 
-export const TasksList = ({ activeUser, onSetActiveUser }) => {
-  const [taskIndex, setTaskIndex] = useState(0);
-
+export const TasksList = ({
+  activeUser,
+  onSetActiveUser,
+  taskIndex,
+  onSetTaskIndex,
+}) => {
   const handleTaskButtonClick = (newIndex) => {
-    setTaskIndex(() => newIndex);
+    onSetTaskIndex(() => newIndex);
   };
-  console.log(activeUser.tasks);
   return (
     <div className="tasks-list-container">
       <div className="tasks-list-task-name">
