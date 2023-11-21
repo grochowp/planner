@@ -30,6 +30,20 @@ const usersTemp = [
         InProgress: ["masturbate", "ddd"],
         Done: ["precum", "fff"],
       },
+      {
+        taskID: 2,
+        task: "penice",
+        ToDo: ["dsfds", "bbb"],
+        InProgress: ["fdsvcxcx", "fcxbxc"],
+        Done: ["vcxvcxv", "sadasdasd"],
+      },
+      {
+        taskID: 3,
+        task: "ay lmao",
+        ToDo: ["dsad", "vcxvxv"],
+        InProgress: ["vcxvcxvcvxc", "ddd"],
+        Done: ["vcxvxc", "fff"],
+      },
     ],
   },
   {
@@ -40,6 +54,15 @@ const usersTemp = [
     password: 4321,
     role: "user",
     picture: "bbb",
+    tasks: [
+      {
+        taskID: 0,
+        task: "",
+        ToDo: [],
+        InProgress: [],
+        Done: [],
+      },
+    ],
   },
 ];
 

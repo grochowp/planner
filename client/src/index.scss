@@ -227,7 +227,9 @@ $primary-text: #0c0a0a;
   justify-content: center;
   align-items: center;
   display: flex;
+  justify-content: space-between;
   border: 1px solid $primary-border;
+  border-radius: 8px;
 }
 .tasks-list-container {
   margin: 3rem 6rem;
@@ -349,4 +351,24 @@ $primary-text: #0c0a0a;
 .gg-push-chevron-right {
   position: relative;
   right: 5px;
+}
+
+.btn-previous-task {
+  margin-left: 2rem;
+}
+
+.btn-next-task {
+  margin-right: 2rem;
+}
+
+.btn-previous-task,
+.btn-next-task {
+  width: 8rem;
+  height: 2rem;
+  border: 1px solid $primary-border;
+  border-radius: 16px;
+  background-color: rgba(159, 211, 199, 0.05);
+  color: black;
+  font-size: 1.2rem;
+  cursor: pointer;
 }

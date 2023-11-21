@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Task } from "./Task";
 
 export const TasksList = ({
@@ -7,16 +7,46 @@ export const TasksList = ({
   taskIndex,
   onSetTaskIndex,
 }) => {
-  const handleTaskButtonClick = (newIndex) => {
-    onSetTaskIndex(() => newIndex);
+  let NextTask =
+    activeUser.tasks[
+      (taskIndex + 1) % activeUser.tasks.length
+    ].task.toUpperCase();
+  let previousTask =
+    activeUser.tasks[
+      (taskIndex + activeUser.tasks.length - 1) % activeUser.tasks.length
+    ].task.toUpperCase();
+
+  const handleNextTask = () => {
+    onSetTaskIndex(() => (taskIndex + 1) % activeUser.tasks.length);
   };
+  const handlePreviousTask = () => {
+    onSetTaskIndex(
+      () => (taskIndex + activeUser.tasks.length - 1) % activeUser.tasks.length
+    );
+  };
+
   return (
     <div className="tasks-list-container">
       <div className="tasks-list-task-name">
         <div className="tasks-list-task-name">
-          <button onClick={() => handleTaskButtonClick(1)}></button>
-          {activeUser.tasks[taskIndex].task}
-          <button onClick={() => handleTaskButtonClick(0)}></button>
+          {activeUser.tasks.length > 1 ? (
+            <button
+              className="btn-previous-task"
+              onClick={() => handlePreviousTask()}
+            >
+              {previousTask}
+            </button>
+          ) : (
+            ""
+          )}
+          {activeUser.tasks[taskIndex].task.toUpperCase()}
+          {activeUser.tasks.length > 1 ? (
+            <button className="btn-next-task" onClick={() => handleNextTask()}>
+              {NextTask}
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       </div>
 
