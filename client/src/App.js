@@ -1,116 +1,58 @@
-import { useState } from "react";
-import "./index.scss";
-import { SideBar } from "./View/SideBar";
-import { KanbanTree } from "./Routes/KanbanTree";
-import { Login } from "./Routes/Login";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { TestApp } from "./Routes/TestApp";
-
-const usersTemp = [
-  {
-    id: 0,
-    name: "Patryk",
-    surname: "Grochowski",
-    login: "patryk1234",
-    password: 1234,
-    role: "user",
-    picture: "aaa",
-    tasks: [
-      {
-        taskID: 0,
-        task: "school",
-        ToDo: ["zaa a aaaaaaa", "bbb"],
-        InProgress: ["ccc", "ddd"],
-        Done: ["eee", "fff", "ddd"],
-      },
-      {
-        taskID: 1,
-        task: "work",
-        ToDo: ["kill yourself", "bbb"],
-        InProgress: ["masturbate", "ddd"],
-        Done: ["precum", "fff"],
-      },
-      {
-        taskID: 2,
-        task: "penice",
-        ToDo: ["dsfds", "bbb"],
-        InProgress: ["fdsvcxcx", "fcxbxc"],
-        Done: ["vcxvcxv", "sadasdasd"],
-      },
-      {
-        taskID: 3,
-        task: "ay lmao",
-        ToDo: ["dsad", "vcxvxv"],
-        InProgress: ["vcxvcxvcvxc", "ddd"],
-        Done: ["vcxvxc", "fff"],
-      },
-    ],
-  },
-  {
-    id: 1,
-    name: "Rafal",
-    surname: "Gulewski",
-    login: "rafal321",
-    password: 4321,
-    role: "user",
-    picture: "bbb",
-    tasks: [
-      {
-        taskID: 0,
-        task: "",
-        ToDo: [],
-        InProgress: [],
-        Done: [],
-      },
-    ],
-  },
-];
-
-export const apps = [
-  {
-    id: 0,
-    name: "Tablica Kanban",
-    route: "/kanban",
-  },
-  {
-    id: 1,
-    name: "testApp",
-    route: "/test",
-  },
-];
+import { useState } from 'react';
+import './index.scss';
+import { SideBar } from './components/SideBar';
+import { KanbanTree } from './Routes/kanban/KanbanTree';
+import { Login } from './Routes/Login';
+import {
+    BrowserRouter as Router,
+    Route,
+    Routes,
+    Navigate,
+} from 'react-router-dom';
+import { TestApp } from './Routes/test/TestApp';
 
 function App() {
-  const [activeUser, setActiveUser] = useState();
+    const [activeUser, setActiveUser] = useState();
 
-  return (
-    <Router>
-      <div style={{ display: "flex" }}>
-        {activeUser ? (
-          <>
-            <SideBar activeUser={activeUser} />
-            <Routes>
-              <Route
-                path="/kanban"
-                element={
-                  <KanbanTree
-                    activeUser={activeUser}
-                    onSetActiveUser={setActiveUser}
-                  />
-                }
-              />
-              <Route path="/test" element={<TestApp />} />
-            </Routes>
-          </>
-        ) : (
-          <Routes>
-            <Route
-              path="/"
-              element={<Login users={usersTemp} onSetUser={setActiveUser} />}
-            />
-          </Routes>
-        )}
-      </div>
-    </Router>
-  );
+    return (
+        <Router>
+            <div style={{ display: 'flex' }}>
+                <>
+                    {activeUser && <SideBar activeUser={activeUser} />}
+                    <Routes>
+                        <Route
+                            path="/kanban"
+                            element={
+                                activeUser ? (
+                                    <KanbanTree
+                                        activeUser={activeUser}
+                                        onSetActiveUser={setActiveUser}
+                                    />
+                                ) : (
+                                    <Navigate to={'/'} />
+                                )
+                            }
+                        />
+                        <Route
+                            path="/test"
+                            element={
+                                activeUser ? <TestApp /> : <Navigate to={'/'} />
+                            }
+                        />
+                        <Route
+                            path="/*"
+                            element={
+                                !activeUser ? (
+                                    <Login onSetUser={setActiveUser} />
+                                ) : (
+                                    <Navigate to={'/kanban'} />
+                                )
+                            }
+                        />
+                    </Routes>
+                </>
+            </div>
+        </Router>
+    );
 }
 export default App;

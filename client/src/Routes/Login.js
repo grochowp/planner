@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import Button from "../reusableComponents/Button";
+import Button from "../shared/components/Button";
+import { LoginService } from "../Services/loginService";
 
-export const Login = ({ users, onSetUser }) => {
+export const Login = ({ onSetUser }) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
 
   function handleLogin(login, password) {
-    const loggedUser = users.find(
-      (user) => user.login === login && user.password === Number(password)
-    );
+    const loggedUser = LoginService.login(login, password);
 
     if (loggedUser) onSetUser(loggedUser);
   }
