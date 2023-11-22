@@ -80,7 +80,7 @@ export const apps = [
 ];
 
 function App() {
-  const [activeUser, setActiveUser] = useState(usersTemp[0]);
+  const [activeUser, setActiveUser] = useState();
 
   return (
     <Router>
