@@ -1,58 +1,75 @@
-import { useState } from 'react';
-import './index.scss';
-import { SideBar } from './components/SideBar';
-import { KanbanTree } from './Routes/kanban/KanbanTree';
-import { Login } from './Routes/Login';
+import { useState, useEffect } from "react";
+import "./index.scss";
+import { SideBar } from "./components/SideBar";
+import { KanbanTree } from "./Routes/kanban/KanbanTree";
+import { Login } from "./Routes/Login";
 import {
-    BrowserRouter as Router,
-    Route,
-    Routes,
-    Navigate,
-} from 'react-router-dom';
-import { TestApp } from './Routes/test/TestApp';
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import { TestApp } from "./Routes/test/TestApp";
+
+import axios from "axios";
 
 function App() {
-    const [activeUser, setActiveUser] = useState();
+  const [activeUser, setActiveUser] = useState();
 
-    return (
-        <Router>
-            <div style={{ display: 'flex' }}>
-                <>
-                    {activeUser && <SideBar activeUser={activeUser} />}
-                    <Routes>
-                        <Route
-                            path="/kanban"
-                            element={
-                                activeUser ? (
-                                    <KanbanTree
-                                        activeUser={activeUser}
-                                        onSetActiveUser={setActiveUser}
-                                    />
-                                ) : (
-                                    <Navigate to={'/'} />
-                                )
-                            }
-                        />
-                        <Route
-                            path="/test"
-                            element={
-                                activeUser ? <TestApp /> : <Navigate to={'/'} />
-                            }
-                        />
-                        <Route
-                            path="/*"
-                            element={
-                                !activeUser ? (
-                                    <Login onSetUser={setActiveUser} />
-                                ) : (
-                                    <Navigate to={'/kanban'} />
-                                )
-                            }
-                        />
-                    </Routes>
-                </>
-            </div>
-        </Router>
-    );
+  const [testValue, setTestValue] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/api/test"); // Dodaj pełny adres URL serwera
+        const testValue = response.data.test;
+        setTestValue(testValue);
+        console.log('Wartość zmiennej "test" z backendu:', testValue);
+      } catch (error) {
+        console.error("Błąd podczas pobierania danych:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // useEffect wywoła się tylko raz po zamontowaniu komponentu
+
+  return (
+    <Router>
+      <div style={{ display: "flex" }}>
+        <>
+          {activeUser && <SideBar activeUser={activeUser} />}
+          <Routes>
+            <Route
+              path="/kanban"
+              element={
+                activeUser ? (
+                  <KanbanTree
+                    activeUser={activeUser}
+                    onSetActiveUser={setActiveUser}
+                  />
+                ) : (
+                  <Navigate to={"/"} />
+                )
+              }
+            />
+            <Route
+              path="/test"
+              element={activeUser ? <TestApp /> : <Navigate to={"/"} />}
+            />
+            <Route
+              path="/*"
+              element={
+                !activeUser ? (
+                  <Login onSetUser={setActiveUser} />
+                ) : (
+                  <Navigate to={"/kanban"} />
+                )
+              }
+            />
+          </Routes>
+        </>
+      </div>
+    </Router>
+  );
 }
 export default App;

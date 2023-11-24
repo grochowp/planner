@@ -1,14 +1,19 @@
-const http = require("http");
+const express = require("express");
+const cors = require("cors"); // Dodaj import Cors
 
-const server = http.createServer((req, res) => {
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("Hello, World!\n");
+const app = express();
+const port = 3001;
+
+const testValue = 100;
+
+app.use(cors());
+
+app.get("/api/test", (req, res) => {
+  res.json({ test: testValue });
 });
 
-const PORT = process.env.PORT || 1337;
-
-server.listen(PORT, () => {
-  console.log(`Serwer działa na porcie ${PORT}`);
+app.listen(port, () => {
+  console.log(`Serwer działa na porcie ${port}`);
 });
 
 const mysql = require("mysql2");

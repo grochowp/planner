@@ -51,19 +51,24 @@ export const Task = ({
         {task}
         <div className="btn-in-task">
           {listType === TaskState.ToDo.name || (
-            <Button styles="none" onClick={() => {
-              if (listType === TaskState.InProgress.name) {
-                moveTask(
-                  TaskState.InProgress.name,
-                  TaskState.ToDo.name,
-                  task);
-              } else if (listType === TaskState.Done.name) {
-                moveTask(
-                  TaskState.Done.name,
-                  TaskState.InProgress.name,
-                  task);
-              }
-            }}>
+            <Button
+              styles="none"
+              onClick={() => {
+                if (listType === TaskState.InProgress.name) {
+                  moveTask(
+                    TaskState.InProgress.name,
+                    TaskState.ToDo.name,
+                    task
+                  );
+                } else if (listType === TaskState.Done.name) {
+                  moveTask(
+                    TaskState.Done.name,
+                    TaskState.InProgress.name,
+                    task
+                  );
+                }
+              }}
+            >
               <i className="gg-push-chevron-left"></i>
             </Button>
           )}
@@ -71,19 +76,24 @@ export const Task = ({
             <i className="gg-trash" onClick={() => handleDeleteTask(task)}></i>
           </Button>
           {listType === TaskState.Done.name || (
-            <Button styles="none" onClick={() => {
-              if (listType === TaskState.ToDo.name) {
-                moveTask(
-                  TaskState.ToDo.name,
-                  TaskState.InProgress.name,
-                  task);
-              } else if (listType === TaskState.InProgress.name) {
-                moveTask(
-                  TaskState.InProgress.name,
-                  TaskState.Done.name,
-                  task);
-              }
-            }}>
+            <Button
+              styles="none"
+              onClick={() => {
+                if (listType === TaskState.ToDo.name) {
+                  moveTask(
+                    TaskState.ToDo.name,
+                    TaskState.InProgress.name,
+                    task
+                  );
+                } else if (listType === TaskState.InProgress.name) {
+                  moveTask(
+                    TaskState.InProgress.name,
+                    TaskState.Done.name,
+                    task
+                  );
+                }
+              }}
+            >
               <i className="gg-push-chevron-right"></i>
             </Button>
           )}
