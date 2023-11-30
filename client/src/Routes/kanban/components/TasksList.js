@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Task } from "./Task";
 import { TaskState } from "../../../shared/utils";
+import { userContext } from "../../../App";
 
-export const TasksList = ({
-  activeUser,
-  onSetActiveUser,
-  taskIndex,
-  onSetTaskIndex,
-}) => {
+export const TasksList = ({ taskIndex, onSetTaskIndex }) => {
+  const [activeUser] = useContext(userContext);
+
   const NextTask =
     activeUser.tasks[
       (taskIndex + 1) % activeUser.tasks.length
@@ -27,26 +25,24 @@ export const TasksList = ({
     );
   };
 
-  const SingleList = ({taskState}) => {
+  const SingleList = ({ taskState }) => {
     return (
       <div className="tasks-list-progress">
         <div className="tasks-list-name">{taskState.text}</div>
         <div className="tasks-list-overflow">
           {activeUser.tasks[taskIndex] &&
-            activeUser.tasks[taskIndex][taskState.name].map((el, index) => (
+            activeUser.tasks[taskIndex][taskState.name].map((task, index) => (
               <Task
                 key={index}
-                task={el}
+                task={task}
                 taskIndex={taskIndex}
-                activeUser={activeUser}
-                onSetActiveUser={onSetActiveUser}
                 listType={taskState.name}
               />
             ))}
         </div>
       </div>
     );
-  }
+  };
 
   return (
     <div className="tasks-list-container">
@@ -74,9 +70,9 @@ export const TasksList = ({
       </div>
 
       <div className="tasks-list-tasks">
-        <SingleList taskState={TaskState.ToDo}/>
-        <SingleList taskState={TaskState.InProgress}/>
-        <SingleList taskState={TaskState.Done}/>
+        <SingleList taskState={TaskState.ToDo} />
+        <SingleList taskState={TaskState.InProgress} />
+        <SingleList taskState={TaskState.Done} />
       </div>
     </div>
   );

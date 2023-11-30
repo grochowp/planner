@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import "./index.scss";
 import { SideBar } from "./components/SideBar";
 import { KanbanTree } from "./Routes/kanban/KanbanTree";
@@ -12,6 +12,8 @@ import {
 import { TestApp } from "./Routes/test/TestApp";
 
 import axios from "axios";
+
+export const userContext = createContext();
 
 function App() {
   const [activeUser, setActiveUser] = useState();
@@ -31,42 +33,44 @@ function App() {
     };
 
     fetchData();
-  }, []); // useEffect wywoła się tylko raz po zamontowaniu komponentu
+  }, []);
 
   return (
     <Router>
       <div style={{ display: "flex" }}>
         <>
-          {activeUser && <SideBar activeUser={activeUser} />}
-          <Routes>
-            <Route
-              path="/kanban"
-              element={
-                activeUser ? (
-                  <KanbanTree
-                    activeUser={activeUser}
-                    onSetActiveUser={setActiveUser}
-                  />
-                ) : (
-                  <Navigate to={"/"} />
-                )
-              }
-            />
-            <Route
-              path="/test"
-              element={activeUser ? <TestApp /> : <Navigate to={"/"} />}
-            />
-            <Route
-              path="/*"
-              element={
-                !activeUser ? (
-                  <Login onSetUser={setActiveUser} />
-                ) : (
-                  <Navigate to={"/kanban"} />
-                )
-              }
-            />
-          </Routes>
+          <userContext.Provider value={[activeUser, setActiveUser]}>
+            {activeUser && <SideBar activeUser={activeUser} />}
+            <Routes>
+              <Route
+                path="/kanban"
+                element={
+                  activeUser ? (
+                    <KanbanTree
+                      activeUser={activeUser}
+                      onSetActiveUser={setActiveUser}
+                    />
+                  ) : (
+                    <Navigate to={"/"} />
+                  )
+                }
+              />
+              <Route
+                path="/test"
+                element={activeUser ? <TestApp /> : <Navigate to={"/"} />}
+              />
+              <Route
+                path="/*"
+                element={
+                  !activeUser ? (
+                    <Login onSetUser={setActiveUser} />
+                  ) : (
+                    <Navigate to={"/kanban"} />
+                  )
+                }
+              />
+            </Routes>
+          </userContext.Provider>
         </>
       </div>
     </Router>

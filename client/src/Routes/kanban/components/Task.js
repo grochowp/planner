@@ -1,14 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import Button from "../../../shared/components/Button";
 import { TaskState } from "../../../shared/utils";
+import { userContext } from "../../../App";
 
-export const Task = ({
-  task,
-  taskIndex,
-  activeUser,
-  onSetActiveUser,
-  listType,
-}) => {
+export const Task = ({ task, taskIndex, listType }) => {
+  const [activeUser, setActiveUser] = useContext(userContext);
+
   const moveTask = (fromList, toList, task) => {
     const updatedTasks = {
       ...activeUser.tasks[taskIndex],
@@ -18,7 +15,7 @@ export const Task = ({
       [toList]: [...activeUser.tasks[taskIndex][toList], task],
     };
 
-    onSetActiveUser((prevActiveUser) => ({
+    setActiveUser((prevActiveUser) => ({
       ...prevActiveUser,
       tasks: prevActiveUser.tasks.map((userTask) =>
         userTask.taskID === updatedTasks.taskID
@@ -32,12 +29,12 @@ export const Task = ({
     }));
   };
 
-  const handleDeleteTask = (task, fromList) => {
+  const handleDeleteTask = (task) => {
     const updatedTasks = { ...activeUser.tasks[taskIndex] };
     updatedTasks[listType] = updatedTasks[listType].filter((t) => t !== task);
     console.log(updatedTasks);
 
-    onSetActiveUser((prevActiveUser) => ({
+    setActiveUser((prevActiveUser) => ({
       ...prevActiveUser,
       tasks: prevActiveUser.tasks.map((userTask) =>
         userTask.taskID === updatedTasks.taskID ? { ...updatedTasks } : userTask

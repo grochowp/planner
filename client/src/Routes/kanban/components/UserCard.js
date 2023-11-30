@@ -1,8 +1,13 @@
-export const UserCard = ({ user, tasks }) => {
+import { useContext } from "react";
+import { userContext } from "../../../App";
+
+export const UserCard = ({ taskIndex }) => {
+  const [activeUser] = useContext(userContext);
+  const tasks = activeUser.tasks[taskIndex];
   return (
     <div className="user-card">
       <h1 className="selected-user-card">
-        {user.name} {user.surname}
+        {activeUser.name} {activeUser.surname}
       </h1>
       <div className="tasks">
         <h6>To do: {tasks.ToDo.length}</h6>
@@ -11,4 +16,4 @@ export const UserCard = ({ user, tasks }) => {
       </div>
     </div>
   );
-}
+};
