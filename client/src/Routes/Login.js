@@ -7,9 +7,14 @@ export const Login = ({ onSetUser }) => {
   const [password, setPassword] = useState("");
 
   function handleLogin(login, password) {
-    const loggedUser = LoginService.login(login, password);
-
-    if (loggedUser) onSetUser(loggedUser);
+    LoginService.login(login, password)
+      .then((loggedUser) => {
+        console.log(loggedUser);
+        if (loggedUser) onSetUser(loggedUser);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }
 
   return (

@@ -18,22 +18,21 @@ export const userContext = createContext();
 function App() {
   const [activeUser, setActiveUser] = useState();
 
-  const [testValue, setTestValue] = useState(null);
-
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/api/test"); // Dodaj pełny adres URL serwera
-        const testValue = response.data.test;
-        setTestValue(testValue);
-        console.log('Wartość zmiennej "test" z backendu:', testValue);
-      } catch (error) {
-        console.error("Błąd podczas pobierania danych:", error);
-      }
-    };
+    if (activeUser && activeUser.ID) {
+      const userID = activeUser.ID;
 
-    fetchData();
-  }, []);
+      fetch(`http://localhost:3000/api/user/${userID}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          // Tutaj możesz zaktualizować stan danych użytkownika w komponencie
+        })
+        .catch((error) =>
+          console.error("Błąd podczas pobierania danych użytkownika:", error)
+        );
+    }
+  }, [activeUser]); // useEffect zostanie uruchomiony przy zmianie wartości activeUsery
 
   return (
     <Router>

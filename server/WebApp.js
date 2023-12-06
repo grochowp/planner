@@ -1,5 +1,6 @@
 const express = require("express");
-const cors = require("cors"); // Dodaj import Cors
+const cors = require("cors");
+const mysql = require("mysql2");
 
 const app = express();
 const port = 3001;
@@ -7,16 +8,6 @@ const port = 3001;
 const testValue = 100;
 
 app.use(cors());
-
-app.get("/api/test", (req, res) => {
-  res.json({ test: testValue });
-});
-
-app.listen(port, () => {
-  console.log(`Serwer działa na porcie ${port}`);
-});
-
-const mysql = require("mysql2");
 
 // Ustawienia połączenia
 const connection = mysql.createConnection({
@@ -26,15 +17,19 @@ const connection = mysql.createConnection({
   database: "planner",
 });
 
-// Nawiązanie połączenia
-connection.connect((err) => {
-  if (err) {
-    console.error("Błąd połączenia z bazą danych:", err);
-  } else {
-    console.log("Połączono z bazą danych MySQL");
-    // Tutaj możesz wykonywać zapytania SQL
-  }
+app.get("/", (req, res) => {
+  res.json("from backend side");
 });
 
-// Zakończenie połączenia
-connection.end();
+app.listen(port, () => {
+  console.log(`Serwer działa na porcie ${port}`);
+});
+
+// Nawiązanie połączenia
+app.get("/users", (req, res) => {
+  const sql = "SELECT * FROM users, tasks";
+  connection.query(sql, (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
