@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, createContext } from "react";
 import "./index.scss";
 import { SideBar } from "./components/SideBar";
 import { KanbanTree } from "./Routes/kanban/KanbanTree";

@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { usersTemp as users } from "../demoData/users";
-
 export const LoginService = {
   login: async (login, password) => {
     try {
@@ -17,10 +14,6 @@ export const LoginService = {
     } catch (error) {
       console.log("Error during login: ", error);
     }
-
-    // TODO - wyszukanie z bazy danych uzytkownika dla ktorego login i haslo beda sie zgadzaly
-
-    // TODO - znalezc taski ktorych UserID = UserID znalezionego wczesniej uzytkownika
   },
   logout: () => {
     // Implementuj wylogowywanie
