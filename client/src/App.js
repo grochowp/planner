@@ -11,28 +11,10 @@ import {
 } from "react-router-dom";
 import { TestApp } from "./Routes/test/TestApp";
 
-import axios from "axios";
-
 export const userContext = createContext();
 
 function App() {
   const [activeUser, setActiveUser] = useState();
-
-  useEffect(() => {
-    if (activeUser && activeUser.ID) {
-      const userID = activeUser.ID;
-
-      fetch(`http://localhost:3000/api/user/${userID}`)
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          // Tutaj możesz zaktualizować stan danych użytkownika w komponencie
-        })
-        .catch((error) =>
-          console.error("Błąd podczas pobierania danych użytkownika:", error)
-        );
-    }
-  }, [activeUser]); // useEffect zostanie uruchomiony przy zmianie wartości activeUsery
 
   return (
     <Router>

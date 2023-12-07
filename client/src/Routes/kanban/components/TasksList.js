@@ -9,11 +9,11 @@ export const TasksList = ({ taskIndex, onSetTaskIndex }) => {
   const NextTask =
     activeUser.tasks[
       (taskIndex + 1) % activeUser.tasks.length
-    ].task.toUpperCase();
+    ].taskName.toUpperCase();
   const previousTask =
     activeUser.tasks[
       (taskIndex + activeUser.tasks.length - 1) % activeUser.tasks.length
-    ].task.toUpperCase();
+    ].taskName.toUpperCase();
 
   const handleNextTask = () => {
     onSetTaskIndex(() => (taskIndex + 1) % activeUser.tasks.length);
@@ -58,7 +58,7 @@ export const TasksList = ({ taskIndex, onSetTaskIndex }) => {
           ) : (
             ""
           )}
-          {activeUser.tasks[taskIndex].task.toUpperCase()}
+          {activeUser.tasks[taskIndex].taskName.toUpperCase()}
           {activeUser.tasks.length > 1 ? (
             <button className="btn-next-task" onClick={() => handleNextTask()}>
               {NextTask}
