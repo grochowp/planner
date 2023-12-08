@@ -19,7 +19,19 @@ export const LoginService = {
     // Implementuj wylogowywanie
   },
 
-  register: () => {
-    // Implementuj rejestrację
+  register: async (login, password, name, surname) => {
+    try {
+      const res = await fetch("http://localhost:3001/register", {
+        method: "POST",
+        body: JSON.stringify({ login, password, name, surname }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      return data.user;
+    } catch (error) {
+      console.log("Error during login: ", error);
+    }
   },
 };

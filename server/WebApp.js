@@ -4,6 +4,7 @@ const mysql = require("mysql2");
 const bodyParser = require("body-parser");
 
 const handleLogin = require("./LoginPage/Login");
+const handleRegister = require("./LoginPage/Register");
 
 const app = express();
 const port = 3001;
@@ -29,11 +30,18 @@ app.listen(port, () => {
 });
 
 app.post("/login", (req, res) => {
-  // Wywołaj funkcję obsługującą logowanie z modułu
   try {
     handleLogin(req, res, connection);
   } catch (error) {
     console.error("Error during login:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+app.post("/register", (req, res) => {
+  try {
+    handleRegister(req, res, connection);
+  } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });

@@ -48,24 +48,17 @@ export const TasksList = ({ taskIndex, onSetTaskIndex }) => {
     <div className="tasks-list-container">
       <div className="tasks-list-task-name">
         <div className="tasks-list-task-name">
-          {activeUser.tasks.length > 1 ? (
-            <button
-              className="btn-previous-task"
-              onClick={() => handlePreviousTask()}
-            >
-              {previousTask}
-            </button>
-          ) : (
-            ""
-          )}
-          {activeUser.tasks[taskIndex].taskName.toUpperCase()}
-          {activeUser.tasks.length > 1 ? (
-            <button className="btn-next-task" onClick={() => handleNextTask()}>
-              {NextTask}
-            </button>
-          ) : (
-            ""
-          )}
+          <button
+            className="btn-previous-task"
+            onClick={() => handlePreviousTask()}
+          >
+            {previousTask}
+          </button>
+          <p>{activeUser.tasks[taskIndex].taskName.toUpperCase()}</p>
+
+          <button className="btn-next-task" onClick={() => handleNextTask()}>
+            {NextTask}
+          </button>
         </div>
       </div>
 

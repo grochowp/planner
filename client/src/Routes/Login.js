@@ -12,31 +12,40 @@ export const Login = ({ onSetUser }) => {
   const [surname, setSurname] = useState("");
 
   const [incorrectData, SetIncorrectData] = useState(false);
-
   const [showLogin, setShowLogin] = useState(true);
-  const [showRegister, setShowRegister] = useState(false);
 
-  const handleLogin = (login, password) => {
-    LoginService.login(login, password)
-      .then((loggedUser) => {
-        console.log(loggedUser);
-        if (loggedUser) {
-          SetIncorrectData(false);
-          onSetUser(loggedUser);
-        } else SetIncorrectData(true);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const handleLogin = async (login, password) => {
+    try {
+      const loggedUser = await LoginService.login(login, password);
+
+      if (loggedUser) {
+        SetIncorrectData(false);
+        onSetUser(loggedUser);
+      } else {
+        SetIncorrectData(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleRegister = (login, password, name, surname) => {
-    return 0;
+  const handleRegister = async (login, password, name, surname) => {
+    try {
+      const newUser = await LoginService.register(
+        login,
+        password,
+        name,
+        surname
+      );
+      console.log(newUser);
+      onSetUser(newUser);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const toggleLoginRegister = () => {
     setShowLogin(!showLogin);
-    setShowRegister(!showRegister);
     setLogin("");
     setPassword("");
     setRegisterLogin("");
@@ -116,7 +125,9 @@ export const Login = ({ onSetUser }) => {
               Powrót do logowania
             </Button>
             <Button
-              onClick={() => handleRegister(login, password)}
+              onClick={() =>
+                handleRegister(registerLogin, registerPassword, name, surname)
+              }
               styles="register"
             >
               Rejestruj
