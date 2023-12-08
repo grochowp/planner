@@ -44,7 +44,7 @@ export const Task = ({ task, taskIndex, listType }) => {
 
   return (
     <div className="tasks-list-task-container">
-      <p className="tasks-list-task">
+      <div className="tasks-list-task">
         {task}
         <div className="btn-in-task">
           {listType === TaskState.ToDo.name || (
@@ -95,7 +95,7 @@ export const Task = ({ task, taskIndex, listType }) => {
             </Button>
           )}
         </div>
-      </p>
+      </div>
     </div>
   );
 };

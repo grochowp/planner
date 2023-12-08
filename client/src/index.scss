@@ -29,6 +29,10 @@ $primary-btn-input: #f0f0f0;
 $active-user: #a09f9f;
 $primary-text: #0c0a0a;
 
+.hidden {
+  opacity: 0;
+}
+
 .left-side {
   background-color: $primary-fourth;
   float: left;
@@ -178,37 +182,63 @@ $primary-text: #0c0a0a;
   border-radius: 1rem;
   background-color: $primary-main;
   display: flex;
-  flex-direction: column; // Dodane, aby elementy wewnątrz były ustawione jeden pod drugim
-  align-items: center; // Dod
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-btns {
+  display: flex;
+  gap: 1rem;
+}
+
+.register {
+  width: 20rem;
+  height: 30rem;
+  border: 1px solid $primary-border;
+  border-radius: 1rem;
+  background-color: $primary-main;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .login input {
   width: 80%;
-  margin: 2rem 0 0rem 0rem;
-  display: flex;
+  margin: 2rem 0 0 0;
   border: 1px solid $primary-border;
   border-radius: 0.75rem;
   padding-left: 1rem;
   height: 2.5rem;
-  justify-content: center;
   font-size: 1rem;
-  align-items: center;
 }
 
-.login input::placeholder {
-  width: 80%; // left: 0%;
-}
-.register {
-  background-color: red;
+.register input {
+  width: 80%;
+  margin: 2rem 0 0 0;
+  border: 1px solid $primary-border;
+  border-radius: 0.75rem;
+  padding-left: 1rem;
+  height: 2.5rem;
+  font-size: 1rem;
 }
 
-.btn-login {
-  margin-top: 2.5rem;
+.btn-login,
+.btn-register {
+  position: relative;
+  top: 3rem;
   width: 7.5rem;
   height: 2.5rem;
   border: 1px solid $primary-border;
   border-radius: 0.5rem;
   cursor: pointer;
+}
+
+.incorrect-data {
+  display: flex;
+  margin: 2rem 0 -0.75rem;
+  font-size: 1rem;
+  justify-content: center;
+  color: black;
 }
 
 .kanbanTree {
