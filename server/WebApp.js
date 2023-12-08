@@ -3,7 +3,7 @@ const cors = require("cors");
 const mysql = require("mysql2");
 const bodyParser = require("body-parser");
 
-const handleLogin = require("./LoginPage/Login"); // Importuj moduł
+const handleLogin = require("./LoginPage/Login");
 
 const app = express();
 const port = 3001;
@@ -16,13 +16,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "XUg1DwBC",
+  password: "sqldb123",
   database: "planner",
 });
 
 app.get("/", (req, res) => {
   res.json("from backend side");
-  // res.status(200).send("<h1>hi</h1>");
 });
 
 app.listen(port, () => {
