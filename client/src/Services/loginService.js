@@ -10,7 +10,7 @@ export const LoginService = {
       });
       const data = await res.json();
 
-      return data.user;
+      return data;
     } catch (error) {
       console.log("Error during login: ", error);
     }
@@ -20,6 +20,11 @@ export const LoginService = {
   },
 
   register: async (login, password, name, surname) => {
+    if (login.length < 8)
+      return { error: "Login musi być dłuższy niż 8 znaków" };
+    if (password.length < 8)
+      return { error: "Hasło musi być dłuższe niż 8 znaków" };
+
     try {
       const res = await fetch("http://localhost:3001/register", {
         method: "POST",
@@ -29,9 +34,9 @@ export const LoginService = {
         },
       });
       const data = await res.json();
-      return data.user;
+      return data;
     } catch (error) {
-      console.log("Error during login: ", error);
+      console.log(error);
     }
   },
 };

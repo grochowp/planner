@@ -118,8 +118,7 @@ $primary-text: #0c0a0a;
   bottom: 0;
   background-image: url("#{$picture2-path}");
   background-position: top;
-  // background-image: url("#{$picture-path}");
-  // background-color: $primary-third;
+
   background-size: cover;
   filter: blur(5px); // Dodaj efekt zblurowania tylko dla tła
 }
@@ -175,9 +174,9 @@ $primary-text: #0c0a0a;
   width: 100%;
   height: 100vh;
 }
-.login {
+.login form {
   width: 20rem;
-  height: 20rem;
+  height: max-content;
   border: 1px solid $primary-border;
   border-radius: 1rem;
   background-color: $primary-main;
@@ -193,13 +192,48 @@ $primary-text: #0c0a0a;
 
 .register {
   width: 20rem;
-  height: 30rem;
+  height: max-content;
+  min-height: 27rem;
   border: 1px solid $primary-border;
   border-radius: 1rem;
   background-color: $primary-main;
+}
+
+.register form {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+#message {
+  // display: none;
+  color: #000;
+  position: relative;
+}
+
+#message p {
+  padding: 0 2rem 0 3rem;
+  font-size: 12px;
+}
+
+.valid {
+  color: green;
+}
+
+.valid::before {
+  position: relative;
+  left: -35px;
+  content: "&#10004;";
+}
+
+.invalid {
+  color: red;
+}
+
+.invalid::before {
+  position: relative;
+  left: -35px;
+  content: "&#10006;";
 }
 
 .login input {
@@ -225,12 +259,17 @@ $primary-text: #0c0a0a;
 .btn-login,
 .btn-register {
   position: relative;
-  top: 3rem;
   width: 7.5rem;
   height: 2.5rem;
   border: 1px solid $primary-border;
   border-radius: 0.5rem;
   cursor: pointer;
+}
+.btn-login {
+  margin: 2rem 0;
+}
+.btn-register {
+  margin: 1.5rem 0;
 }
 
 .incorrect-data {

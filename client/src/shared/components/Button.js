@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export function Button({ onClick, children, styles, route }) {
+export function Button({ onClick, onFocus, children, styles, route }) {
   return (
     <div>
       {route ? (
@@ -10,7 +10,11 @@ export function Button({ onClick, children, styles, route }) {
           </button>
         </Link>
       ) : (
-        <button className={styles ? `btn-${styles}` : ""} onClick={onClick}>
+        <button
+          className={styles ? `btn-${styles}` : ""}
+          onClick={onClick}
+          onFocus={onFocus}
+        >
           <span>{children}</span>
         </button>
       )}

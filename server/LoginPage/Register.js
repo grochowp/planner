@@ -27,7 +27,7 @@ const addUser = (connection, nextUserID, login, password, name, surname) => {
       [nextUserID, login, password, name, surname],
       (error, userResults) => {
         if (error) {
-          reject(error);
+          reject({ error: "Istnieje użytkownik o podanym loginie" });
         } else {
           resolve(userResults);
         }
@@ -83,24 +83,33 @@ const addDefaultTask = (connection, nextUserID) => {
 const handleRegister = async (req, res, connection) => {
   try {
     const { login, password, name, surname } = req.body;
-
+    let taskResult;
     const nextUserID = await getNextUserID(connection);
-    await addUser(connection, nextUserID, login, password, name, surname);
-    const taskResult = await addDefaultTask(connection, nextUserID);
-
-    const result = {
-      id: nextUserID,
-      name,
-      surname,
+    const newUser = await addUser(
+      connection,
+      nextUserID,
       login,
       password,
-      tasks: [taskResult],
-    };
+      name,
+      surname
+    );
+    if (newUser) {
+      taskResult = await addDefaultTask(connection, nextUserID);
 
-    res.json({ message: "Rejestracja udana", user: result });
+      const result = {
+        id: nextUserID,
+        name,
+        surname,
+        login,
+        password,
+        tasks: [taskResult],
+      };
+
+      res.json({ message: "Rejestracja udana", user: result });
+    }
   } catch (error) {
     console.error("Błąd rejestracji:", error);
-    res.status(500).json({ error: "Błąd rejestracji" });
+    res.status(500).json(error);
   }
 };
 

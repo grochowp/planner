@@ -46,7 +46,7 @@ const handleLogin = (req, res, connection) => {
       res.json({ message: "Login successful", user: combinedUser });
     } else {
       // Jeśli użytkownik nie istnieje w bazie danych
-      res.status(401).json({ message: "Invalid login credentials" });
+      res.status(401).json({ error: "Błędny login lub hasło" });
     }
   });
 };
