@@ -5,14 +5,12 @@ import { LoginService } from "../Services/loginService";
 export const Login = ({ onSetUser }) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-
   const [registerLogin, setRegisterLogin] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
 
   const [err, setErr] = useState("");
-
   const [incorrectData, SetIncorrectData] = useState(false);
   const [showLogin, setShowLogin] = useState(true);
   const [showValid, setShowValid] = useState(false);
@@ -65,111 +63,105 @@ export const Login = ({ onSetUser }) => {
     <div className="login-page">
       {showLogin ? (
         <div className="login">
-          <form>
-            {incorrectData ? (
-              <p className="incorrect-data">{err}</p>
-            ) : (
-              <p className="incorrect-data">Wprowadź login i hasło</p>
-            )}
-            <input
-              type="text"
-              value={login}
-              onChange={(e) => setLogin(e.target.value)}
-              placeholder="Login..."
-            ></input>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Hasło..."
-            ></input>
+          {incorrectData ? (
+            <p className="incorrect-data">{err}</p>
+          ) : (
+            <p className="incorrect-data">Wprowadź login i hasło</p>
+          )}
+          <input
+            type="text"
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
+            placeholder="Login..."
+          ></input>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Hasło..."
+          ></input>
 
-            <div className="login-btns">
-              <Button onClick={toggleLoginRegister} styles="login">
-                Zarejestruj się
-              </Button>
-              <Button
-                onClick={() => handleLogin(login, password)}
-                styles="login"
-              >
-                Login
-              </Button>
-            </div>
-          </form>
+          <div className="login-btns">
+            <Button onClick={toggleLoginRegister} styles="login">
+              Zarejestruj się
+            </Button>
+            <Button onClick={() => handleLogin(login, password)} styles="login">
+              Login
+            </Button>
+          </div>
         </div>
       ) : (
         <div className="register">
-          <form>
-            {incorrectData ? (
-              <p className="incorrect-data">{err}</p>
-            ) : (
-              <p className="incorrect-data">Wprowadź swoje dane</p>
-            )}
-            <input
-              type="text"
-              value={registerLogin}
-              onChange={(e) => setRegisterLogin(e.target.value)}
-              placeholder="Login..."
-              required
-            ></input>
-            <input
-              type="password"
-              value={registerPassword}
-              onChange={(e) => setRegisterPassword(e.target.value)}
-              onFocus={() => handlePasswordFocus(true)}
-              onBlur={() => handlePasswordFocus(false)}
-              placeholder="Hasło..."
-              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-              required
-            ></input>
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Imię..."
-              required
-            ></input>
-            <input
-              type="text"
-              value={surname}
-              onChange={(e) => setSurname(e.target.value)}
-              placeholder="Nazwisko..."
-              required
-            ></input>
-            {showValid ? (
-              <div id="message">
-                <h3>Hasło musi zawierać:</h3>
-                <p id="letter" className="invalid">
+          {incorrectData ? (
+            <p className="incorrect-data">{err}</p>
+          ) : (
+            <p className="incorrect-data">Wprowadź swoje dane</p>
+          )}
+          <input
+            type="text"
+            value={registerLogin}
+            onChange={(e) => setRegisterLogin(e.target.value)}
+            placeholder="Login..."
+            required
+          ></input>
+          <input
+            type="password"
+            value={registerPassword}
+            onChange={(e) => setRegisterPassword(e.target.value)}
+            onFocus={() => handlePasswordFocus(true)}
+            onBlur={() => handlePasswordFocus(false)}
+            placeholder="Hasło..."
+            required
+          ></input>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Imię..."
+            required
+          ></input>
+          <input
+            type="text"
+            value={surname}
+            onChange={(e) => setSurname(e.target.value)}
+            placeholder="Nazwisko..."
+            required
+          ></input>
+          {showValid ? (
+            <div id="message">
+              <h3>Hasło musi zawierać:</h3>
+              <ul>
+                <li className="requirement">
                   <b>Małą</b> literę
-                </p>
-                <p id="capital" className="invalid">
+                </li>
+                <li className="requirement">
                   <b>Wielką</b> litere
-                </p>
-                <p id="number" className="invalid">
+                </li>
+                <li className="requirement">
                   <b>Cyfrę</b>
-                </p>
-                <p id="length" className="invalid">
-                  Minimum <b>8</b> znaków
-                </p>
-              </div>
-            ) : (
-              ""
-            )}
-
-            <div className="login-btns">
-              <Button onClick={toggleLoginRegister} styles="register">
-                Powrót do logowania
-              </Button>
-              <Button
-                onClick={() =>
-                  handleRegister(registerLogin, registerPassword, name, surname)
-                }
-                styles="register"
-              >
-                Rejestruj
-              </Button>
+                </li>
+                <li className="requirement">
+                  Minimum <b>8</b>
+                </li>
+              </ul>
             </div>
-          </form>
+          ) : (
+            ""
+          )}
+
+          <div className="login-btns">
+            <Button onClick={toggleLoginRegister} styles="register">
+              Powrót do logowania
+            </Button>
+            <Button
+              onClick={() =>
+                handleRegister(registerLogin, registerPassword, name, surname)
+              }
+              styles="register"
+            >
+              Rejestruj
+            </Button>
+          </div>
         </div>
       )}
     </div>

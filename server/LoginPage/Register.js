@@ -83,6 +83,18 @@ const addDefaultTask = (connection, nextUserID) => {
 const handleRegister = async (req, res, connection) => {
   try {
     const { login, password, name, surname } = req.body;
+
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!password.match(passwordRegex)) {
+      res.json({ error: "bad password" });
+      return;
+    }
+
+    const correctedName =
+      name.charAt(0).toUpperCase() + name.substring(1).toLowerCase();
+    const correctedSurname =
+      surname.charAt(0).toUpperCase() + surname.substring(1).toLowerCase();
+
     let taskResult;
     const nextUserID = await getNextUserID(connection);
     const newUser = await addUser(
@@ -90,16 +102,16 @@ const handleRegister = async (req, res, connection) => {
       nextUserID,
       login,
       password,
-      name,
-      surname
+      correctedName,
+      correctedSurname
     );
     if (newUser) {
       taskResult = await addDefaultTask(connection, nextUserID);
 
       const result = {
         id: nextUserID,
-        name,
-        surname,
+        name: correctedName,
+        surname: correctedSurname,
         login,
         password,
         tasks: [taskResult],

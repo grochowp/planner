@@ -1,9 +1,17 @@
 import { useContext } from "react";
 import { userContext } from "../../../App";
+import Button from "../../../shared/components/Button";
+import { LoginService } from "../../../Services/loginService";
 
 export const UserCard = ({ taskIndex }) => {
-  const [activeUser] = useContext(userContext);
+  const [activeUser, setActiveUser] = useContext(userContext);
   const tasks = activeUser.tasks[taskIndex];
+
+  const handleLogout = () => {
+    const noUser = LoginService.logout();
+    setActiveUser(noUser);
+  };
+
   return (
     <div className="user-card">
       <h1 className="selected-user-card">
@@ -13,6 +21,11 @@ export const UserCard = ({ taskIndex }) => {
         <h6>To do: {tasks.ToDo.length}</h6>
         <h6>In progress: {tasks.InProgress.length}</h6>
         <h6>Done: {tasks.Done.length}</h6>
+      </div>
+      <div className="logout">
+        <Button onClick={handleLogout} styles="logout">
+          WYLOGUJ
+        </Button>
       </div>
     </div>
   );

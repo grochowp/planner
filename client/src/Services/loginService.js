@@ -16,7 +16,7 @@ export const LoginService = {
     }
   },
   logout: () => {
-    // Implementuj wylogowywanie
+    return "";
   },
 
   register: async (login, password, name, surname) => {
@@ -24,6 +24,8 @@ export const LoginService = {
       return { error: "Login musi być dłuższy niż 8 znaków" };
     if (password.length < 8)
       return { error: "Hasło musi być dłuższe niż 8 znaków" };
+    if (name.length < 2) return { error: "Nieprawidłowe imię" };
+    if (surname.length < 2) return { error: "Nieprawidłowe nazwisko" };
 
     try {
       const res = await fetch("http://localhost:3001/register", {

@@ -41,7 +41,6 @@ const handleLogin = (req, res, connection) => {
         },
         { tasks: [] }
       );
-
       // Odpowiedź po poprawnym przetworzeniu wyników
       res.json({ message: "Login successful", user: combinedUser });
     } else {

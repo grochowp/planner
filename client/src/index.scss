@@ -158,13 +158,29 @@ $primary-text: #0c0a0a;
   display: flex;
   position: absolute;
   top: 4rem;
-  right: 12vw;
+  right: 15vw;
   gap: 1rem;
   // background-color: red;
   height: 2rem;
-
   /* Dodajmy padding-bottom */
   align-self: flex-end; /* Wyśrodkuj względem prawej strony */
+}
+
+.logout {
+  position: absolute;
+  right: 3rem;
+  top: 2.5rem;
+}
+
+.btn-logout {
+  width: 7.5rem;
+  height: 2.5rem;
+  border: 1px solid $primary-border;
+  color: #000;
+  font-size: 1.2rem;
+  background-color: rgba(103, 143, 134, 0.15);
+  border-radius: 1rem;
+  cursor: pointer;
 }
 
 .login-page {
@@ -174,7 +190,7 @@ $primary-text: #0c0a0a;
   width: 100%;
   height: 100vh;
 }
-.login form {
+.login {
   width: 20rem;
   height: max-content;
   border: 1px solid $primary-border;
@@ -197,43 +213,24 @@ $primary-text: #0c0a0a;
   border: 1px solid $primary-border;
   border-radius: 1rem;
   background-color: $primary-main;
-}
-
-.register form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 #message {
-  // display: none;
+  padding: 0 2rem 0 0;
   color: #000;
   position: relative;
 }
 
-#message p {
-  padding: 0 2rem 0 3rem;
+#message ul {
+  padding: 0 0 0 2rem;
   font-size: 12px;
 }
 
-.valid {
-  color: green;
-}
-
-.valid::before {
-  position: relative;
-  left: -35px;
-  content: "&#10004;";
-}
-
-.invalid {
-  color: red;
-}
-
-.invalid::before {
-  position: relative;
-  left: -35px;
-  content: "&#10006;";
+.requirement {
+  color: #000;
 }
 
 .login input {
