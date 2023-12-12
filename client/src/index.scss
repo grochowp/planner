@@ -38,7 +38,7 @@ $primary-text: #0c0a0a;
   float: left;
   min-width: 18.55rem;
 
-  height: 96.7vh;
+  height: max-content;
   border-right: 1px solid $primary-border;
   padding: 1rem 1rem 1rem 1rem;
 }
@@ -49,7 +49,7 @@ $primary-text: #0c0a0a;
   border-bottom: 1px solid $primary-border;
   padding: 0 0 0.25rem 0;
   gap: 0.5rem;
-  height: 5%;
+  height: 3rem;
   justify-content: center;
   font-size: 1.5rem;
   align-items: center;
@@ -60,7 +60,7 @@ $primary-text: #0c0a0a;
   flex-direction: column;
   min-width: 11rem;
   width: 15vw;
-  height: 85vh;
+  height: 51.3rem;
   gap: 0.3rem;
 
   margin: 1rem 0 0 1rem;
@@ -71,7 +71,7 @@ $primary-text: #0c0a0a;
   align-items: center;
   width: 100%;
   gap: 0.5rem;
-  height: 5vh;
+  height: 3rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -101,7 +101,9 @@ $primary-text: #0c0a0a;
   position: relative;
   width: 94%;
   min-height: 5rem;
-  height: 10vh;
+  height: 6rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   border-radius: 1rem;
   border: 1px solid $primary-border;
   cursor: pointer;
@@ -118,7 +120,6 @@ $primary-text: #0c0a0a;
   bottom: 0;
   background-image: url("#{$picture2-path}");
   background-position: top;
-
   background-size: cover;
   filter: blur(5px); // Dodaj efekt zblurowania tylko dla tła
 }
@@ -279,6 +280,7 @@ $primary-text: #0c0a0a;
 
 .kanbanTree {
   width: 100vw;
+  height: max-content;
   background-image: url("#{$picture2-path}");
   background-position: center;
   background-repeat: no-repeat;
@@ -298,8 +300,7 @@ $primary-text: #0c0a0a;
   border-radius: 8px;
 }
 .tasks-list-container {
-  margin: 3rem 6rem;
-  height: 75vh;
+  margin: 2.21rem 6rem;
 }
 
 .tasks-list-tasks {
@@ -308,15 +309,38 @@ $primary-text: #0c0a0a;
 }
 
 .tasks-list-progress {
+  position: relative;
   margin: 1rem;
   border: 1px solid $primary-border;
   box-sizing: border-box;
   flex: 1;
-  height: 65vh;
+  height: 43rem;
   width: 100%; /* Take full width on smaller screens */
   max-width: none;
   background-color: rgba(29, 24, 24, 0.5);
   border-radius: 0 0 1rem 1rem;
+}
+
+.add-task {
+  position: absolute;
+  bottom: 2rem; /* Przykładowa wartość przesunięcia */
+  width: 100%;
+  border-top: 1px solid $primary-border;
+  margin-bottom: 2rem; /* Przemieszczenie .add-task o 1rem w dół */
+}
+
+.btn-task-list {
+  position: absolute;
+  bottom: -3.2rem; /* Ustawienie wartości bottom na odległość od dołu .add-task */
+  left: 36%;
+  width: 7.5rem;
+  height: 2.5rem;
+  border: 1px solid $primary-border;
+  color: white;
+  font-size: 1.2rem;
+  background-color: rgba(103, 143, 134, 0.15);
+  border-radius: 1rem;
+  cursor: pointer;
 }
 
 @media (max-width: 1200px) {
@@ -370,15 +394,9 @@ $primary-text: #0c0a0a;
   align-items: center;
 }
 
-.tasks-list-task p {
-  margin: 0; /* Zresetuj domyślne marginesy dla elementu p */
-  word-wrap: break-word; /* Zawijaj tekst do następnej linii */
-  white-space: normal; /* Uniemożliwia przekraczanie elementu poziomo */
-}
-
 .tasks-list-overflow {
   overflow: auto;
-  max-height: 40rem; /* Ustaw maksymalną wysokość kontenera, aby pojawił się pasek przewijania */
+  max-height: 35.5rem;
 }
 
 .btn-in-task {
