@@ -2,8 +2,13 @@
 @import url("https://unpkg.com/css.gg@2.0.0/icons/css/push-chevron-right.css");
 @import url("https://unpkg.com/css.gg@2.0.0/icons/css/push-chevron-left.css");
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -36,9 +41,9 @@ $primary-text: #0c0a0a;
 .left-side {
   background-color: $primary-fourth;
   float: left;
-  min-width: 18.55rem;
+  min-width: 19rem;
 
-  height: max-content;
+  height: 100vh;
   border-right: 1px solid $primary-border;
   padding: 1rem 1rem 1rem 1rem;
 }
@@ -49,7 +54,7 @@ $primary-text: #0c0a0a;
   border-bottom: 1px solid $primary-border;
   padding: 0 0 0.25rem 0;
   gap: 0.5rem;
-  height: 3rem;
+  height: 5vh;
   justify-content: center;
   font-size: 1.5rem;
   align-items: center;
@@ -59,8 +64,8 @@ $primary-text: #0c0a0a;
   display: flex;
   flex-direction: column;
   min-width: 11rem;
-  width: 15vw;
-  height: 51.3rem;
+  width: 95%;
+  height: 83vh;
   gap: 0.3rem;
 
   margin: 1rem 0 0 1rem;
@@ -71,7 +76,7 @@ $primary-text: #0c0a0a;
   align-items: center;
   width: 100%;
   gap: 0.5rem;
-  height: 3rem;
+  height: 6.5vh;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -280,7 +285,7 @@ $primary-text: #0c0a0a;
 
 .kanbanTree {
   width: 100vw;
-  height: max-content;
+  height: 100vh;
   background-image: url("#{$picture2-path}");
   background-position: center;
   background-repeat: no-repeat;
@@ -314,7 +319,7 @@ $primary-text: #0c0a0a;
   border: 1px solid $primary-border;
   box-sizing: border-box;
   flex: 1;
-  height: 43rem;
+  height: 70vh;
   width: 100%; /* Take full width on smaller screens */
   max-width: none;
   background-color: rgba(29, 24, 24, 0.5);
@@ -323,17 +328,36 @@ $primary-text: #0c0a0a;
 
 .add-task {
   position: absolute;
+  display: flex;
   bottom: 2rem; /* Przykładowa wartość przesunięcia */
   width: 100%;
   border-top: 1px solid $primary-border;
   margin-bottom: 2rem; /* Przemieszczenie .add-task o 1rem w dół */
 }
 
+.add-task-input {
+  position: absolute;
+  bottom: -3rem;
+  left: 7%;
+  width: 11rem;
+  height: 2rem;
+
+  border: 1px solid $primary-border;
+  border-radius: 1rem;
+  background-color: rgba(103, 143, 134, 0.15);
+}
+
+.add-task-input::placeholder {
+  color: white;
+  position: relative;
+  left: 0.5rem;
+}
+
 .btn-task-list {
   position: absolute;
   bottom: -3.2rem; /* Ustawienie wartości bottom na odległość od dołu .add-task */
-  left: 36%;
-  width: 7.5rem;
+  left: 65%;
+  width: 6rem;
   height: 2.5rem;
   border: 1px solid $primary-border;
   color: white;

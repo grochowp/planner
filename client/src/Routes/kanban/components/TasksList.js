@@ -46,11 +46,12 @@ export const TasksList = ({ taskIndex, onSetTaskIndex }) => {
         </div>
         <div className="add-task">
           <input
+            className="add-task-input"
             key={taskState.name}
             type="text"
             value={newTask}
             onChange={(e) => setNewTask(e.target.value)}
-            placeholder="Login..."
+            placeholder="Dodaj zadanie..."
           ></input>
           <Button onClick={handleAddTask} styles="task-list">
             aaa
