@@ -34,7 +34,6 @@ export const Task = ({ task, taskIndex, listType }) => {
     try {
       const userAfterDelete = await TaskService.delete(
         task,
-        taskIndex,
         listType,
         activeUser.userID,
         activeUser.tasks[taskIndex].taskID

@@ -15,11 +15,11 @@ export const TaskService = {
       console.log("Failed to add task", error);
     }
   },
-  delete: async (task, index, from, userID, tasksID) => {
+  delete: async (task, from, userID, tasksID) => {
     try {
       const res = await fetch("http://localhost:3001/delete", {
         method: "POST",
-        body: JSON.stringify({ task, index, from, userID, tasksID }),
+        body: JSON.stringify({ task, from, userID, tasksID }),
         headers: {
           "Content-Type": "application/json",
         },
