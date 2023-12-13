@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const handleLogin = require("./LoginPage/Login");
 const handleRegister = require("./LoginPage/Register");
 const handleAddTask = require("./Tasks/addTask");
+const handleDeleteTask = require("./Tasks/deleteTask");
 
 const app = express();
 const port = 3001;
@@ -34,8 +35,7 @@ app.post("/login", (req, res) => {
   try {
     handleLogin(req, res, connection);
   } catch (error) {
-    console.error("Error during login:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Unable to login" });
   }
 });
 
@@ -43,7 +43,7 @@ app.post("/register", (req, res) => {
   try {
     handleRegister(req, res, connection);
   } catch (error) {
-    res.status(500).json({ message: "Internal Server Error" });
+    res.status(500).json({ message: "Failed to create new account" });
   }
 });
 
@@ -52,5 +52,13 @@ app.post("/add", (req, res) => {
     handleAddTask(req, res, connection);
   } catch (error) {
     res.status(500).json({ message: "Failed to add task" });
+  }
+});
+
+app.post("/delete", (req, res) => {
+  try {
+    handleDeleteTask(req, res, connection);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete task" });
   }
 });

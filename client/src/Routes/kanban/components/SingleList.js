@@ -12,7 +12,6 @@ export const SingleList = ({ taskState, taskIndex }) => {
   const handleAddTask = async () => {
     if (!newTask) return;
 
-    console.log(newTask, taskIndex, taskState.name, activeUser.userID);
     try {
       const userWithNewTask = await TaskService.add(
         newTask,

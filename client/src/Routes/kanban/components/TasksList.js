@@ -1,8 +1,6 @@
-import React, { useContext, useState } from "react";
-import { Task } from "./Task";
+import React, { useContext } from "react";
 import { TaskState } from "../../../shared/utils";
 import { userContext } from "../../../App";
-import Button from "../../../shared/components/Button";
 import { SingleList } from "./SingleList";
 
 export const TasksList = ({ taskIndex, onSetTaskIndex }) => {

@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import Button from "../../../shared/components/Button";
 import { TaskState } from "../../../shared/utils";
 import { userContext } from "../../../App";
+import { TaskService } from "../../../Services/TaskService";
 
 export const Task = ({ task, taskIndex, listType }) => {
   const [activeUser, setActiveUser] = useContext(userContext);
@@ -29,17 +30,20 @@ export const Task = ({ task, taskIndex, listType }) => {
     }));
   };
 
-  const handleDeleteTask = (task) => {
-    const updatedTasks = { ...activeUser.tasks[taskIndex] };
-    updatedTasks[listType] = updatedTasks[listType].filter((t) => t !== task);
-    console.log(updatedTasks);
+  const handleDeleteTask = async (task) => {
+    try {
+      const userAfterDelete = await TaskService.delete(
+        task,
+        taskIndex,
+        listType,
+        activeUser.userID,
+        activeUser.tasks[taskIndex].taskID
+      );
 
-    setActiveUser((prevActiveUser) => ({
-      ...prevActiveUser,
-      tasks: prevActiveUser.tasks.map((userTask) =>
-        userTask.taskID === updatedTasks.taskID ? { ...updatedTasks } : userTask
-      ),
-    }));
+      setActiveUser(userAfterDelete.user);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
