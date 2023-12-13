@@ -332,32 +332,31 @@ $primary-text: #0c0a0a;
   bottom: 2rem; /* Przykładowa wartość przesunięcia */
   width: 100%;
   border-top: 1px solid $primary-border;
-  margin-bottom: 2rem; /* Przemieszczenie .add-task o 1rem w dół */
+  margin-bottom: 1.8rem; /* Przemieszczenie .add-task o 1rem w dół */
 }
 
 .add-task-input {
   position: absolute;
-  bottom: -3rem;
+  bottom: -3.2rem;
   left: 7%;
-  width: 11rem;
-  height: 2rem;
-
+  width: 11vw;
+  height: 40px;
+  color: white;
   border: 1px solid $primary-border;
   border-radius: 1rem;
   background-color: rgba(103, 143, 134, 0.15);
+  padding-left: 0.5rem; /* Dodane ustawienie odstępu od lewej dla tekstu wpisywanego */
 }
 
 .add-task-input::placeholder {
   color: white;
-  position: relative;
-  left: 0.5rem;
 }
 
 .btn-task-list {
   position: absolute;
   bottom: -3.2rem; /* Ustawienie wartości bottom na odległość od dołu .add-task */
   left: 65%;
-  width: 6rem;
+  width: 6vw;
   height: 2.5rem;
   border: 1px solid $primary-border;
   color: white;

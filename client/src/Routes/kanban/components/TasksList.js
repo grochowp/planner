@@ -3,10 +3,10 @@ import { Task } from "./Task";
 import { TaskState } from "../../../shared/utils";
 import { userContext } from "../../../App";
 import Button from "../../../shared/components/Button";
+import { SingleList } from "./SingleList";
 
 export const TasksList = ({ taskIndex, onSetTaskIndex }) => {
   const [activeUser] = useContext(userContext);
-  const [newTask, setNewTask] = useState("");
 
   const NextTask =
     activeUser.tasks[
@@ -24,40 +24,6 @@ export const TasksList = ({ taskIndex, onSetTaskIndex }) => {
   const handlePreviousTask = () => {
     onSetTaskIndex(
       () => (taskIndex + activeUser.tasks.length - 1) % activeUser.tasks.length
-    );
-  };
-
-  const handleAddTask = () => {};
-
-  const SingleList = ({ taskState }) => {
-    return (
-      <div className="tasks-list-progress">
-        <div className="tasks-list-name">{taskState.text}</div>
-        <div className="tasks-list-overflow">
-          {activeUser.tasks[taskIndex] &&
-            activeUser.tasks[taskIndex][taskState.name].map((task, index) => (
-              <Task
-                key={index}
-                task={task}
-                taskIndex={taskIndex}
-                listType={taskState.name}
-              />
-            ))}
-        </div>
-        <div className="add-task">
-          <input
-            className="add-task-input"
-            key={taskState.name}
-            type="text"
-            value={newTask}
-            onChange={(e) => setNewTask(e.target.value)}
-            placeholder="Dodaj zadanie..."
-          ></input>
-          <Button onClick={handleAddTask} styles="task-list">
-            aaa
-          </Button>
-        </div>
-      </div>
     );
   };
 
@@ -80,9 +46,9 @@ export const TasksList = ({ taskIndex, onSetTaskIndex }) => {
       </div>
 
       <div className="tasks-list-tasks">
-        <SingleList taskState={TaskState.ToDo} />
-        <SingleList taskState={TaskState.InProgress} />
-        <SingleList taskState={TaskState.Done} />
+        <SingleList taskState={TaskState.ToDo} taskIndex={taskIndex} />
+        <SingleList taskState={TaskState.InProgress} taskIndex={taskIndex} />
+        <SingleList taskState={TaskState.Done} taskIndex={taskIndex} />
       </div>
     </div>
   );
