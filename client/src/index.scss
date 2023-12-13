@@ -1,6 +1,7 @@
 @import url("https://unpkg.com/css.gg@2.0.0/icons/css/trash.css");
 @import url("https://unpkg.com/css.gg@2.0.0/icons/css/push-chevron-right.css");
 @import url("https://unpkg.com/css.gg@2.0.0/icons/css/push-chevron-left.css");
+@import url("https://unpkg.com/css.gg@2.0.0/icons/css/math-plus.css");
 
 * {
   box-sizing: border-box;
@@ -339,7 +340,7 @@ $primary-text: #0c0a0a;
   position: absolute;
   bottom: -3.2rem;
   left: 7%;
-  width: 11vw;
+  width: 14vw;
   height: 40px;
   color: white;
   border: 1px solid $primary-border;
@@ -355,15 +356,20 @@ $primary-text: #0c0a0a;
 .btn-task-list {
   position: absolute;
   bottom: -3.2rem; /* Ustawienie wartości bottom na odległość od dołu .add-task */
-  left: 65%;
-  width: 6vw;
+  left: 80%;
+  width: 2.5rem;
   height: 2.5rem;
   border: 1px solid $primary-border;
   color: white;
   font-size: 1.2rem;
   background-color: rgba(103, 143, 134, 0.15);
-  border-radius: 1rem;
+  border-radius: 50%;
   cursor: pointer;
+}
+
+.gg-math-plus {
+  position: relative;
+  left: 0.3rem;
 }
 
 @media (max-width: 1200px) {
@@ -457,7 +463,7 @@ $primary-text: #0c0a0a;
 }
 .gg-push-chevron-right {
   position: relative;
-  right: 5px;
+  right: 6px;
 }
 
 .btn-previous-task {

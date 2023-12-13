@@ -2,17 +2,30 @@ import React, { useContext, useState } from "react";
 import { Task } from "./Task";
 import { userContext } from "../../../App";
 import Button from "../../../shared/components/Button";
+import { TaskService } from "../../../Services/TaskService";
 
 export const SingleList = ({ taskState, taskIndex }) => {
-  const [activeUser] = useContext(userContext);
+  const [activeUser, setActiveUser] = useContext(userContext);
+
   const [newTask, setNewTask] = useState("");
 
-  const handleAddTask = () => {
+  const handleAddTask = async () => {
     if (!newTask) return;
 
-    // Logika w backendzie
-
-    setNewTask("");
+    console.log(newTask, taskIndex, taskState.name, activeUser.userID);
+    try {
+      const userWithNewTask = await TaskService.add(
+        newTask,
+        taskIndex + 1,
+        taskState.name,
+        activeUser.userID
+      );
+      console.log(userWithNewTask);
+      setActiveUser(userWithNewTask.user);
+      setNewTask("");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -39,7 +52,7 @@ export const SingleList = ({ taskState, taskIndex }) => {
           placeholder="Dodaj zadanie..."
         ></input>
         <Button onClick={handleAddTask} styles="task-list">
-          aaa
+          <i className="gg-math-plus"></i>
         </Button>
       </div>
     </div>

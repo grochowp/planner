@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 
 const handleLogin = require("./LoginPage/Login");
 const handleRegister = require("./LoginPage/Register");
+const handleAddTask = require("./Tasks/addTask");
 
 const app = express();
 const port = 3001;
@@ -43,5 +44,13 @@ app.post("/register", (req, res) => {
     handleRegister(req, res, connection);
   } catch (error) {
     res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+app.post("/add", (req, res) => {
+  try {
+    handleAddTask(req, res, connection);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to add task" });
   }
 });
