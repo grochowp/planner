@@ -8,7 +8,6 @@ const handleAddTask = async (req, res, connection) => {
                             SET ${destination} = JSON_ARRAY_APPEND(${destination}, '$', ?)
                             WHERE UserID = ? AND TaskIndex = ?;`;
 
-    // Aktualizacja zadania
     await queryAsync(connection, updateTaskSql, [task, userID, index]);
 
     const userSQL = `SELECT Users.*

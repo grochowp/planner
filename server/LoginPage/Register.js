@@ -14,7 +14,6 @@ const getNextUserID = (connection) => {
   });
 };
 
-// Dodanie nowego Usera do tabeli Users w SQL
 const addUser = (connection, nextUserID, login, password, name, surname) => {
   return new Promise((resolve, reject) => {
     const userInsertSQL = `
@@ -36,7 +35,6 @@ const addUser = (connection, nextUserID, login, password, name, surname) => {
   });
 };
 
-// Dodanie nowego taska do tabeli Tasks w SQL, z UserID utworzonego wczesniej uzytkownika
 const addDefaultTask = (connection, nextUserID) => {
   return new Promise((resolve, reject) => {
     const tasksInsertSQL = `

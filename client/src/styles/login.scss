@@ -1,0 +1,124 @@
+@import "./../shared/styles.scss";
+
+.login-page {
+  display: flex;
+  height: 100vh;
+}
+
+.login-left-side {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #202020;
+  height: 100vh;
+  width: 30vw;
+  min-width: 25rem;
+}
+
+.login-welcome {
+  color: $text-color-login;
+  font-size: 1.2rem;
+}
+.login-welcome h1 {
+  margin: 0;
+}
+.login-welcome p {
+  margin: 0;
+}
+
+.login,
+.register {
+  width: 70%;
+}
+
+.login h5,
+.register h5 {
+  color: $text-color-login;
+  margin: 1rem 0 0.1rem 0;
+}
+
+.login h3,
+.register h3 {
+  display: flex;
+  gap: 1rem;
+  color: $text-color-login;
+  justify-content: center;
+}
+
+.login h3 a,
+.register h3 a {
+  color: rgb(255, 239, 13);
+  cursor: pointer;
+}
+.login input,
+.register input {
+  width: 100%;
+  border: 1px solid $primary-border;
+  border-radius: 0.3rem;
+  padding-left: 1rem;
+  height: 2.5rem;
+  font-size: 1rem;
+}
+
+.btn-login,
+.btn-register {
+  width: 80%;
+  margin: 3vh 2vw;
+  height: 2.5rem;
+  border: 1px solid #0c0a0a;
+  border-radius: 0.3rem;
+  background-color: #0c0a0a;
+  cursor: pointer;
+  color: $text-color-login;
+}
+
+.incorrect-data {
+  display: flex;
+  margin: 2rem 0 -0.75rem;
+  font-size: 1rem;
+  justify-content: center;
+  color: #0c0a0a;
+}
+
+.message {
+  padding: 0 8rem 0 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1s ease-out;
+}
+
+.expanded {
+  max-height: 500px;
+}
+
+.message ul {
+  padding: 0 0 0 4rem;
+  font-size: 12px;
+}
+
+.requirement {
+  color: $text-color-login;
+}
+
+.login-error-message {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  color: $text-color-login;
+  font-size: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.login-page-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100% - 30vw);
+  max-width: calc(70vw + 10vw);
+  padding: 10vw;
+  font-size: 4.5rem;
+  background-color: black;
+  color: $text-color-login;
+  text-align: center;
+}

@@ -14,11 +14,11 @@ export const LoginService = {
 
   register: async (login, password, name, surname) => {
     if (login.length < 8)
-      return { error: "Login musi być dłuższy niż 8 znaków" };
+      return { error: "Login must have at least 8 characters" };
     if (password.length < 8)
-      return { error: "Hasło musi być dłuższe niż 8 znaków" };
-    if (name.length < 2) return { error: "Nieprawidłowe imię" };
-    if (surname.length < 2) return { error: "Nieprawidłowe nazwisko" };
+      return { error: "Password must have at least 8 characters" };
+    if (name.length < 2) return { error: "Invalid name" };
+    if (surname.length < 2) return { error: "Invalid surname" };
 
     const url = "http://localhost:3001/register";
     const method = "POST";

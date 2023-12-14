@@ -3,6 +3,8 @@
 @import url("https://unpkg.com/css.gg@2.0.0/icons/css/push-chevron-left.css");
 @import url("https://unpkg.com/css.gg@2.0.0/icons/css/math-plus.css");
 
+@import "./../shared/styles.scss";
+
 * {
   box-sizing: border-box;
 }
@@ -21,19 +23,6 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-$picture-path: "/pictures/kanban.jpg";
-$picture2-path: "../pictures/tlo.jpg";
-
-$primary-main: #ececec;
-$primary-second: #9fd3c7;
-$primary-third: #385170;
-$primary-fourth: #142d4c;
-
-$primary-border: #a3a3a3;
-$primary-hover: #c4c3c3;
-$primary-btn-input: #f0f0f0;
-$active-user: #a09f9f;
-$primary-text: #0c0a0a;
 
 .hidden {
   opacity: 0;
@@ -84,24 +73,6 @@ $primary-text: #0c0a0a;
   font-size: 0.7vw;
   color: rgb(201, 192, 192);
 }
-// .search-bar-input {
-//   border: 1px solid $primary-border;
-//   border-radius: 0.75rem;
-//   min-width: 7rem;
-//   width: 15vw;
-//   font-size: 1rem;
-//   padding-left: 0.75rem;
-//   background-color: $primary-btn-input;
-// }
-
-// .btn-search-bar {
-//   border: 1px solid $primary-border;
-//   border-radius: 0.75rem;
-//   min-width: 3rem;
-//   width: 5vw;
-//   cursor: pointer;
-//   background-color: $primary-btn-input;
-// }
 
 .btn-apps {
   position: relative;
@@ -113,7 +84,7 @@ $primary-text: #0c0a0a;
   border-radius: 1rem;
   border: 1px solid $primary-border;
   cursor: pointer;
-  overflow: hidden; // Ukryj część zblurowanego obrazu, jeśli wymagane
+  overflow: hidden;
   background-color: rgba(159, 211, 199, 0.1);
 }
 
@@ -127,7 +98,7 @@ $primary-text: #0c0a0a;
   background-image: url("#{$picture2-path}");
   background-position: top;
   background-size: cover;
-  filter: blur(5px); // Dodaj efekt zblurowania tylko dla tła
+  filter: blur(5px);
 }
 
 .btn-apps span {
@@ -167,10 +138,10 @@ $primary-text: #0c0a0a;
   top: 4rem;
   right: 15vw;
   gap: 1rem;
-  // background-color: red;
+
   height: 2rem;
-  /* Dodajmy padding-bottom */
-  align-self: flex-end; /* Wyśrodkuj względem prawej strony */
+
+  align-self: flex-end;
 }
 
 .logout {
@@ -190,129 +161,6 @@ $primary-text: #0c0a0a;
   cursor: pointer;
 }
 
-.login-page {
-  display: flex;
-  height: 100vh;
-}
-
-.login-left-side {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background-color: #202020;
-  height: 100vh;
-  width: 30vw;
-  min-width: 25rem;
-}
-
-.login-welcome {
-  color: rgb(230, 230, 230);
-  font-size: 1.2rem;
-}
-.login-welcome h1 {
-  margin: 0;
-}
-.login-welcome p {
-  margin: 0;
-}
-
-.login,
-.register {
-  width: 70%;
-}
-
-.login h5,
-.register h5 {
-  color: rgb(230, 230, 230);
-  margin: 1rem 0 0.1rem 0;
-}
-
-.login h3,
-.register h3 {
-  display: flex;
-  gap: 1rem;
-  color: rgb(230, 230, 230);
-  justify-content: center;
-}
-
-.login h3 a,
-.register h3 a {
-  color: rgb(255, 239, 13);
-  cursor: pointer;
-}
-.login input,
-.register input {
-  width: 100%;
-  border: 1px solid $primary-border;
-  border-radius: 0.3rem;
-  padding-left: 1rem;
-  height: 2.5rem;
-  font-size: 1rem;
-}
-
-.btn-login,
-.btn-register {
-  width: 80%;
-  margin: 3vw 2vw;
-  height: 2.5rem;
-  border: 1px solid #0c0a0a;
-  border-radius: 0.3rem;
-  background-color: #0c0a0a;
-  cursor: pointer;
-  color: rgb(230, 230, 230);
-}
-
-.incorrect-data {
-  display: flex;
-  margin: 2rem 0 -0.75rem;
-  font-size: 1rem;
-  justify-content: center;
-  color: black;
-}
-
-.message {
-  padding: 0 8rem 0 0;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 1s ease-out;
-}
-
-.expanded {
-  max-height: 500px;
-}
-
-.message ul {
-  padding: 0 0 0 4rem;
-  font-size: 12px;
-}
-
-.requirement {
-  color: rgb(230, 230, 230);
-}
-
-.login-error-message {
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  color: rgb(230, 230, 230);
-  font-size: 0.8rem;
-  margin-bottom: 2rem;
-}
-
-.login-page-message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: calc(100% - 30vw);
-  max-width: calc(70vw + 10vw);
-  padding: 10vw;
-  font-size: 4.5rem;
-  background-color: black;
-  color: rgb(230, 230, 230);
-  text-align: center;
-}
-
 .kanbanTree {
   width: 100vw;
   height: 100vh;
@@ -324,7 +172,7 @@ $primary-text: #0c0a0a;
 
 .tasks-list-tasks {
   display: flex;
-  flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+  flex-wrap: wrap;
 }
 
 .tasks-list-progress {
@@ -334,7 +182,7 @@ $primary-text: #0c0a0a;
   box-sizing: border-box;
   flex: 1;
   height: 70vh;
-  width: 100%; /* Take full width on smaller screens */
+  width: 100%;
   max-width: none;
   background-color: rgba(29, 24, 24, 0.5);
   border-radius: 0 0 1rem 1rem;
@@ -343,10 +191,10 @@ $primary-text: #0c0a0a;
 .add-task {
   position: absolute;
   display: flex;
-  bottom: 2rem; /* Przykładowa wartość przesunięcia */
+  bottom: 2rem;
   width: 100%;
   border-top: 1px solid $primary-border;
-  margin-bottom: 1.8rem; /* Przemieszczenie .add-task o 1rem w dół */
+  margin-bottom: 1.8rem;
 }
 
 .add-task-input {
@@ -359,7 +207,7 @@ $primary-text: #0c0a0a;
   border: 1px solid $primary-border;
   border-radius: 1rem;
   background-color: rgba(103, 143, 134, 0.15);
-  padding-left: 0.5rem; /* Dodane ustawienie odstępu od lewej dla tekstu wpisywanego */
+  padding-left: 0.5rem;
 }
 
 .add-task-input::placeholder {
@@ -368,7 +216,7 @@ $primary-text: #0c0a0a;
 
 .btn-task-list {
   position: absolute;
-  bottom: -3.2rem; /* Ustawienie wartości bottom na odległość od dołu .add-task */
+  bottom: -3.2rem;
   left: 80%;
   width: 2.5rem;
   height: 2.5rem;
@@ -387,23 +235,17 @@ $primary-text: #0c0a0a;
 
 @media (max-width: 1200px) {
   .tasks-list-tasks {
-    flex-direction: column; /* Change to a column layout on smaller screens */
+    flex-direction: column;
   }
 
   .tasks-list-container {
     max-width: 90%;
-    margin: 3rem auto; /* Center the container on smaller screens */
+    margin: 3rem auto;
   }
   .tasks-list-task-name {
     width: 72.5vw;
   }
 }
-
-// .tasks-list-tasks > div {
-//   flex: 1;
-//   width: 33.33%;
-//   box-sizing: border-box;
-// }
 
 .tasks-list-name {
   background-color: rgba(159, 211, 199, 0.2);
@@ -425,12 +267,12 @@ $primary-text: #0c0a0a;
   background-color: rgba(159, 211, 199, 0.2);
   display: flex;
   flex-direction: column;
-  flex: 1; /* Rozciągnij tasks-list-task, aby zajmować dostępną przestrzeń */
+  flex: 1;
   margin: 0.75rem 0.75rem 0 0.75rem;
   height: 4rem;
   border: 1px solid $primary-border;
   border-radius: 1rem;
-  overflow: hidden; /* Ukryj overflow, aby nie rozszerzał elementu */
+  overflow: hidden;
   justify-content: center;
   text-align: center;
   align-items: center;
@@ -443,7 +285,7 @@ $primary-text: #0c0a0a;
 
 .btn-in-task {
   box-sizing: border-box;
-  // cursor: pointer;
+
   width: 75%;
   display: flex;
   margin-top: 1.5rem;
@@ -451,11 +293,11 @@ $primary-text: #0c0a0a;
 }
 
 .btn-in-task i:first-child {
-  margin-right: 0.5rem; /* Lekko oddal od lewej krawędzi */
+  margin-right: 0.5rem;
 }
 
 .btn-in-task i:last-child {
-  margin-left: 0.5rem; /* Lekko oddal od prawej krawędzi */
+  margin-left: 0.5rem;
 }
 
 .btn-none {
@@ -528,7 +370,7 @@ $primary-text: #0c0a0a;
   border: 1px solid $primary-border;
   border-radius: 1rem;
   background-color: rgba(103, 143, 134, 0.15);
-  padding-left: 0.5rem; /* Dodane ustawienie odstępu od lewej dla tekstu wpisywanego */
+  padding-left: 0.5rem;
 }
 
 .add-main-task-input::placeholder {

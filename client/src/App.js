@@ -1,5 +1,6 @@
 import { useState, createContext } from "react";
-import "./index.scss";
+import "./styles/index.scss";
+import "./styles/login.scss";
 import { SideBar } from "./components/SideBar";
 import { KanbanTree } from "./Routes/kanban/KanbanTree";
 import { Login } from "./Routes/Login";

@@ -16,7 +16,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Ustawienia połączenia
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",

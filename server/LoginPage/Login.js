@@ -15,11 +15,9 @@ const handleLogin = (req, res, connection) => {
       return;
     }
 
-    // Jeśli użytkownik istnieje w bazie danych
     if (results.length > 0) {
       const combinedUser = results.reduce(
         (acc, result) => {
-          // Utwórz obiekt tasks na podstawie wyniku
           const tasks = {
             taskID: result.TaskID,
             taskIndex: result.TaskIndex,
@@ -41,11 +39,10 @@ const handleLogin = (req, res, connection) => {
         },
         { tasks: [] }
       );
-      // Odpowiedź po poprawnym przetworzeniu wyników
+
       res.json({ message: "Login successful", user: combinedUser });
     } else {
-      // Jeśli użytkownik nie istnieje w bazie danych
-      res.status(401).json({ error: "Błędny login lub hasło" });
+      res.status(401).json({ error: "Invalid login or password" });
     }
   });
 };
