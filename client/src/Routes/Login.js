@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "../shared/components/Button";
 import { LoginService } from "../Services/loginService";
+import { LoginMessage } from "./kanban/components/LoginMessage";
 
 export const Login = ({ onSetUser }) => {
   const [login, setLogin] = useState("");
@@ -61,109 +62,108 @@ export const Login = ({ onSetUser }) => {
 
   return (
     <div className="login-page">
-      {showLogin ? (
-        <div className="login">
-          {incorrectData ? (
-            <p className="incorrect-data">{err}</p>
-          ) : (
-            <p className="incorrect-data">Wprowadź login i hasło</p>
-          )}
-          <input
-            type="text"
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
-            placeholder="Login..."
-          ></input>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Hasło..."
-          ></input>
+      <div className="login-left-side">
+        <div className="login-welcome">
+          <h1>{showLogin ? "Welcome back!" : "Create new account!"}</h1>
+          <p>{showLogin ? "Sign in to your account" : "Sign up to start"}</p>
+        </div>
 
-          <div className="login-btns">
-            <Button onClick={toggleLoginRegister} styles="login">
-              Zarejestruj się
-            </Button>
+        {showLogin ? (
+          <div className="login">
+            <h5>Login</h5>
+            <input
+              type="text"
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
+              placeholder="Login..."
+            ></input>
+            <h5>Password</h5>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password..."
+            ></input>
+
             <Button onClick={() => handleLogin(login, password)} styles="login">
               Login
             </Button>
+            {incorrectData ? <p className="login-error-message">{err}</p> : ""}
+            <h3>
+              Don`t have account? <a onClick={toggleLoginRegister}>Sign Up</a>
+            </h3>
           </div>
-        </div>
-      ) : (
-        <div className="register">
-          {incorrectData ? (
-            <p className="incorrect-data">{err}</p>
-          ) : (
-            <p className="incorrect-data">Wprowadź swoje dane</p>
-          )}
-          <input
-            type="text"
-            value={registerLogin}
-            onChange={(e) => setRegisterLogin(e.target.value)}
-            placeholder="Login..."
-            required
-          ></input>
-          <input
-            type="password"
-            value={registerPassword}
-            onChange={(e) => setRegisterPassword(e.target.value)}
-            onFocus={() => handlePasswordFocus(true)}
-            onBlur={() => handlePasswordFocus(false)}
-            placeholder="Hasło..."
-            required
-          ></input>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Imię..."
-            required
-          ></input>
-          <input
-            type="text"
-            value={surname}
-            onChange={(e) => setSurname(e.target.value)}
-            placeholder="Nazwisko..."
-            required
-          ></input>
-          {showValid ? (
-            <div id="message">
-              <h3>Hasło musi zawierać:</h3>
+        ) : (
+          <div className="register">
+            <h5>Login</h5>
+            <input
+              type="text"
+              value={registerLogin}
+              onChange={(e) => setRegisterLogin(e.target.value)}
+              placeholder="Login..."
+              required
+            ></input>
+            <h5>Password</h5>
+            <input
+              type="password"
+              value={registerPassword}
+              onChange={(e) => setRegisterPassword(e.target.value)}
+              onFocus={() => handlePasswordFocus(true)}
+              onBlur={() => handlePasswordFocus(false)}
+              placeholder="Password..."
+              required
+            ></input>
+            <h5>Name</h5>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Name..."
+              required
+            ></input>
+            <h5>Surname</h5>
+            <input
+              type="text"
+              value={surname}
+              onChange={(e) => setSurname(e.target.value)}
+              placeholder="Surname..."
+              required
+            ></input>
+
+            <div className={`message ${showValid ? "expanded" : ""}`}>
+              <h3>Password must contain:</h3>
               <ul>
                 <li className="requirement">
-                  <b>Małą</b> literę
+                  <b>Lowercase</b> letter
                 </li>
                 <li className="requirement">
-                  <b>Wielką</b> litere
+                  <b>Uppercase</b> letter
                 </li>
                 <li className="requirement">
-                  <b>Cyfrę</b>
+                  a <b>Number</b>
                 </li>
                 <li className="requirement">
-                  Minimum <b>8</b>
+                  Minimum <b>8 characters</b>
                 </li>
               </ul>
             </div>
-          ) : (
-            ""
-          )}
 
-          <div className="login-btns">
-            <Button onClick={toggleLoginRegister} styles="register">
-              Powrót do logowania
-            </Button>
             <Button
               onClick={() =>
                 handleRegister(registerLogin, registerPassword, name, surname)
               }
               styles="register"
             >
-              Rejestruj
+              Register
             </Button>
+            {incorrectData ? <p className="login-error-message">{err}</p> : ""}
+            <h3>
+              Already have account? <a onClick={toggleLoginRegister}>Login</a>
+            </h3>
           </div>
-        </div>
-      )}
+        )}
+      </div>
+      <LoginMessage />
     </div>
   );
 };
