@@ -7,6 +7,7 @@ const handleLogin = require("./LoginPage/Login");
 const handleRegister = require("./LoginPage/Register");
 const handleAddTask = require("./Tasks/addTask");
 const handleDeleteTask = require("./Tasks/deleteTask");
+const handleAddMainTask = require("./Tasks/addMainTask");
 
 const app = express();
 const port = 3001;
@@ -58,6 +59,14 @@ app.post("/add", (req, res) => {
 app.post("/delete", (req, res) => {
   try {
     handleDeleteTask(req, res, connection);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete task" });
+  }
+});
+
+app.post("/addMain", (req, res) => {
+  try {
+    handleAddMainTask(req, res, connection);
   } catch (error) {
     res.status(500).json({ message: "Failed to delete task" });
   }

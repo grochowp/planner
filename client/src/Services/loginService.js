@@ -1,19 +1,12 @@
+import { sendRequest } from "../shared/utils";
+
 export const LoginService = {
   login: async (login, password) => {
-    try {
-      const res = await fetch("http://localhost:3001/login", {
-        method: "POST",
-        body: JSON.stringify({ login, password }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
+    const url = "http://localhost:3001/login";
+    const method = "POST";
+    const body = { login, password };
 
-      return data;
-    } catch (error) {
-      console.log("Error during login: ", error);
-    }
+    return await sendRequest(url, method, body);
   },
   logout: () => {
     return "";
@@ -27,18 +20,10 @@ export const LoginService = {
     if (name.length < 2) return { error: "Nieprawidłowe imię" };
     if (surname.length < 2) return { error: "Nieprawidłowe nazwisko" };
 
-    try {
-      const res = await fetch("http://localhost:3001/register", {
-        method: "POST",
-        body: JSON.stringify({ login, password, name, surname }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
+    const url = "http://localhost:3001/register";
+    const method = "POST";
+    const body = { login, password, name, surname };
+
+    return await sendRequest(url, method, body);
   },
 };

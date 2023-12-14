@@ -293,22 +293,6 @@ $primary-text: #0c0a0a;
   background-size: cover;
 }
 
-.tasks-list-task-name {
-  width: 100%;
-  height: 4rem;
-  background-color: rgba(159, 211, 199, 0.15);
-  font-size: 4rem;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  border: 1px solid $primary-border;
-  border-radius: 8px;
-}
-.tasks-list-container {
-  margin: 2.21rem 6rem;
-}
-
 .tasks-list-tasks {
   display: flex;
   flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
@@ -466,16 +450,11 @@ $primary-text: #0c0a0a;
   right: 6px;
 }
 
-.btn-previous-task {
-  margin-left: 2rem;
-}
-
-.btn-next-task {
-  margin-right: 2rem;
-}
-
-.btn-previous-task,
-.btn-next-task {
+.btn-previous-next-task {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1rem;
   width: 8rem;
   height: 2rem;
   border: 1px solid $primary-border;
@@ -484,4 +463,61 @@ $primary-text: #0c0a0a;
   color: black;
   font-size: 1.2rem;
   cursor: pointer;
+}
+
+.tasks-list-container {
+  margin: 2.21rem 6rem;
+}
+
+.tasks-list-task-name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 4rem;
+  background-color: rgba(159, 211, 199, 0.15);
+  font-size: 4rem;
+  border: 1px solid $primary-border;
+  border-radius: 16px;
+}
+
+.tasks-list-task-name button {
+  position: relative;
+}
+
+.add-main-task {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  gap: 2rem;
+}
+
+.add-main-task-input {
+  width: 14vw;
+  height: 40px;
+  color: #000;
+  border: 1px solid $primary-border;
+  border-radius: 1rem;
+  background-color: rgba(103, 143, 134, 0.15);
+  padding-left: 0.5rem; /* Dodane ustawienie odstępu od lewej dla tekstu wpisywanego */
+}
+
+.add-main-task-input::placeholder {
+  color: #000;
+}
+
+.btn-main-task-add {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid $primary-border;
+  color: #000;
+  font-size: 1.2rem;
+  background-color: rgba(103, 143, 134, 0.15);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.previous-next-buttons {
+  display: flex;
+  gap: 2rem;
 }

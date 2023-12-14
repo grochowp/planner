@@ -1,20 +1,4 @@
-const sendRequest = async (url, method, body) => {
-  try {
-    const res = await fetch(url, {
-      method,
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await res.json();
-
-    return data;
-  } catch (error) {
-    console.error(`Request failed for ${url}`, error);
-    throw error;
-  }
-};
+import { sendRequest } from "../shared/utils";
 
 export const TaskService = {
   add: async (task, index, destination, userID) => {
@@ -29,6 +13,14 @@ export const TaskService = {
     const url = "http://localhost:3001/delete";
     const method = "POST";
     const body = { task, index, from, userID };
+
+    return await sendRequest(url, method, body);
+  },
+
+  addMainTask: async (mainTask, userID) => {
+    const url = "http://localhost:3001/addMain";
+    const method = "POST";
+    const body = { mainTask, userID };
 
     return await sendRequest(url, method, body);
   },
