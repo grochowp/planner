@@ -19,7 +19,6 @@ export const SingleList = ({ taskState, taskIndex }) => {
         taskState.name,
         activeUser.userID
       );
-      console.log(userWithNewTask);
       setActiveUser(userWithNewTask.user);
       setNewTask("");
     } catch (error) {

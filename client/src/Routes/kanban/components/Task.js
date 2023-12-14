@@ -7,38 +7,30 @@ import { TaskService } from "../../../Services/TaskService";
 export const Task = ({ task, taskIndex, listType }) => {
   const [activeUser, setActiveUser] = useContext(userContext);
 
-  const moveTask = (fromList, toList, task) => {
-    const updatedTasks = {
-      ...activeUser.tasks[taskIndex],
-      [fromList]: activeUser.tasks[taskIndex][fromList].filter(
-        (t) => t !== task
-      ),
-      [toList]: [...activeUser.tasks[taskIndex][toList], task],
-    };
+  const moveTask = async (fromList, toList, task) => {
+    try {
+      const userAfterMove = await TaskService.move(
+        task,
+        taskIndex + 1,
+        fromList,
+        toList,
+        activeUser.userID
+      );
 
-    setActiveUser((prevActiveUser) => ({
-      ...prevActiveUser,
-      tasks: prevActiveUser.tasks.map((userTask) =>
-        userTask.taskID === updatedTasks.taskID
-          ? {
-              ...userTask,
-              [fromList]: userTask[fromList].filter((t) => t !== task),
-              [toList]: [...userTask[toList], task],
-            }
-          : userTask
-      ),
-    }));
+      setActiveUser(userAfterMove.user);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleDeleteTask = async (task) => {
     try {
       const userAfterDelete = await TaskService.delete(
         task,
+        taskIndex + 1,
         listType,
-        activeUser.userID,
-        activeUser.tasks[taskIndex].taskID
+        activeUser.userID
       );
-
       setActiveUser(userAfterDelete.user);
     } catch (err) {
       console.error(err);

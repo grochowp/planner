@@ -2,15 +2,14 @@ const { queryAsync, getUserWithTasks } = require("./taskUtils");
 
 const handleUpdateTask = async (req, res, connection) => {
   try {
-    const { task, from, userID, tasksID } = req.body;
-
+    const { task, index, from, userID } = req.body;
     const updateTaskSql = `
         UPDATE Tasks
         SET ${from} = JSON_REMOVE(${from}, JSON_UNQUOTE(JSON_SEARCH(${from}, 'one', ?)))
-        WHERE taskID = ? AND UserID = ?
+        WHERE TaskIndex = ? AND UserID = ?
       `;
 
-    await queryAsync(connection, updateTaskSql, [task, tasksID, userID]);
+    await queryAsync(connection, updateTaskSql, [task, index, userID]);
 
     const userSQL = `SELECT Users.*
                       FROM Users 
