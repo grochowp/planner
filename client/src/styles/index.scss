@@ -3,6 +3,8 @@
 @import url("https://unpkg.com/css.gg@2.0.0/icons/css/push-chevron-left.css");
 @import url("https://unpkg.com/css.gg@2.0.0/icons/css/math-plus.css");
 
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&display=swap");
+
 @import "./../shared/styles.scss";
 
 * {
@@ -10,13 +12,9 @@
 }
 
 body {
+  font-family: "Inter";
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 code {
