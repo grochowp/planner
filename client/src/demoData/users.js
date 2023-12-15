@@ -10,28 +10,28 @@ export const usersTemp = [
     tasks: [
       {
         taskID: 0,
-        task: "school",
+        taskName: "school",
         ToDo: ["zaa a aaaaaaa", "bbb"],
         InProgress: ["ccc", "ddd"],
         Done: ["eee", "fff", "ddd"],
       },
       {
         taskID: 1,
-        task: "work",
+        taskName: "work",
         ToDo: ["kill yourself", "bbb"],
         InProgress: ["masturbate", "ddd"],
         Done: ["precum", "fff"],
       },
       {
         taskID: 2,
-        task: "penice",
+        taskName: "penice",
         ToDo: ["dsfds", "bbb"],
         InProgress: ["fdsvcxcx", "fcxbxc"],
         Done: ["vcxvcxv", "sadasdasd"],
       },
       {
         taskID: 3,
-        task: "ay lmao",
+        taskName: "ay lmao",
         ToDo: ["dsad", "vcxvxv"],
         InProgress: ["vcxvcxvcvxc", "ddd"],
         Done: ["vcxvxc", "fff"],

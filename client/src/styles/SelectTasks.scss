@@ -1,0 +1,27 @@
+@import "./../shared/styles.scss";
+
+.kanbanTree {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("#{$picture-tlo}");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #c3c3c3;
+  display: flex;
+  justify-content: space-between;
+}
+
+.today-date {
+  margin: 5vh 0 0 5vw;
+}
+
+.user-info {
+  display: flex;
+}
+
+.user-photo {
+  margin: 5vh 5vw 0 0;
+  border: 1px solid;
+}

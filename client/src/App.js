@@ -1,6 +1,8 @@
 import { useState, createContext } from "react";
 import "./styles/index.scss";
 import "./styles/login.scss";
+import "./styles/leftSide.scss";
+import "./styles/SelectTasks.scss";
 import { SideBar } from "./components/SideBar";
 import { KanbanTree } from "./Routes/kanban/KanbanTree";
 import { Login } from "./Routes/Login";
@@ -10,20 +12,25 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import { TestApp } from "./Routes/test/TestApp";
+import { SelectTask } from "./Routes/kanban/SelectTask";
+import { usersTemp } from "./demoData/users";
 
 export const userContext = createContext();
 
 function App() {
-  const [activeUser, setActiveUser] = useState();
+  const [activeUser, setActiveUser] = useState(usersTemp[0]);
 
   return (
     <Router>
       <div style={{ display: "flex" }}>
         <>
           <userContext.Provider value={[activeUser, setActiveUser]}>
-            {activeUser && <SideBar activeUser={activeUser} />}
+            {activeUser && <SideBar />}
             <Routes>
+              <Route
+                path="/selection"
+                element={activeUser ? <SelectTask /> : <Navigate to={"/"} />}
+              />
               <Route
                 path="/kanban"
                 element={
@@ -37,10 +44,7 @@ function App() {
                   )
                 }
               />
-              <Route
-                path="/test"
-                element={activeUser ? <TestApp /> : <Navigate to={"/"} />}
-              />
+
               <Route
                 path="/*"
                 element={

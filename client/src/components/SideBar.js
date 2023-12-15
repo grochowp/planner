@@ -1,36 +1,47 @@
-import { Button } from '../shared/components/Button';
+import { userContext } from "../App";
+import { useContext } from "react";
+import { LoginService } from "../Services/loginService";
+import { Link } from "react-router-dom";
 
 const apps = [
-    {
-        id: 0,
-        name: 'Tablica Kanban',
-        route: '/kanban',
-    },
-    {
-        id: 1,
-        name: 'testApp',
-        route: '/test',
-    },
+  {
+    id: 0,
+    name: "Tablica Kanban",
+    route: "/kanban",
+  },
+  {
+    id: 1,
+    name: "testApp",
+    route: "/test",
+  },
 ];
 
-export function SideBar({ activeUser }) {
-    return (
-        <div className="left-side">
-            <div className="search-bar">
-                <h4 className="welcome-message">
-                    {activeUser ? `Witaj, ${activeUser.name}!` : '...'}
-                </h4>
-            </div>
-            <div className="apps">
-                {apps.map(app => (
-                    <Button key={app.id} styles="apps" route={app.route}>
-                        {app.name}
-                    </Button>
-                ))}
-            </div>
-            <div className="logo">Tablica Kanban - Patryk Grochowski</div>
-        </div>
-    );
+export function SideBar() {
+  const [setActiveUser] = useContext(userContext);
+
+  const handleLogout = () => {
+    const noUser = LoginService.logout();
+    setActiveUser(noUser);
+  };
+
+  return (
+    <div className="left-side">
+      <div className="left-side-top">
+        <div className="image-logo"></div>
+        <Link to={"/selection"}>
+          <div className="image-tasks"></div>
+        </Link>
+        <Link to={"/kanban"}>
+          <div className="image-active-task"></div>
+        </Link>
+        <div className="image-options"></div>
+      </div>
+      <div
+        className="left-side-bottom image-logout"
+        onClick={handleLogout}
+      ></div>
+    </div>
+  );
 }
 
 export default SideBar;
