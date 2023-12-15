@@ -1,70 +1,33 @@
-export const SelectTask = () => {
-  function getFormattedDate() {
-    const daysOfWeek = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
+import { User } from "./components/User";
 
-    const today = new Date();
-    const dayOfWeek = daysOfWeek[today.getDay()];
-    const dayOfMonth = today.getDate();
-    const month = months[today.getMonth()];
-    const year = today.getFullYear();
-
-    function getDaySuffix(day) {
-      if (day >= 11 && day <= 13) {
-        return "th";
-      }
-      const lastDigit = day % 10;
-      switch (lastDigit) {
-        case 1:
-          return "st";
-        case 2:
-          return "nd";
-        case 3:
-          return "rd";
-        default:
-          return "th";
-      }
-    }
-
-    const daySuffix = getDaySuffix(dayOfMonth);
-
-    const formattedDate = `${dayOfWeek}, ${dayOfMonth}${daySuffix} ${month} ${year}`;
-
-    return formattedDate;
-  }
-
-  const todayFormatted = getFormattedDate();
-
+export const SelectTask = ({ activeUser }) => {
+  console.log(activeUser);
   return (
-    <div className="kanbanTree">
-      <h3 className="today-date">{todayFormatted}</h3>
-      <div className="user-info">
-        <div className="user-photo">a</div>
-        <div className="user-data">
-          <h5>User Name</h5>
-          <h5>User Email</h5>
-        </div>
+    <div className="right-side">
+      <User />
+      <div className="select-task">
+        {activeUser.tasks.map((task, index) => {
+          return (
+            <div className="task-card">
+              <div className="task-card-data">
+                <p className="task-card-users">
+                  <span>{task.usersIDs.length}</span>
+                  <i class="gg-user"></i>
+                  <span>+</span>
+                </p>
+                <p className="task-card-delete-task">
+                  <i class="gg-trash"></i>
+                </p>
+              </div>
+              <div className={`task-card-info  color-${index % 4}`}>
+                <h1 className="task-card-name">{task.taskName}</h1>
+                <h4 className="task-card-description">
+                  School homework including some projects
+                </h4>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

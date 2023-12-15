@@ -9,6 +9,7 @@ export const usersTemp = [
     picture: "aaa",
     tasks: [
       {
+        usersIDs: [1, 2, 3],
         taskID: 0,
         taskName: "school",
         ToDo: ["zaa a aaaaaaa", "bbb"],
@@ -16,6 +17,7 @@ export const usersTemp = [
         Done: ["eee", "fff", "ddd"],
       },
       {
+        usersIDs: [1],
         taskID: 1,
         taskName: "work",
         ToDo: ["kill yourself", "bbb"],
@@ -23,6 +25,39 @@ export const usersTemp = [
         Done: ["precum", "fff"],
       },
       {
+        usersIDs: [1],
+        taskID: 1,
+        taskName: "work",
+        ToDo: ["kill yourself", "bbb"],
+        InProgress: ["masturbate", "ddd"],
+        Done: ["precum", "fff"],
+      },
+      {
+        usersIDs: [1],
+        taskID: 1,
+        taskName: "work",
+        ToDo: ["kill yourself", "bbb"],
+        InProgress: ["masturbate", "ddd"],
+        Done: ["precum", "fff"],
+      },
+      {
+        usersIDs: [1],
+        taskID: 1,
+        taskName: "work",
+        ToDo: ["kill yourself", "bbb"],
+        InProgress: ["masturbate", "ddd"],
+        Done: ["precum", "fff"],
+      },
+      {
+        usersIDs: [1],
+        taskID: 1,
+        taskName: "work",
+        ToDo: ["kill yourself", "bbb"],
+        InProgress: ["masturbate", "ddd"],
+        Done: ["precum", "fff"],
+      },
+      {
+        usersIDs: [1, 2, 3, 2],
         taskID: 2,
         taskName: "penice",
         ToDo: ["dsfds", "bbb"],
@@ -30,6 +65,7 @@ export const usersTemp = [
         Done: ["vcxvcxv", "sadasdasd"],
       },
       {
+        usersIDs: [1, 2, 3, 7, 5],
         taskID: 3,
         taskName: "ay lmao",
         ToDo: ["dsad", "vcxvxv"],

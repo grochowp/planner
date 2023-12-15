@@ -28,98 +28,6 @@ code {
   opacity: 0;
 }
 
-.search-bar {
-  display: flex;
-  color: rgb(201, 192, 192);
-  border-bottom: 1px solid $primary-border;
-  padding: 0 0 0.25rem 0;
-  gap: 0.5rem;
-  height: 5vh;
-  justify-content: center;
-  font-size: 1.5rem;
-  align-items: center;
-}
-
-.apps {
-  display: flex;
-  flex-direction: column;
-  min-width: 11rem;
-  width: 95%;
-  height: 83vh;
-  gap: 0.3rem;
-
-  margin: 1rem 0 0 1rem;
-}
-.logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  gap: 0.5rem;
-  height: 6.5vh;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 0.7vw;
-  color: rgb(201, 192, 192);
-}
-
-.btn-apps {
-  position: relative;
-  width: 94%;
-  min-height: 5rem;
-  height: 6rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  border-radius: 1rem;
-  border: 1px solid $primary-border;
-  cursor: pointer;
-  overflow: hidden;
-  background-color: rgba(159, 211, 199, 0.1);
-}
-
-.btn-apps::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-position: top;
-  background-size: cover;
-  filter: blur(5px);
-}
-
-.btn-apps span {
-  position: absolute;
-  top: 50%;
-  width: 100%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: rgb(201, 192, 192);
-  text-align: center;
-  font-size: 1.5rem;
-  text-wrap: nowrap;
-  font: 900;
-}
-
-.user-card {
-  margin: 0 3vw;
-  display: flex;
-  flex-direction: row;
-  width: calc(68vw - 20px);
-  height: 7rem;
-  border-bottom: 1px solid $primary-border;
-}
-
-.selected-user-card {
-  color: rgb(201, 192, 192);
-  white-space: nowrap;
-  padding-left: 3rem;
-  align-self: flex-start;
-  font-size: 3.25rem;
-}
-
 .tasks {
   color: #818181;
   display: flex;
@@ -131,23 +39,6 @@ code {
   height: 2rem;
 
   align-self: flex-end;
-}
-
-.logout {
-  position: absolute;
-  right: 3rem;
-  top: 2.5rem;
-}
-
-.btn-logout {
-  width: 7.5rem;
-  height: 2.5rem;
-  border: 1px solid $primary-border;
-  color: #000;
-  font-size: 1.2rem;
-  background-color: rgba(103, 143, 134, 0.15);
-  border-radius: 1rem;
-  cursor: pointer;
 }
 
 .tasks-list-tasks {

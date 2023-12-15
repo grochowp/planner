@@ -29,7 +29,13 @@ function App() {
             <Routes>
               <Route
                 path="/selection"
-                element={activeUser ? <SelectTask /> : <Navigate to={"/"} />}
+                element={
+                  activeUser ? (
+                    <SelectTask activeUser={activeUser} />
+                  ) : (
+                    <Navigate to={"/"} />
+                  )
+                }
               />
               <Route
                 path="/kanban"

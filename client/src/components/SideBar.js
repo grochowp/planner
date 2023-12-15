@@ -17,8 +17,8 @@ const apps = [
 ];
 
 export function SideBar() {
-  const [setActiveUser] = useContext(userContext);
-
+  const [, setActiveUser] = useContext(userContext);
+  console.log(setActiveUser);
   const handleLogout = () => {
     const noUser = LoginService.logout();
     setActiveUser(noUser);
