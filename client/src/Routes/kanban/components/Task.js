@@ -10,10 +10,10 @@ export const Task = ({ task, taskIndex, listType, taskID }) => {
     try {
       const userAfterMove = await TaskService.move(
         task,
-        taskIndex + 1,
         fromList,
         toList,
-        activeUser.userID
+        activeUser.userID,
+        taskID
       );
 
       setActiveUser(userAfterMove.user);

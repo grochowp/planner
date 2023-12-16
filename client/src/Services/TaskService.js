@@ -1,10 +1,10 @@
 import { sendRequest } from "../shared/utils";
 
 export const TaskService = {
-  add: async (task, index, destination, userID) => {
+  add: async (task, destination, userID, taskID) => {
     const url = "http://localhost:3001/add";
     const method = "POST";
-    const body = { task, index, destination, userID };
+    const body = { task, destination, userID, taskID };
 
     return await sendRequest(url, method, body);
   },
@@ -13,7 +13,7 @@ export const TaskService = {
     const url = "http://localhost:3001/delete";
     const method = "POST";
     const body = { task, from, userID, taskID };
-    console.log(body);
+
     return await sendRequest(url, method, body);
   },
 
@@ -25,11 +25,11 @@ export const TaskService = {
     return await sendRequest(url, method, body);
   },
 
-  move: async (task, index, from, destination, userID) => {
+  move: async (task, from, destination, userID, taskID) => {
     try {
-      await TaskService.delete(task, index, from, userID);
+      await TaskService.delete(task, from, userID, taskID);
 
-      return await TaskService.add(task, index, destination, userID);
+      return await TaskService.add(task, destination, userID, taskID);
     } catch (error) {
       console.log("Failed to move", error);
       throw error;

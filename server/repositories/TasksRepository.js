@@ -42,15 +42,15 @@ export class TasksRepository extends BaseRepository {
     return newTask;
   };
 
-  updateTask_append = async (destination, task, index, userID) => {
+  move_addTask = async (destination, task, taskID) => {
     const updateTaskSql = `UPDATE Tasks
             SET ${destination} = JSON_ARRAY_APPEND(${destination}, '$', ?)
-            WHERE UserID = ? AND TaskIndex = ?;`;
-    await queryAsync(this._connection, updateTaskSql, [task, userID, index]);
+            WHERE TaskID = ?;`;
+    await queryAsync(this._connection, updateTaskSql, [task, taskID]);
   };
 
   // Dziwna ta funkcja muszę tą bazę twoją zobaczyć
-  updateTask_remove = async (from, task, taskID) => {
+  move_removeTask = async (from, task, taskID) => {
     const updateTaskSql = `
                       UPDATE Tasks
                       SET ${from} = JSON_REMOVE(${from}, JSON_UNQUOTE(JSON_SEARCH(${from}, 'one', ?)))

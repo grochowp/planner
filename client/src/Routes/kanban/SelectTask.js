@@ -10,7 +10,7 @@ export const SelectTask = ({ activeUser }) => {
             <div className="task-card" key={index}>
               <div className="task-card-data">
                 <p className="task-card-users">
-                  {/* <span>{task.usersIDs.length}</span> */}
+                  <span>{task.usersIDs.length}</span>
                   <i className="gg-user"></i>
                   <i className="gg-math-plus"></i>
                 </p>

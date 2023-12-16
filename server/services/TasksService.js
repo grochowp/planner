@@ -30,15 +30,12 @@ export class TasksService {
 
   addTaskToMainTask = async (req, res) => {
     try {
-      const { task, index, destination, userID } = req.body;
+      const { task, destination, userID, taskID } = req.body;
 
-      await this.tasksRepository.updateTask_append(
-        destination,
-        task,
-        index,
-        userID
-      );
+      await this.tasksRepository.move_addTask(destination, task, taskID);
+
       const userWithTasks = await this.getUserWithTasks(userID);
+
       res.status(200).json({ user: userWithTasks });
     } catch (error) {
       console.error("Error during updating task", error);
@@ -50,7 +47,8 @@ export class TasksService {
     try {
       const { task, from, userID, taskID } = req.body;
 
-      await this.tasksRepository.updateTask_remove(from, task, taskID);
+      await this.tasksRepository.move_removeTask(from, task, taskID);
+
       const userWithTasks = await this.getUserWithTasks(userID);
       res.status(200).json({ user: userWithTasks });
     } catch (error) {

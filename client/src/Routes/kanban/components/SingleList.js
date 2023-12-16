@@ -15,9 +15,9 @@ export const SingleList = ({ taskState, taskIndex }) => {
     try {
       const userWithNewTask = await TaskService.add(
         newTask,
-        taskIndex + 1,
         taskState.name,
-        activeUser.userID
+        activeUser.userID,
+        activeUser.tasks[taskIndex].taskID
       );
       setActiveUser(userWithNewTask.user);
       setNewTask("");
