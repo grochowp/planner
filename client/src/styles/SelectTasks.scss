@@ -63,7 +63,6 @@
   color: #c3c3c3;
   display: flex;
   flex-wrap: wrap;
-  background-color: #171414;
 }
 
 .task-card {
@@ -71,6 +70,37 @@
   margin: 4rem 2rem -2rem 2rem;
   width: 20vw;
   height: 15rem;
+}
+
+.select-task-add {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.select-task-add button {
+  width: 7rem;
+  height: 7rem;
+  border: 1px solid black;
+  color: #c3c3c3;
+  border-radius: 50%;
+  background-image: url("#{$picture-tlo}");
+  position: relative;
+  cursor: pointer;
+  transition: color 1s, box-shadow 1s, transform 1s;
+}
+
+.select-task-add button:hover {
+  color: rgb(224, 224, 224);
+  box-shadow: 0 0 20px #000000;
+  transform: scale(1.05);
+}
+
+.select-task-add button::before {
+  content: "+";
+  font-size: 5.5rem;
+  position: absolute;
+  left: 51.5%;
+  transform: translate(-50%, -50%);
 }
 
 .color-0 {
@@ -167,4 +197,24 @@
   height: 7rem;
   display: flex;
   align-items: center;
+}
+
+.add-task-form {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.form {
+  background-color: blue;
+  width: 50%;
+  height: 50%;
+}
+
+.hidden {
+  opacity: 1;
 }

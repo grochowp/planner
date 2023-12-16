@@ -1,5 +1,5 @@
 export class BaseRepository {
-    constructor(connection) {
-        this._connection = connection;
-    }
+  constructor(connection) {
+    this._connection = connection;
+  }
 }

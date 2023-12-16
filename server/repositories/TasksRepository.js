@@ -9,11 +9,13 @@ export class TasksRepository extends BaseRepository {
     return null;
   };
 
-  createTask = async (userID, nextTaskIndex, mainTask) => {
-    const query = `
-          INSERT INTO Tasks (UserID, TaskIndex, TaskName, ToDo, InProgress, Done) 
-          VALUES (?, ?, ?, ?, ?, ?);
-        `;
+  createTask = async (userID, mainTask) => {
+    const taskInsertQuery = `
+      INSERT INTO Tasks (UsersIDs, TaskName, ToDo, InProgress, Done) 
+      VALUES (?, ?, ?, ?, ?);
+    `;
+
+    const usersIDs = [userID];
 
     const defaultTask = {
       ToDo: "[]",
@@ -21,19 +23,29 @@ export class TasksRepository extends BaseRepository {
       Done: "[]",
     };
 
-    await queryAsync(this._connection, query, [
-      userID,
-      nextTaskIndex,
+    // Dodanie zadania do tabeli Tasks
+    const taskResult = await queryAsync(this._connection, taskInsertQuery, [
+      JSON.stringify(usersIDs),
       mainTask,
       defaultTask.ToDo,
       defaultTask.InProgress,
       defaultTask.Done,
     ]);
 
+    const taskID = taskResult.insertId;
+
+    // Dodanie wpisu do tabeli UserTasks
+    const userTaskInsertQuery = `
+      INSERT INTO UserTasks (UserID, TaskID)
+      VALUES (?, ?);
+    `;
+
+    await queryAsync(this._connection, userTaskInsertQuery, [userID, taskID]);
+
     const newTask = {
+      taskID: taskID,
       taskName: mainTask,
-      taskIndex: nextTaskIndex,
-      userID: userID,
+      usersIDs: JSON.parse(JSON.stringify(usersIDs)),
       ToDo: JSON.parse(defaultTask.ToDo),
       InProgress: JSON.parse(defaultTask.InProgress),
       Done: JSON.parse(defaultTask.Done),
@@ -42,7 +54,7 @@ export class TasksRepository extends BaseRepository {
     return newTask;
   };
 
-  move_addTask = async (destination, task, taskID) => {
+  addTask = async (destination, task, taskID) => {
     const updateTaskSql = `UPDATE Tasks
             SET ${destination} = JSON_ARRAY_APPEND(${destination}, '$', ?)
             WHERE TaskID = ?;`;
@@ -50,7 +62,7 @@ export class TasksRepository extends BaseRepository {
   };
 
   // Dziwna ta funkcja muszę tą bazę twoją zobaczyć
-  move_removeTask = async (from, task, taskID) => {
+  removeTask = async (from, task, taskID) => {
     const updateTaskSql = `
                       UPDATE Tasks
                       SET ${from} = JSON_REMOVE(${from}, JSON_UNQUOTE(JSON_SEARCH(${from}, 'one', ?)))
@@ -83,7 +95,7 @@ export class TasksRepository extends BaseRepository {
       InProgress: JSON.parse(result.InProgress),
       Done: JSON.parse(result.Done),
     }));
-    console.log(transformedResults);
+
     return transformedResults;
   };
 }

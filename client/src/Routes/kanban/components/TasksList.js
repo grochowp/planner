@@ -57,6 +57,7 @@ export const TasksList = () => {
             {NextTask}
           </Button>
         </div>
+
         <p>{activeUser.tasks[taskIndex].taskName.toUpperCase()}</p>
         <div className="add-main-task">
           <input

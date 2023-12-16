@@ -10,17 +10,10 @@ export class TasksService {
   addMainTask = async (req, res) => {
     const { mainTask, userID } = req.body;
 
-    const nextTaskIndex = await this.tasksRepository.getNextTaskIndexForUser(
-      userID
-    );
     const user = await this.userRepository.findUserByID(userID);
     const currentUserTasks = await this.tasksRepository.getUserTasks(userID);
 
-    const newTask = await this.tasksRepository.createTask(
-      userID,
-      nextTaskIndex,
-      mainTask
-    );
+    const newTask = await this.tasksRepository.createTask(userID, mainTask);
     currentUserTasks.push(newTask);
 
     const result = { ...user, tasks: currentUserTasks };
@@ -32,7 +25,7 @@ export class TasksService {
     try {
       const { task, destination, userID, taskID } = req.body;
 
-      await this.tasksRepository.move_addTask(destination, task, taskID);
+      await this.tasksRepository.addTask(destination, task, taskID);
 
       const userWithTasks = await this.getUserWithTasks(userID);
 
@@ -47,7 +40,7 @@ export class TasksService {
     try {
       const { task, from, userID, taskID } = req.body;
 
-      await this.tasksRepository.move_removeTask(from, task, taskID);
+      await this.tasksRepository.removeTask(from, task, taskID);
 
       const userWithTasks = await this.getUserWithTasks(userID);
       res.status(200).json({ user: userWithTasks });
