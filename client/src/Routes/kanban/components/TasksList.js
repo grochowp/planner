@@ -5,9 +5,10 @@ import { SingleList } from "./SingleList";
 import Button from "../../../shared/components/Button";
 import { TaskService } from "../../../Services/TaskService";
 
-export const TasksList = ({ taskIndex, onSetTaskIndex }) => {
+export const TasksList = () => {
   const [activeUser, setActiveUser] = useContext(userContext);
   const [newMainTask, setNewMainTask] = useState("");
+  const [taskIndex, setTaskIndex] = useState(0);
 
   const NextTask =
     activeUser.tasks[
@@ -19,11 +20,11 @@ export const TasksList = ({ taskIndex, onSetTaskIndex }) => {
     ].taskName.toUpperCase();
 
   const handleNextTask = () => {
-    onSetTaskIndex(() => (taskIndex + 1) % activeUser.tasks.length);
+    setTaskIndex(() => (taskIndex + 1) % activeUser.tasks.length);
   };
 
   const handlePreviousTask = () => {
-    onSetTaskIndex(
+    setTaskIndex(
       () => (taskIndex + activeUser.tasks.length - 1) % activeUser.tasks.length
     );
   };

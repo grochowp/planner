@@ -9,11 +9,11 @@ export const TaskService = {
     return await sendRequest(url, method, body);
   },
 
-  delete: async (task, index, from, userID) => {
+  delete: async (task, from, userID, taskID) => {
     const url = "http://localhost:3001/delete";
     const method = "POST";
-    const body = { task, index, from, userID };
-
+    const body = { task, from, userID, taskID };
+    console.log(body);
     return await sendRequest(url, method, body);
   },
 

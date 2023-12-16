@@ -37,6 +37,7 @@ export const SingleList = ({ taskState, taskIndex }) => {
               task={task}
               taskIndex={taskIndex}
               listType={taskState.name}
+              taskID={activeUser.tasks[taskIndex].taskID}
             />
           ))}
       </div>

@@ -2,7 +2,7 @@
 const getNextUserID = (connection) => {
   return new Promise((resolve, reject) => {
     connection.query(
-      "SELECT MAX(userID) + 1 AS nextUserID FROM Users",
+      "SELECT MAX(UserID) + 1 AS nextUserID FROM UserTasks",
       (error, results) => {
         if (error) {
           reject(error);
@@ -38,23 +38,23 @@ const addUser = (connection, nextUserID, login, password, name, surname) => {
 const addDefaultTask = (connection, nextUserID) => {
   return new Promise((resolve, reject) => {
     const tasksInsertSQL = `
-      INSERT INTO Tasks (UserID, TaskIndex, TaskName, ToDo, InProgress, Done) 
-      VALUES (?, ?, ?, ?, ?, ?);
+      INSERT INTO Tasks (UsersIDs, TaskName, ToDo, InProgress, Done)
+      VALUES (?, ?, ?, ?, ?);
     `;
 
     const defaultTask = {
-      TaskIndex: 1,
       TaskName: "Zadania",
       ToDo: "[]",
       InProgress: "[]",
       Done: "[]",
     };
 
+    const usersIDsArray = [nextUserID]; // Teraz UsersIDs to tablica z jednym elementem
+
     connection.query(
       tasksInsertSQL,
       [
-        nextUserID,
-        defaultTask.TaskIndex,
+        JSON.stringify(usersIDsArray), // Konwertuj tablicę na JSON
         defaultTask.TaskName,
         defaultTask.ToDo,
         defaultTask.InProgress,
@@ -78,6 +78,23 @@ const addDefaultTask = (connection, nextUserID) => {
   });
 };
 
+const addToUsersTask = async (connection, userID, taskID) => {
+  return new Promise((resolve, reject) => {
+    const addUserTaskSQL = `
+      INSERT INTO UserTasks (UserID, TaskID)
+      VALUES (?, ?);
+    `;
+
+    connection.query(addUserTaskSQL, [userID, taskID], (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+};
+
 export const handleRegister = async (req, res, connection) => {
   try {
     const { login, password, name, surname } = req.body;
@@ -93,7 +110,6 @@ export const handleRegister = async (req, res, connection) => {
     const correctedSurname =
       surname.charAt(0).toUpperCase() + surname.substring(1).toLowerCase();
 
-    let taskResult;
     const nextUserID = await getNextUserID(connection);
     const newUser = await addUser(
       connection,
@@ -104,8 +120,8 @@ export const handleRegister = async (req, res, connection) => {
       correctedSurname
     );
     if (newUser) {
-      taskResult = await addDefaultTask(connection, nextUserID);
-
+      const taskResult = await addDefaultTask(connection, nextUserID);
+      await addToUsersTask(connection, nextUserID, taskResult.taskID);
       const result = {
         id: nextUserID,
         name: correctedName,

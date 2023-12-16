@@ -18,7 +18,8 @@ import { usersTemp } from "./demoData/users";
 export const userContext = createContext();
 
 function App() {
-  const [activeUser, setActiveUser] = useState(usersTemp[0]);
+  // const [activeUser, setActiveUser] = useState(usersTemp[0]);
+  const [activeUser, setActiveUser] = useState();
 
   return (
     <Router>

@@ -4,9 +4,8 @@ import { TaskState } from "../../../shared/utils";
 import { userContext } from "../../../App";
 import { TaskService } from "../../../Services/TaskService";
 
-export const Task = ({ task, taskIndex, listType }) => {
+export const Task = ({ task, taskIndex, listType, taskID }) => {
   const [activeUser, setActiveUser] = useContext(userContext);
-
   const moveTask = async (fromList, toList, task) => {
     try {
       const userAfterMove = await TaskService.move(
@@ -22,14 +21,13 @@ export const Task = ({ task, taskIndex, listType }) => {
       console.error(err);
     }
   };
-
   const handleDeleteTask = async (task) => {
     try {
       const userAfterDelete = await TaskService.delete(
         task,
-        taskIndex + 1,
         listType,
-        activeUser.userID
+        activeUser.userID,
+        taskID
       );
       setActiveUser(userAfterDelete.user);
     } catch (err) {

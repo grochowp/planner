@@ -1,12 +1,12 @@
 import express from "express";
 import cors from "cors";
-import mysql from "mysql";
+import mysql from "mysql2";
 import bodyParser from "body-parser";
 import { TasksService } from "./services/TasksService.js";
 
 //TODO utworzyć service np. UserManagementService
-import { handleLogin } from "./LoginPage/Login";
-import { handleRegister } from "./LoginPage/Register";
+import { handleLogin } from "./LoginPage/Login.js  ";
+import { handleRegister } from "./LoginPage/Register.js";
 
 const app = express();
 const port = 3001;
@@ -21,7 +21,6 @@ const connection = mysql.createConnection({
   password: "sqldb123",
   database: "planner",
 });
-
 const tasksService = new TasksService(connection);
 
 app.get("/", (req, res) => {

@@ -1,12 +1,12 @@
 export const handleLogin = (req, res, connection) => {
   const { login, password } = req.body;
-
   const sql = `
-      SELECT users.*, tasks.*
-      FROM users
-      LEFT JOIN tasks ON users.userID = tasks.userID
-      WHERE users.login = ? AND users.password = ?
-    `;
+              SELECT Users.*, Tasks.*
+              FROM Users
+              LEFT JOIN UserTasks ON Users.UserID = UserTasks.UserID
+              LEFT JOIN Tasks ON UserTasks.TaskID = Tasks.TaskID
+              WHERE Users.Login = ? AND Users.Password = ?;
+              `;
 
   connection.query(sql, [login, password], (err, results) => {
     if (err) {
@@ -20,8 +20,8 @@ export const handleLogin = (req, res, connection) => {
         (acc, result) => {
           const tasks = {
             taskID: result.TaskID,
-            taskIndex: result.TaskIndex,
             taskName: result.TaskName,
+            usersIDs: JSON.parse(result.UsersIDs),
             ToDo: JSON.parse(result.ToDo),
             InProgress: JSON.parse(result.InProgress),
             Done: JSON.parse(result.Done),
@@ -34,12 +34,10 @@ export const handleLogin = (req, res, connection) => {
             acc.login = result.Login;
             acc.password = result.Password;
           }
-
           return acc;
         },
         { tasks: [] }
       );
-
       res.json({ message: "Login successful", user: combinedUser });
     } else {
       res.status(401).json({ error: "Invalid login or password" });
