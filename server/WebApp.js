@@ -1,13 +1,12 @@
-const express = require("express");
-const cors = require("cors");
-const mysql = require("mysql2");
-const bodyParser = require("body-parser");
+import express from "express";
+import cors from "cors";
+import mysql from "mysql";
+import bodyParser from "body-parser";
+import { TasksService } from "./services/TasksService.js";
 
-const handleLogin = require("./LoginPage/Login");
-const handleRegister = require("./LoginPage/Register");
-const handleAddTask = require("./Tasks/addTask");
-const handleDeleteTask = require("./Tasks/deleteTask");
-const handleAddMainTask = require("./Tasks/addMainTask");
+//TODO utworzyć service np. UserManagementService
+import { handleLogin } from "./LoginPage/Login";
+import { handleRegister } from "./LoginPage/Register";
 
 const app = express();
 const port = 3001;
@@ -22,6 +21,8 @@ const connection = mysql.createConnection({
   password: "sqldb123",
   database: "planner",
 });
+
+const tasksService = new TasksService(connection);
 
 app.get("/", (req, res) => {
   res.json("from backend side");
@@ -49,7 +50,7 @@ app.post("/register", (req, res) => {
 
 app.post("/add", (req, res) => {
   try {
-    handleAddTask(req, res, connection);
+    tasksService.addTaskToMainTask(req, res);
   } catch (error) {
     res.status(500).json({ message: "Failed to add task" });
   }
@@ -57,7 +58,7 @@ app.post("/add", (req, res) => {
 
 app.post("/delete", (req, res) => {
   try {
-    handleDeleteTask(req, res, connection);
+    tasksService.deleteTaskFromMainTask(req, res);
   } catch (error) {
     res.status(500).json({ message: "Failed to delete task" });
   }
@@ -65,7 +66,7 @@ app.post("/delete", (req, res) => {
 
 app.post("/addMain", (req, res) => {
   try {
-    handleAddMainTask(req, res, connection);
+    tasksService.addMainTask(req, res);
   } catch (error) {
     res.status(500).json({ message: "Failed to delete task" });
   }

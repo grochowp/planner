@@ -1,4 +1,4 @@
-const handleLogin = (req, res, connection) => {
+export const handleLogin = (req, res, connection) => {
   const { login, password } = req.body;
 
   const sql = `
@@ -46,5 +46,3 @@ const handleLogin = (req, res, connection) => {
     }
   });
 };
-
-module.exports = handleLogin;
