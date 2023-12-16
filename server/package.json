@@ -2,11 +2,12 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "WebApp.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon WebApp.js",
-    "dev": "nodemon WebApp.js"
+    "start": "nodemon --experimental-modules --es-module-specifier-resolution=node WebApp.js",
+    "dev": "nodemon --experimental-modules --es-module-specifier-resolution=node WebApp.js"
   },
   "author": "",
   "license": "ISC",

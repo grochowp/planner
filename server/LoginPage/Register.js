@@ -78,7 +78,7 @@ const addDefaultTask = (connection, nextUserID) => {
   });
 };
 
-const handleRegister = async (req, res, connection) => {
+export const handleRegister = async (req, res, connection) => {
   try {
     const { login, password, name, surname } = req.body;
 
@@ -122,5 +122,3 @@ const handleRegister = async (req, res, connection) => {
     res.status(500).json(error);
   }
 };
-
-module.exports = handleRegister;
