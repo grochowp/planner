@@ -1,17 +1,25 @@
 import { useState } from "react";
 import { User } from "./components/User";
-import { CSSTransition } from "react-transition-group";
-import "../../styles/FormAnimation.css";
-import Button from "../../shared/components/Button";
+import { NewTaskForm } from "./components/NewTaskForm";
+import { TaskService } from "../../Services/TaskService";
 
-export const SelectTask = ({ activeUser }) => {
+export const SelectTask = ({ activeUser, setActiveUser }) => {
   const [showForm, setShowForm] = useState(false);
-  const handleAddMainTask = () => {
-    console.log(1);
-  };
 
   const handleShowForm = (formState) => {
     setShowForm(formState);
+  };
+
+  const handleDeleteTask = async (taskID) => {
+    try {
+      const userWithDeletedTask = await TaskService.deleteMainTask(
+        taskID,
+        activeUser.userID
+      );
+      setActiveUser(userWithDeletedTask.user);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -28,7 +36,10 @@ export const SelectTask = ({ activeUser }) => {
                     <i className="gg-user"></i>
                     <i className="gg-math-plus"></i>
                   </p>
-                  <p className="task-card-delete-task">
+                  <p
+                    onClick={() => handleDeleteTask(task.taskID)}
+                    className="task-card-delete-task"
+                  >
                     <i className="gg-trash"></i>
                   </p>
                 </div>
@@ -47,63 +58,11 @@ export const SelectTask = ({ activeUser }) => {
           </div>
         </div>
       </div>
-
-      <CSSTransition
-        in={showForm}
-        timeout={500}
-        classNames="fade"
-        unmountOnExit
-      >
-        <div className="add-task-form">
-          <div className="form">
-            <form>
-              <div className="task-card-data add-task-top">
-                <p className="add-task-name">Add a new task!</p>
-                <p
-                  className="add-task-close"
-                  onClick={() => handleShowForm(false)}
-                >
-                  x
-                </p>
-              </div>
-              <div className="main-task-container">
-                <div className="main-task">
-                  <h5>New task</h5>
-                  <textarea
-                    className="main-task-input"
-                    placeholder="New task..."
-                  ></textarea>
-                  <div className="main-task-tasks">
-                    <div>
-                      <h5>Backlog</h5>
-                      <textarea placeholder="Backlog..."></textarea>
-                    </div>
-                    <div>
-                      <h5>To do</h5>
-                      <textarea placeholder="To do..."></textarea>
-                    </div>
-                    <div>
-                      <h5>Doing</h5>
-                      <textarea placeholder="Doing..."></textarea>
-                    </div>
-                    <div>
-                      <h5>Done</h5>
-                      <textarea placeholder="Done..."></textarea>
-                    </div>
-                  </div>
-                </div>
-                <div className="main-task-description">
-                  <h5>Description</h5>
-                  <textarea placeholder="Description..."></textarea>
-                </div>
-              </div>
-              <div className="add-task-button">
-                <Button styles="add-task">ADD TASK</Button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </CSSTransition>
+      <NewTaskForm
+        showForm={showForm}
+        setShowForm={setShowForm}
+        onhandleShowForm={handleShowForm}
+      />
     </>
   );
 };

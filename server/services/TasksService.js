@@ -8,13 +8,36 @@ export class TasksService {
   }
 
   addMainTask = async (req, res) => {
-    const { mainTask, userID } = req.body;
+    const { userID, newTask, backlog, todo, doing, done, description } =
+      req.body;
 
     const user = await this.userRepository.findUserByID(userID);
-    const currentUserTasks = await this.tasksRepository.getUserTasks(userID);
 
-    const newTask = await this.tasksRepository.createTask(userID, mainTask);
-    currentUserTasks.push(newTask);
+    const currentUserTasks = await this.tasksRepository.getUserTasks(userID);
+    const newMainTask = await this.tasksRepository.createTask(
+      userID,
+      newTask,
+      backlog,
+      todo,
+      doing,
+      done,
+      description
+    );
+    currentUserTasks.push(newMainTask);
+
+    const result = { ...user, tasks: currentUserTasks };
+
+    res.json({ message: "Dodano zadanie", user: result });
+  };
+
+  deleteMainTask = async (req, res) => {
+    const { taskID, userID } = req.body;
+
+    const user = await this.userRepository.findUserByID(userID);
+
+    await this.tasksRepository.deleteTask(taskID);
+
+    const currentUserTasks = await this.tasksRepository.getUserTasks(userID);
 
     const result = { ...user, tasks: currentUserTasks };
 

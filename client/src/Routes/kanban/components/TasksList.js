@@ -29,20 +29,6 @@ export const TasksList = () => {
     );
   };
 
-  const handleAddMainTask = async () => {
-    if (!newMainTask) return;
-    try {
-      const userAfterDelete = await TaskService.addMainTask(
-        newMainTask,
-        activeUser.userID
-      );
-      setActiveUser(userAfterDelete.user);
-      setNewMainTask("");
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   return (
     <div className="tasks-list-container">
       <div className="tasks-list-task-name">
@@ -68,9 +54,6 @@ export const TasksList = () => {
             onChange={(e) => setNewMainTask(e.target.value)}
             placeholder="Dodaj zadanie..."
           ></input>
-          <Button onClick={handleAddMainTask} styles="main-task-add">
-            <i className="gg-math-plus"></i>
-          </Button>
         </div>
       </div>
 

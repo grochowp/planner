@@ -164,7 +164,14 @@
 
 .task-card-delete-task {
   position: relative;
-  margin-right: 1rem;
+  margin: 0.5rem 1rem 0.5rem 0;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  cursor: pointer;
 }
 
 .task-card-info {

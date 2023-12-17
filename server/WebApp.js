@@ -70,3 +70,11 @@ app.post("/addMain", (req, res) => {
     res.status(500).json({ message: "Failed to delete task" });
   }
 });
+
+app.post("/deleteMain", (req, res) => {
+  try {
+    tasksService.deleteMainTask(req, res);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete task" });
+  }
+});

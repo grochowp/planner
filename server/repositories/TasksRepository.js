@@ -9,27 +9,36 @@ export class TasksRepository extends BaseRepository {
     return null;
   };
 
-  createTask = async (userID, mainTask) => {
+  createTask = async (
+    userID,
+    newTask,
+    backlog,
+    todo,
+    doing,
+    done,
+    description
+  ) => {
     const taskInsertQuery = `
-      INSERT INTO Tasks (UsersIDs, TaskName, ToDo, InProgress, Done) 
-      VALUES (?, ?, ?, ?, ?);
+      INSERT INTO Tasks (UsersIDs, TaskName, Backlog, ToDo, InProgress, Done) 
+      VALUES (?, ?, ?, ?, ?, ?);
     `;
 
     const usersIDs = [userID];
 
     const defaultTask = {
-      ToDo: "[]",
-      InProgress: "[]",
-      Done: "[]",
+      Backlog: [backlog],
+      ToDo: [todo],
+      InProgress: [doing],
+      Done: [done],
     };
-
     // Dodanie zadania do tabeli Tasks
     const taskResult = await queryAsync(this._connection, taskInsertQuery, [
       JSON.stringify(usersIDs),
-      mainTask,
-      defaultTask.ToDo,
-      defaultTask.InProgress,
-      defaultTask.Done,
+      newTask,
+      JSON.stringify(defaultTask.Backlog),
+      JSON.stringify(defaultTask.ToDo),
+      JSON.stringify(defaultTask.InProgress),
+      JSON.stringify(defaultTask.Done),
     ]);
 
     const taskID = taskResult.insertId;
@@ -42,16 +51,25 @@ export class TasksRepository extends BaseRepository {
 
     await queryAsync(this._connection, userTaskInsertQuery, [userID, taskID]);
 
-    const newTask = {
+    const newMainTask = {
       taskID: taskID,
-      taskName: mainTask,
+      taskName: newTask,
       usersIDs: JSON.parse(JSON.stringify(usersIDs)),
-      ToDo: JSON.parse(defaultTask.ToDo),
-      InProgress: JSON.parse(defaultTask.InProgress),
-      Done: JSON.parse(defaultTask.Done),
+      Backlog: defaultTask.Backlog,
+      ToDo: defaultTask.ToDo,
+      InProgress: defaultTask.InProgress,
+      Done: defaultTask.Done,
     };
 
-    return newTask;
+    return newMainTask;
+  };
+
+  deleteTask = async (taskID) => {
+    const updateUserTasksSQL = "DELETE FROM UserTasks WHERE TaskID = ?;";
+    await queryAsync(this._connection, updateUserTasksSQL, [taskID]);
+
+    const updateTasksSQL = "DELETE FROM Tasks WHERE TaskID = ?;";
+    await queryAsync(this._connection, updateTasksSQL, [taskID]);
   };
 
   addTask = async (destination, task, taskID) => {
@@ -86,11 +104,11 @@ export class TasksRepository extends BaseRepository {
     const results = await queryAsync(this._connection, query, [userID]);
 
     //To powinno być jako oddzielna funkcja np mapTasksToTaskTableFormat
-
     const transformedResults = results.map((result) => ({
       taskID: result.TaskID,
       usersIDs: JSON.parse(result.UsersIDs),
       taskName: result.TaskName,
+      Backlog: JSON.parse(result.Backlog),
       ToDo: JSON.parse(result.ToDo),
       InProgress: JSON.parse(result.InProgress),
       Done: JSON.parse(result.Done),

@@ -17,10 +17,26 @@ export const TaskService = {
     return await sendRequest(url, method, body);
   },
 
-  addMainTask: async (mainTask, userID) => {
+  addMainTask: async (
+    userID,
+    newTask,
+    backlog,
+    todo,
+    doing,
+    done,
+    description
+  ) => {
     const url = "http://localhost:3001/addMain";
     const method = "POST";
-    const body = { mainTask, userID };
+    const body = { userID, newTask, backlog, todo, doing, done, description };
+
+    return await sendRequest(url, method, body);
+  },
+
+  deleteMainTask: async (taskID, userID) => {
+    const url = "http://localhost:3001/deleteMain";
+    const method = "POST";
+    const body = { taskID, userID };
 
     return await sendRequest(url, method, body);
   },

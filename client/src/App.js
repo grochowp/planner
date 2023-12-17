@@ -32,7 +32,10 @@ function App() {
                 path="/selection"
                 element={
                   activeUser ? (
-                    <SelectTask activeUser={activeUser} />
+                    <SelectTask
+                      activeUser={activeUser}
+                      setActiveUser={setActiveUser}
+                    />
                   ) : (
                     <Navigate to={"/"} />
                   )

@@ -1,4 +1,8 @@
 export const TaskState = {
+  Backlog: {
+    text: "BACKLOG",
+    name: "Backlog",
+  },
   ToDo: {
     text: "TO DO",
     name: "ToDo",
@@ -23,7 +27,6 @@ export const sendRequest = async (url, method, body) => {
       },
     });
     const data = await res.json();
-
     return data;
   } catch (error) {
     console.error(`Request failed for ${url}`, error);

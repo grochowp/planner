@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { TasksList } from "./components/TasksList";
 import { User } from "./components/User";
 

@@ -22,6 +22,7 @@ export const handleLogin = (req, res, connection) => {
             taskID: result.TaskID,
             taskName: result.TaskName,
             usersIDs: JSON.parse(result.UsersIDs),
+            Backlog: JSON.parse(result.Backlog),
             ToDo: JSON.parse(result.ToDo),
             InProgress: JSON.parse(result.InProgress),
             Done: JSON.parse(result.Done),
