@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Button from "../shared/components/Button";
-import { LoginService } from "../Services/loginService";
-import { LoginMessage } from "./kanban/components/LoginMessage";
+import Button from "../../shared/components/Button";
+import { LoginService } from "../../Services/loginService";
+import { LoginMessage } from "./components/LoginMessage";
 
 export const Login = ({ onSetUser }) => {
   const [login, setLogin] = useState("");

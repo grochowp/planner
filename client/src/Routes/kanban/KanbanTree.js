@@ -1,5 +1,5 @@
 import { TasksList } from "./components/TasksList";
-import { User } from "./components/User";
+import { User } from "../../shared/components/User";
 
 export const KanbanTree = () => {
   return (

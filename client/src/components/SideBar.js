@@ -3,19 +3,6 @@ import { useContext } from "react";
 import { LoginService } from "../Services/loginService";
 import { Link } from "react-router-dom";
 
-const apps = [
-  {
-    id: 0,
-    name: "Tablica Kanban",
-    route: "/kanban",
-  },
-  {
-    id: 1,
-    name: "testApp",
-    route: "/test",
-  },
-];
-
 export function SideBar() {
   const [, setActiveUser] = useContext(userContext);
   const handleLogout = () => {

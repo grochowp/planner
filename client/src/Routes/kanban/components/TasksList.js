@@ -3,10 +3,9 @@ import { TaskState } from "../../../shared/utils";
 import { userContext } from "../../../App";
 import { SingleList } from "./SingleList";
 import Button from "../../../shared/components/Button";
-import { TaskService } from "../../../Services/TaskService";
 
 export const TasksList = () => {
-  const [activeUser, setActiveUser] = useContext(userContext);
+  const [activeUser] = useContext(userContext);
   const [newMainTask, setNewMainTask] = useState("");
   const [taskIndex, setTaskIndex] = useState(0);
 

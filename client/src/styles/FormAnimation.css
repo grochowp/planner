@@ -1,10 +1,10 @@
 .fade-enter {
-  opacity: 0.01;
+  opacity: 0;
 }
 
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transition: opacity 500ms;
 }
 
 .fade-exit {
@@ -12,6 +12,28 @@
 }
 
 .fade-exit-active {
-  opacity: 0.01;
-  transition: opacity 500ms ease-in;
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+.form-enter {
+  opacity: 0;
+  transform: scale(0.1);
+}
+
+.form-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 500ms, transform 500ms;
+}
+
+.form-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.form-exit-active {
+  opacity: 0;
+  transform: scale(0.1);
+  transition: opacity 500ms, transform 500ms;
 }
