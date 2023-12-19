@@ -1,0 +1,47 @@
+@import "./reusable.scss";
+@import url("https://unpkg.com/css.gg@2.0.0/icons/css/arrow-left.css");
+
+.tasks-list-container {
+  color: $text-color-primary;
+}
+.tasks-lists-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 10vw;
+}
+.btn-tasks-list {
+  margin: 1.25rem 0 0 1rem;
+  height: 4rem;
+  width: 5rem;
+  font-size: 2rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.tasks-list-task-name {
+  margin: 0.5rem auto 0 auto;
+  font-size: 3rem;
+  position: relative;
+  font-weight: 500;
+}
+
+.tasks-list-task-name::after {
+  content: "";
+  position: absolute;
+  left: -2.75rem;
+  display: flex;
+  justify-content: center;
+
+  width: calc(100% + 100px);
+  height: 1px;
+  background-color: $text-color-primary;
+}
+
+.tasks-lists-bottom {
+}

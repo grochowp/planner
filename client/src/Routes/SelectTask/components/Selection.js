@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { TaskService } from "../../../Services/TaskService";
-import { userContext } from "../../../App";
+import { taskContext, userContext } from "../../../App";
+import { useNavigate } from "react-router-dom";
 
 export const Selection = ({ onHandleShowForm }) => {
   const [activeUser, setActiveUser] = useContext(userContext);
+  const [activeTask, setActiveTask] = useContext(taskContext);
+
+  const navigate = useNavigate();
 
   const handleDeleteTask = async (taskID) => {
     try {
@@ -15,6 +19,14 @@ export const Selection = ({ onHandleShowForm }) => {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const handleSetActiveTask = (task) => {
+    setActiveTask(() => task);
+
+    navigate("/kanban", {
+      state: { task },
+    });
   };
 
   return (
@@ -35,7 +47,10 @@ export const Selection = ({ onHandleShowForm }) => {
                 <i className="gg-trash"></i>
               </p>
             </div>
-            <div className={`task-card-info  color-${index % 4}`}>
+            <div
+              onClick={() => handleSetActiveTask(task)}
+              className={`task-card-info  color-${index % 4}`}
+            >
               <h1 className="task-card-name">{task.taskName}</h1>
               <h4 className="task-card-description">
                 School homework including some projectsdsdasasd as as sdads as

@@ -9,7 +9,7 @@ export class TasksRepository extends BaseRepository {
     return null;
   };
 
-  createTask = async (
+  createMainTask = async (
     userID,
     newTask,
     backlog,
@@ -26,12 +26,17 @@ export class TasksRepository extends BaseRepository {
     const usersIDs = [userID];
 
     const defaultTask = {
-      Backlog: [backlog],
+      Backlog: [backlog, todo],
       ToDo: [todo],
       InProgress: [doing],
       Done: [done],
     };
-    // Dodanie zadania do tabeli Tasks
+
+    defaultTask.Backlog = backlog === "" ? [] : defaultTask.Backlog;
+    defaultTask.ToDo = todo === "" ? [] : defaultTask.ToDo;
+    defaultTask.InProgress = doing === "" ? [] : defaultTask.InProgress;
+    defaultTask.Done = done === "" ? [] : defaultTask.Done;
+
     const taskResult = await queryAsync(this._connection, taskInsertQuery, [
       JSON.stringify(usersIDs),
       newTask,
@@ -64,7 +69,7 @@ export class TasksRepository extends BaseRepository {
     return newMainTask;
   };
 
-  deleteTask = async (taskID) => {
+  deleteMainTask = async (taskID) => {
     const updateUserTasksSQL = "DELETE FROM UserTasks WHERE TaskID = ?;";
     await queryAsync(this._connection, updateUserTasksSQL, [taskID]);
 

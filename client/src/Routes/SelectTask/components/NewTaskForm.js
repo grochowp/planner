@@ -79,7 +79,6 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
                         placeholder="Backlog..."
                         value={backlog}
                         onChange={(e) => setBacklog(e.target.value)}
-                        required
                       ></textarea>
                     </div>
                     <div>
@@ -88,7 +87,6 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
                         placeholder="To do..."
                         value={todo}
                         onChange={(e) => setTodo(e.target.value)}
-                        required
                       ></textarea>
                     </div>
                     <div>
@@ -97,7 +95,6 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
                         placeholder="Doing..."
                         value={doing}
                         onChange={(e) => setDoing(e.target.value)}
-                        required
                       ></textarea>
                     </div>
                     <div>
@@ -106,7 +103,6 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
                         placeholder="Done..."
                         value={done}
                         onChange={(e) => setDone(e.target.value)}
-                        required
                       ></textarea>
                     </div>
                   </div>

@@ -14,7 +14,7 @@ export class TasksService {
     const user = await this.userRepository.findUserByID(userID);
 
     const currentUserTasks = await this.tasksRepository.getUserTasks(userID);
-    const newMainTask = await this.tasksRepository.createTask(
+    const newMainTask = await this.tasksRepository.createMainTask(
       userID,
       newTask,
       backlog,
@@ -35,7 +35,7 @@ export class TasksService {
 
     const user = await this.userRepository.findUserByID(userID);
 
-    await this.tasksRepository.deleteTask(taskID);
+    await this.tasksRepository.deleteMainTask(taskID);
 
     const currentUserTasks = await this.tasksRepository.getUserTasks(userID);
 

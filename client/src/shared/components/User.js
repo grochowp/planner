@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { userContext } from "../../App";
+
 export const User = () => {
+  const [activeUser] = useContext(userContext);
+
   function getFormattedDate() {
     const daysOfWeek = [
       "Sunday",
@@ -55,6 +60,12 @@ export const User = () => {
   }
 
   const todayFormatted = getFormattedDate();
+  const formattedName =
+    activeUser.name.charAt(0).toUpperCase() +
+    activeUser.name.slice(1).toLowerCase();
+  const formattedSurname =
+    activeUser.surname.charAt(0).toUpperCase() +
+    activeUser.surname.slice(1).toLowerCase();
 
   return (
     <div className="user">
@@ -62,7 +73,9 @@ export const User = () => {
       <div className="user-info">
         <div className="user-photo"></div>
         <div className="user-data">
-          <h5>Name Surname</h5>
+          <h5>
+            {formattedName} {formattedSurname}
+          </h5>
           <h5>Email@example.com</h5>
         </div>
       </div>

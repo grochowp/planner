@@ -18,7 +18,7 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  color: #c3c3c3;
+  color: $text-color-primary;
   display: flex;
   justify-content: space-between;
 }
@@ -60,7 +60,7 @@
 ///
 
 .select-task {
-  color: #c3c3c3;
+  color: $text-color-primary;
   display: flex;
   flex-wrap: wrap;
 }
@@ -81,7 +81,7 @@
   width: 7rem;
   height: 7rem;
   border: 1px solid black;
-  color: #c3c3c3;
+  color: $text-color-primary;
   border-radius: 50%;
   background-image: url("#{$picture-tlo}");
   position: relative;
@@ -193,7 +193,7 @@
   bottom: 0.5rem;
   width: 100%;
   height: 1px;
-  background-color: #c3c3c3;
+  background-color: $text-color-primary;
 }
 
 .task-card-description {
@@ -235,7 +235,7 @@
   align-items: center;
 }
 .add-task-top p {
-  color: #c3c3c3;
+  color: $text-color-primary;
 }
 
 .add-task-name {

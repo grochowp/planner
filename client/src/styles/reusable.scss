@@ -1,4 +1,27 @@
+@import url("https://unpkg.com/css.gg@2.0.0/icons/css/trash.css");
+@import url("https://unpkg.com/css.gg@2.0.0/icons/css/push-chevron-right.css");
+@import url("https://unpkg.com/css.gg@2.0.0/icons/css/push-chevron-left.css");
+@import url("https://unpkg.com/css.gg@2.0.0/icons/css/math-plus.css");
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter";
+  margin: 0;
+  padding: 0;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
 $text-color-login: rgb(230, 230, 230);
+$text-color-primary: #c3c3c3;
 
 $primary-main: #ececec;
 $primary-second: #9fd3c7;

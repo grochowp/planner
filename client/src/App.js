@@ -1,5 +1,5 @@
 import { useState, createContext } from "react";
-import "./styles/index.scss";
+import "./styles/kanban.scss";
 import "./styles/login.scss";
 import "./styles/leftSide.scss";
 import "./styles/SelectTasks.scss";
@@ -13,47 +13,43 @@ import {
   Navigate,
 } from "react-router-dom";
 import { SelectTask } from "./Routes/SelectTask/SelectTask";
+import { act } from "@testing-library/react";
 
 export const userContext = createContext();
+export const taskContext = createContext();
 
 function App() {
   const [activeUser, setActiveUser] = useState();
+  const [activeTask, setActiveTask] = useState();
 
   return (
     <Router>
       <div style={{ display: "flex" }}>
         <userContext.Provider value={[activeUser, setActiveUser]}>
-          {activeUser && <SideBar />}
-          <Routes>
-            <Route
-              path="/selection"
-              element={activeUser ? <SelectTask /> : <Navigate to={"/"} />}
-            />
-            <Route
-              path="/kanban"
-              element={
-                activeUser ? (
-                  <KanbanTree
-                    activeUser={activeUser}
-                    onSetActiveUser={setActiveUser}
-                  />
-                ) : (
-                  <Navigate to={"/"} />
-                )
-              }
-            />
+          <taskContext.Provider value={[activeTask, setActiveTask]}>
+            {activeUser && <SideBar />}
+            <Routes>
+              <Route
+                path="/selection"
+                element={activeUser ? <SelectTask /> : <Navigate to={"/"} />}
+              />
+              <Route
+                path="/kanban"
+                element={activeUser ? <KanbanTree /> : <Navigate to={"/"} />}
+              />
 
-            <Route
-              path="/*"
-              element={
-                !activeUser ? (
-                  <Login onSetUser={setActiveUser} />
-                ) : (
-                  <Navigate to={"/kanban"} />
-                )
-              }
-            />
-          </Routes>
+              <Route
+                path="/*"
+                element={
+                  !activeUser ? (
+                    <Login onSetUser={setActiveUser} />
+                  ) : (
+                    <Navigate to={"/selection"} />
+                  )
+                }
+              />
+            </Routes>
+          </taskContext.Provider>
         </userContext.Provider>
       </div>
     </Router>
