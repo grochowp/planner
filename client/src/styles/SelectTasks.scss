@@ -63,11 +63,14 @@
   color: $text-color-primary;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  height: 65%;
+  overflow-y: auto;
 }
 
 .task-card {
   box-sizing: border-box;
-  margin: 4rem 2rem -2rem 2rem;
+  margin: 4rem 2rem 0 2rem;
   width: 20vw;
   height: 15rem;
 }
@@ -135,18 +138,12 @@
     rgba(12, 11, 46, 0.665703781512605) 80%
   );
 }
-.color-0,
-.color-1,
-.color-2,
-.color-3 {
-  border-radius: 0 0 0.35rem 0.35rem;
-}
 
 .task-card-data {
   border-radius: 0.35rem 0.35rem 0 0;
   display: flex;
   justify-content: space-between;
-  background-color: black;
+  background-color: #080808;
 }
 
 .task-card-users {
@@ -175,6 +172,8 @@
 }
 
 .task-card-info {
+  border-radius: 0 0 0.35rem 0.35rem;
+
   cursor: pointer;
   height: max-content;
 }

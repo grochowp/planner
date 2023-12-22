@@ -26,7 +26,7 @@ export class TasksRepository extends BaseRepository {
     const usersIDs = [userID];
 
     const defaultTask = {
-      Backlog: [backlog, todo],
+      Backlog: [backlog],
       ToDo: [todo],
       InProgress: [doing],
       Done: [done],

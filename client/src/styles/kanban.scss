@@ -1,6 +1,10 @@
 @import "./reusable.scss";
 @import url("https://unpkg.com/css.gg@2.0.0/icons/css/arrow-left.css");
 
+.hidden {
+  opacity: 0;
+}
+
 .tasks-list-container {
   color: $text-color-primary;
 }
@@ -37,11 +41,96 @@
   left: -2.75rem;
   display: flex;
   justify-content: center;
-
   width: calc(100% + 100px);
   height: 1px;
   background-color: $text-color-primary;
 }
 
 .tasks-lists-bottom {
+  height: calc(100vh - 40vh);
+  display: flex;
+  margin: 2rem 2rem 0 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.single-task {
+  margin: 2vh 1vw;
+  width: 24.5rem;
+  height: max-content;
+  background-color: #080808;
+  border-radius: 0.35rem;
+}
+
+.single-task-info {
+  height: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.btn-add-single-task {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: $text-color-primary;
+  margin-right: 1.25rem;
+  cursor: pointer;
+}
+
+.single-task-info h3 {
+  margin-left: 2rem;
+  font-size: 1.25rem;
+}
+
+.task {
+  margin: 0rem 1rem 1rem 1rem;
+  height: 6rem;
+  border-radius: 0.25rem;
+  display: flex;
+}
+
+.task-left {
+  margin: 0.75rem;
+  font-weight: 400;
+  width: 80%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.task-right {
+  height: 100%;
+  min-width: 5rem;
+  width: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.btn-delete-single-task {
+  color: $text-color-primary;
+  float: right;
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  margin: 0.25rem 0.5rem 0 0;
+  cursor: pointer;
+}
+
+.task-right-move {
+  position: relative;
+  left: 0.5rem;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.btn-move-task {
+  color: $text-color-primary;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
 }

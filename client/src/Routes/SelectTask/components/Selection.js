@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Selection = ({ onHandleShowForm }) => {
   const [activeUser, setActiveUser] = useContext(userContext);
-  const [activeTask, setActiveTask] = useContext(taskContext);
+  const [, setActiveTask] = useContext(taskContext);
 
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ export const Selection = ({ onHandleShowForm }) => {
       state: { task },
     });
   };
-
+  console.log(activeUser);
   return (
     <div className="select-task">
       {activeUser.tasks.map((task, index) => {
