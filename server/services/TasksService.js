@@ -10,7 +10,7 @@ export class TasksService {
   addMainTask = async (req, res) => {
     const { userID, newTask, backlog, todo, doing, done, description } =
       req.body;
-
+    console.log(userID, newTask, backlog, todo, doing, done, description);
     const user = await this.userRepository.findUserByID(userID);
 
     const currentUserTasks = await this.tasksRepository.getUserTasks(userID);

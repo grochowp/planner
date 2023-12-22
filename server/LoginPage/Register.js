@@ -38,12 +38,13 @@ const addUser = (connection, nextUserID, login, password, name, surname) => {
 const addDefaultTask = (connection, nextUserID) => {
   return new Promise((resolve, reject) => {
     const tasksInsertSQL = `
-      INSERT INTO Tasks (UsersIDs, TaskName, ToDo, InProgress, Done)
-      VALUES (?, ?, ?, ?, ?);
+      INSERT INTO Tasks (UsersIDs, TaskName, Backlog, ToDo, InProgress, Done)
+      VALUES (?, ?, ?, ?, ?, ?);
     `;
 
     const defaultTask = {
       TaskName: "Zadania",
+      Backlog: "[]",
       ToDo: "[]",
       InProgress: "[]",
       Done: "[]",
@@ -56,6 +57,7 @@ const addDefaultTask = (connection, nextUserID) => {
       [
         JSON.stringify(usersIDsArray), // Konwertuj tablicę na JSON
         defaultTask.TaskName,
+        defaultTask.Backlog,
         defaultTask.ToDo,
         defaultTask.InProgress,
         defaultTask.Done,
@@ -67,6 +69,8 @@ const addDefaultTask = (connection, nextUserID) => {
           const result = {
             taskID: tasksResults.insertId,
             taskName: defaultTask.TaskName,
+            usersIDs: usersIDsArray,
+            Backlog: JSON.parse(defaultTask.Backlog),
             ToDo: JSON.parse(defaultTask.ToDo),
             InProgress: JSON.parse(defaultTask.InProgress),
             Done: JSON.parse(defaultTask.Done),
@@ -123,7 +127,7 @@ export const handleRegister = async (req, res, connection) => {
       const taskResult = await addDefaultTask(connection, nextUserID);
       await addToUsersTask(connection, nextUserID, taskResult.taskID);
       const result = {
-        id: nextUserID,
+        userID: nextUserID,
         name: correctedName,
         surname: correctedSurname,
         login,
