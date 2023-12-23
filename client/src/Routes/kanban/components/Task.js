@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Button from "../../../shared/components/Button";
-import { taskContext, userContext } from "../../../App";
+import { taskContext } from "../../../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
@@ -10,7 +10,7 @@ import {
 import { TaskService } from "../../../Services/TaskService";
 
 export const Task = ({ tasks, index, taskID }) => {
-  const [activeTask, setActiveTask] = useContext(taskContext);
+  const [, setActiveTask] = useContext(taskContext);
 
   const handleDeleteTask = async (task) => {
     try {

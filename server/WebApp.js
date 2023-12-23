@@ -3,7 +3,7 @@ import cors from "cors";
 import mysql from "mysql2";
 import bodyParser from "body-parser";
 import { TasksService } from "./services/TasksService.js";
-
+import { connection } from "./database.js";
 //TODO utworzyć service np. UserManagementService
 import { handleLogin } from "./LoginPage/Login.js  ";
 import { handleRegister } from "./LoginPage/Register.js";
@@ -15,12 +15,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "sqldb123",
-  database: "planner",
-});
 const tasksService = new TasksService(connection);
 
 app.get("/", (req, res) => {
