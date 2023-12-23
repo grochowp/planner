@@ -1,66 +1,83 @@
 import React, { useContext } from "react";
 import Button from "../../../shared/components/Button";
-import { userContext } from "../../../App";
+import { taskContext, userContext } from "../../../App";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faPlus,
   faAngleLeft,
   faAngleRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { TaskService } from "../../../Services/TaskService";
 
-export const Task = ({ tasks, index }) => {
-  const [activeUser, setActiveUser] = useContext(userContext);
+export const Task = ({ tasks, index, taskID }) => {
+  const [activeTask, setActiveTask] = useContext(taskContext);
 
-  // const moveTask = async (fromList, toList, task) => {
-  //   try {
-  //     const userAfterMove = await TaskService.move(
-  //       task,
-  //       fromList,
-  //       toList,
-  //       activeUser.userID,
-  //       taskID
-  //     );
+  const handleDeleteTask = async (task) => {
+    try {
+      const tasksAfterDelete = await TaskService.delete(
+        task,
+        tasks[index].name,
+        taskID
+      );
 
-  //     setActiveUser(userAfterMove.user);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-  // const handleDeleteTask = async (task) => {
-  //   try {
-  //     const userAfterDelete = await TaskService.delete(
-  //       task,
-  //       listType,
-  //       activeUser.userID,
-  //       taskID
-  //     );
-  //     setActiveUser(userAfterDelete.user);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
+      setActiveTask(tasksAfterDelete.tasks);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
+  const handleMoveTask = async (task, direction) => {
+    const taskIndex =
+      direction === "left" && index > 0
+        ? index - 1
+        : direction === "right" && index < 3
+        ? index + 1
+        : "";
+    try {
+      const tasksAfterMove = await TaskService.move(
+        task,
+        tasks[index].name,
+        tasks[taskIndex].name,
+        taskID
+      );
+
+      setActiveTask(tasksAfterMove.tasks);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <div className="single-task">
       <div className="single-task-info">
-        <h3>{tasks.name}</h3>
+        <h3>{tasks[index].name}</h3>
         <Button styles="add-single-task">
           <FontAwesomeIcon icon={faPlus} />
         </Button>
       </div>
 
-      {tasks.tasks.map((task) => (
+      {tasks[index].tasks.map((task) => (
         <div className={`task color-${index}`}>
           <div className="task-left">{task}</div>
           <div className="task-right">
             <div>
-              <Button styles="delete-single-task">x</Button>
+              <Button
+                styles="delete-single-task"
+                onClick={() => handleDeleteTask(task)}
+              >
+                x
+              </Button>
             </div>
             <div className="task-right-move">
-              <Button styles={`move-task ${index === 0 ? "hidden" : ""}`}>
+              <Button
+                styles={`move-task ${index === 0 ? "hidden" : ""}`}
+                onClick={() => handleMoveTask(task, "left")}
+              >
                 <FontAwesomeIcon icon={faAngleLeft} />
               </Button>
-              <Button styles={`move-task ${index === 3 ? "hidden" : ""}`}>
+              <Button
+                styles={`move-task ${index === 3 ? "hidden" : ""}`}
+                onClick={() => handleMoveTask(task, "right")}
+              >
                 <FontAwesomeIcon icon={faAngleRight} />
               </Button>
             </div>
@@ -68,60 +85,5 @@ export const Task = ({ tasks, index }) => {
         </div>
       ))}
     </div>
-
-    // <div className="tasks-list-task-container">
-    //   <div className="tasks-list-task">
-    //     {task}
-    //     <div className="btn-in-task">
-    //       {listType === TaskState.ToDo.name || (
-    //         <Button
-    //           styles="none"
-    //           onClick={() => {
-    //             if (listType === TaskState.InProgress.name) {
-    //               moveTask(
-    //                 TaskState.InProgress.name,
-    //                 TaskState.ToDo.name,
-    //                 task
-    //               );
-    //             } else if (listType === TaskState.Done.name) {
-    //               moveTask(
-    //                 TaskState.Done.name,
-    //                 TaskState.InProgress.name,
-    //                 task
-    //               );
-    //             }
-    //           }}
-    //         >
-    //           <i className="gg-push-chevron-left"></i>
-    //         </Button>
-    //       )}
-    //       <Button styles="none">
-    //         <i className="gg-trash" onClick={() => handleDeleteTask(task)}></i>
-    //       </Button>
-    //       {listType === TaskState.Done.name || (
-    //         <Button
-    //           styles="none"
-    //           onClick={() => {
-    //             if (listType === TaskState.ToDo.name) {
-    //               moveTask(
-    //                 TaskState.ToDo.name,
-    //                 TaskState.InProgress.name,
-    //                 task
-    //               );
-    //             } else if (listType === TaskState.InProgress.name) {
-    //               moveTask(
-    //                 TaskState.InProgress.name,
-    //                 TaskState.Done.name,
-    //                 task
-    //               );
-    //             }
-    //           }}
-    //         >
-    //           <i className="gg-push-chevron-right"></i>
-    //         </Button>
-    //       )}
-    //     </div>
-    //   </div>
-    // </div>
   );
 };

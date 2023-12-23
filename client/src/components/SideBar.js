@@ -1,22 +1,14 @@
 import { taskContext, userContext } from "../App";
 import { useContext } from "react";
 import { LoginService } from "../Services/loginService";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function SideBar() {
-  const navigate = useNavigate();
   const [, setActiveUser] = useContext(userContext);
-  const [activeTask] = useContext(taskContext);
 
   const handleLogout = () => {
     const noUser = LoginService.logout();
     setActiveUser(noUser);
-  };
-
-  const handle = (task) => {
-    navigate("/kanban", {
-      state: { task },
-    });
   };
 
   return (
@@ -27,10 +19,9 @@ export function SideBar() {
           <div className="image-tasks"></div>
         </Link>
 
-        <div
-          onClick={() => handle(activeTask)}
-          className="image-active-task"
-        ></div>
+        <Link to={"/kanban"}>
+          <div className="image-active-task"></div>
+        </Link>
 
         <div className="image-options"></div>
       </div>

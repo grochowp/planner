@@ -19,8 +19,8 @@ export class TasksRepository extends BaseRepository {
     description
   ) => {
     const taskInsertQuery = `
-      INSERT INTO Tasks (UsersIDs, TaskName, Backlog, ToDo, InProgress, Done) 
-      VALUES (?, ?, ?, ?, ?, ?);
+      INSERT INTO Tasks (UsersIDs, TaskName, Backlog, ToDo, InProgress, Done, Description) 
+      VALUES (?, ?, ?, ?, ?, ?, ?);
     `;
 
     const usersIDs = [userID];
@@ -44,6 +44,7 @@ export class TasksRepository extends BaseRepository {
       JSON.stringify(defaultTask.ToDo),
       JSON.stringify(defaultTask.InProgress),
       JSON.stringify(defaultTask.Done),
+      description,
     ]);
 
     const taskID = taskResult.insertId;
@@ -77,7 +78,7 @@ export class TasksRepository extends BaseRepository {
     await queryAsync(this._connection, updateTasksSQL, [taskID]);
   };
 
-  addTask = async (destination, task, taskID) => {
+  addTask = async (task, destination, taskID) => {
     const updateTaskSql = `UPDATE Tasks
             SET ${destination} = JSON_ARRAY_APPEND(${destination}, '$', ?)
             WHERE TaskID = ?;`;
@@ -85,7 +86,7 @@ export class TasksRepository extends BaseRepository {
   };
 
   // Dziwna ta funkcja muszę tą bazę twoją zobaczyć
-  removeTask = async (from, task, taskID) => {
+  removeTask = async (task, from, taskID) => {
     const updateTaskSql = `
                       UPDATE Tasks
                       SET ${from} = JSON_REMOVE(${from}, JSON_UNQUOTE(JSON_SEARCH(${from}, 'one', ?)))
@@ -98,6 +99,26 @@ export class TasksRepository extends BaseRepository {
     const query = `SELECT MAX(TaskIndex) + 1 AS nextTaskIndex FROM Tasks WHERE UserID = ?`;
     const results = await queryAsync(this._connection, query, [userID]);
     return results[0].nextTaskIndex || 0;
+  };
+
+  getActiveTasks = async (taskID) => {
+    const query = `SELECT Tasks.*
+    FROM Tasks
+    WHERE TaskID = ?`;
+    const results = await queryAsync(this._connection, query, [taskID]);
+
+    const transformedResults = results.map((result) => ({
+      taskID: result.TaskID,
+      usersIDs: JSON.parse(result.UsersIDs),
+      taskName: result.TaskName,
+      Backlog: JSON.parse(result.Backlog),
+      ToDo: JSON.parse(result.ToDo),
+      InProgress: JSON.parse(result.InProgress),
+      Done: JSON.parse(result.Done),
+      description: results.Description,
+    }));
+
+    return transformedResults[0];
   };
 
   getUserTasks = async (userID) => {
@@ -117,6 +138,7 @@ export class TasksRepository extends BaseRepository {
       ToDo: JSON.parse(result.ToDo),
       InProgress: JSON.parse(result.InProgress),
       Done: JSON.parse(result.Done),
+      description: results.Description,
     }));
 
     return transformedResults;

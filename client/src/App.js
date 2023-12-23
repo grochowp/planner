@@ -13,7 +13,6 @@ import {
   Navigate,
 } from "react-router-dom";
 import { SelectTask } from "./Routes/SelectTask/SelectTask";
-import { act } from "@testing-library/react";
 
 export const userContext = createContext();
 export const taskContext = createContext();
@@ -21,7 +20,6 @@ export const taskContext = createContext();
 function App() {
   const [activeUser, setActiveUser] = useState();
   const [activeTask, setActiveTask] = useState();
-
   return (
     <Router>
       <div style={{ display: "flex" }}>

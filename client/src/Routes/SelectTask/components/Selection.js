@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 export const Selection = ({ onHandleShowForm }) => {
   const [activeUser, setActiveUser] = useContext(userContext);
   const [, setActiveTask] = useContext(taskContext);
-
   const navigate = useNavigate();
 
   const handleDeleteTask = async (taskID) => {
@@ -21,17 +20,20 @@ export const Selection = ({ onHandleShowForm }) => {
     }
   };
 
-  const handleSetActiveTask = (task) => {
-    setActiveTask(() => task);
-
-    navigate("/kanban", {
-      state: { task },
-    });
+  const handleSelectTask = async (task) => {
+    try {
+      const selectedTask = await TaskService.selectActiveTask(task.taskID);
+      setActiveTask(() => selectedTask.tasks);
+      navigate("/kanban");
+    } catch (err) {
+      console.log(err);
+    }
   };
-  console.log(activeUser);
+
   return (
     <div className="select-task">
       {activeUser.tasks.map((task, index) => {
+        console.log(task);
         return (
           <div className="task-card" key={index}>
             <div className="task-card-data">
@@ -48,14 +50,11 @@ export const Selection = ({ onHandleShowForm }) => {
               </p>
             </div>
             <div
-              onClick={() => handleSetActiveTask(task)}
+              onClick={() => handleSelectTask(task)}
               className={`task-card-info  color-${index % 4}`}
             >
               <h1 className="task-card-name">{task.taskName}</h1>
-              <h4 className="task-card-description">
-                School homework including some projectsdsdasasd as as sdads as
-                assa as d asda sa sasas sa asas
-              </h4>
+              <h4 className="task-card-description">{task.description}</h4>
             </div>
           </div>
         );

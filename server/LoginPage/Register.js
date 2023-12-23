@@ -38,16 +38,17 @@ const addUser = (connection, nextUserID, login, password, name, surname) => {
 const addDefaultTask = (connection, nextUserID) => {
   return new Promise((resolve, reject) => {
     const tasksInsertSQL = `
-      INSERT INTO Tasks (UsersIDs, TaskName, Backlog, ToDo, InProgress, Done)
+      INSERT INTO Tasks (UsersIDs, TaskName, Backlog, ToDo, InProgress, Done, Description)
       VALUES (?, ?, ?, ?, ?, ?);
     `;
 
     const defaultTask = {
-      TaskName: "Zadania",
+      TaskName: "Tasks",
       Backlog: "[]",
       ToDo: "[]",
       InProgress: "[]",
       Done: "[]",
+      Description: "List of things to do",
     };
 
     const usersIDsArray = [nextUserID]; // Teraz UsersIDs to tablica z jednym elementem
@@ -61,6 +62,7 @@ const addDefaultTask = (connection, nextUserID) => {
         defaultTask.ToDo,
         defaultTask.InProgress,
         defaultTask.Done,
+        defaultTask.Description,
       ],
       (error, tasksResults) => {
         if (error) {
@@ -74,6 +76,7 @@ const addDefaultTask = (connection, nextUserID) => {
             ToDo: JSON.parse(defaultTask.ToDo),
             InProgress: JSON.parse(defaultTask.InProgress),
             Done: JSON.parse(defaultTask.Done),
+            description: JSON.parse(defaultTask.Description),
           };
           resolve(result);
         }

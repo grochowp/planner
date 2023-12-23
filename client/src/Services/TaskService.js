@@ -9,10 +9,18 @@ export const TaskService = {
     return await sendRequest(url, method, body);
   },
 
-  delete: async (task, from, userID, taskID) => {
+  delete: async (task, from, taskID) => {
     const url = "http://localhost:3001/delete";
     const method = "POST";
-    const body = { task, from, userID, taskID };
+    const body = { task, from, taskID };
+
+    return await sendRequest(url, method, body);
+  },
+
+  move: async (task, from, destination, taskID) => {
+    const url = "http://localhost:3001/move";
+    const method = "POST";
+    const body = { task, from, destination, taskID };
 
     return await sendRequest(url, method, body);
   },
@@ -41,14 +49,11 @@ export const TaskService = {
     return await sendRequest(url, method, body);
   },
 
-  move: async (task, from, destination, userID, taskID) => {
-    try {
-      await TaskService.delete(task, from, userID, taskID);
+  selectActiveTask: async (taskID) => {
+    const url = "http://localhost:3001/selectTask";
+    const method = "POST";
+    const body = { taskID };
 
-      return await TaskService.add(task, destination, userID, taskID);
-    } catch (error) {
-      console.log("Failed to move", error);
-      throw error;
-    }
+    return await sendRequest(url, method, body);
   },
 };

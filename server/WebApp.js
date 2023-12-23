@@ -63,6 +63,14 @@ app.post("/delete", (req, res) => {
   }
 });
 
+app.post("/move", (req, res) => {
+  try {
+    tasksService.moveTaskBetweenMainTask(req, res);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete task" });
+  }
+});
+
 app.post("/addMain", (req, res) => {
   try {
     tasksService.addMainTask(req, res);
@@ -74,6 +82,14 @@ app.post("/addMain", (req, res) => {
 app.post("/deleteMain", (req, res) => {
   try {
     tasksService.deleteMainTask(req, res);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete task" });
+  }
+});
+
+app.post("/selectTask", (req, res) => {
+  try {
+    tasksService.selectActiveTask(req, res);
   } catch (error) {
     res.status(500).json({ message: "Failed to delete task" });
   }

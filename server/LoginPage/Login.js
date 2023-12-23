@@ -26,6 +26,7 @@ export const handleLogin = (req, res, connection) => {
             ToDo: JSON.parse(result.ToDo),
             InProgress: JSON.parse(result.InProgress),
             Done: JSON.parse(result.Done),
+            description: result.Description,
           };
           acc.tasks.push(tasks);
           if (acc.UserID === undefined) {

@@ -10,7 +10,6 @@ export class TasksService {
   addMainTask = async (req, res) => {
     const { userID, newTask, backlog, todo, doing, done, description } =
       req.body;
-    console.log(userID, newTask, backlog, todo, doing, done, description);
     const user = await this.userRepository.findUserByID(userID);
 
     const currentUserTasks = await this.tasksRepository.getUserTasks(userID);
@@ -44,6 +43,14 @@ export class TasksService {
     res.json({ message: "Dodano zadanie", user: result });
   };
 
+  selectActiveTask = async (req, res) => {
+    const { taskID } = req.body;
+
+    const tasks = await this.tasksRepository.getActiveTasks(taskID);
+
+    res.json({ message: "Dodano zadanie", tasks });
+  };
+
   addTaskToMainTask = async (req, res) => {
     try {
       const { task, destination, userID, taskID } = req.body;
@@ -61,15 +68,26 @@ export class TasksService {
 
   deleteTaskFromMainTask = async (req, res) => {
     try {
-      const { task, from, userID, taskID } = req.body;
-
-      await this.tasksRepository.removeTask(from, task, taskID);
-
-      const userWithTasks = await this.getUserWithTasks(userID);
-      res.status(200).json({ user: userWithTasks });
+      const { task, from, taskID } = req.body;
+      await this.tasksRepository.removeTask(task, from, taskID);
+      const tasks = await this.tasksRepository.getActiveTasks(taskID);
+      res.status(200).json({ tasks });
     } catch (error) {
       console.error("Error during updating task", error);
       res.status(500).json({ message: "Failed to update task" });
+    }
+  };
+
+  moveTaskBetweenMainTask = async (req, res) => {
+    try {
+      const { task, from, destination, taskID } = req.body;
+      await this.tasksRepository.removeTask(task, from, taskID);
+      await this.tasksRepository.addTask(task, destination, taskID);
+      const tasks = await this.tasksRepository.getActiveTasks(taskID);
+      res.status(200).json({ tasks });
+    } catch (error) {
+      console.log("Failed to move", error);
+      throw error;
     }
   };
 
