@@ -1,6 +1,5 @@
 import express from "express";
 import cors from "cors";
-import mysql from "mysql2";
 import bodyParser from "body-parser";
 import { TasksService } from "./services/TasksService.js";
 import { connection } from "./database.js";
