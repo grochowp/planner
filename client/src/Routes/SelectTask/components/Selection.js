@@ -3,9 +3,10 @@ import { TaskService } from "../../../Services/TaskService";
 import { taskContext, userContext } from "../../../App";
 import { useNavigate } from "react-router-dom";
 
-export const Selection = ({ onHandleShowForm }) => {
+export const Selection = ({ onHandleShowForm, onHandleAddUser }) => {
   const [activeUser, setActiveUser] = useContext(userContext);
   const [, setActiveTask] = useContext(taskContext);
+
   const navigate = useNavigate();
 
   const handleDeleteTask = async (taskID) => {
@@ -33,11 +34,15 @@ export const Selection = ({ onHandleShowForm }) => {
   return (
     <div className="select-task">
       {activeUser.tasks.map((task, index) => {
-        console.log(task);
         return (
           <div className="task-card" key={index}>
             <div className="task-card-data">
-              <p className="task-card-users">
+              <p
+                onClick={() => {
+                  onHandleAddUser(true, task);
+                }}
+                className="task-card-users"
+              >
                 <span>{task.usersIDs.length}</span>
                 <i className="gg-user"></i>
                 <i className="gg-math-plus"></i>

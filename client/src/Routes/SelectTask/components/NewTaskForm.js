@@ -14,10 +14,16 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
   const [doing, setDoing] = useState("");
   const [done, setDone] = useState("");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
 
   const handleAddTask = async (e) => {
     e.preventDefault();
     try {
+      if (!newTask || !description) {
+        setError("New task and description are required");
+        return;
+      }
+
       const userWithNewTask = await TaskService.addMainTask(
         activeUser.userID,
         newTask,
@@ -37,6 +43,7 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
       setDoing("");
       setDone("");
       setDescription("");
+      setError("");
     } catch (err) {
       console.error(err);
     }
@@ -54,7 +61,9 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
           <div className="form">
             <form>
               <div className="task-card-data add-task-top">
-                <p className="add-task-name">Add a new task!</p>
+                <p className="add-task-name">
+                  {error ? error : "Add a new task!"}
+                </p>
                 <p
                   className="add-task-close"
                   onClick={() => onHandleShowForm(false)}
@@ -69,8 +78,8 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
                     className="main-task-input"
                     placeholder="New task..."
                     value={newTask}
-                    onChange={(e) => setNewTask(e.target.value)}
                     required
+                    onChange={(e) => setNewTask(e.target.value)}
                   ></textarea>
                   <div className="main-task-tasks">
                     <div>
@@ -118,7 +127,7 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
                 </div>
               </div>
               <div className="add-task-button">
-                <Button styles="add-task" onClick={handleAddTask}>
+                <Button type="submit" styles="add-task" onClick={handleAddTask}>
                   ADD TASK
                 </Button>
               </div>

@@ -10,6 +10,7 @@ export class TasksService {
   addMainTask = async (req, res) => {
     const { userID, newTask, backlog, todo, doing, done, description } =
       req.body;
+
     const user = await this.userRepository.findUserByID(userID);
 
     const currentUserTasks = await this.tasksRepository.getUserTasks(userID);
@@ -48,7 +49,7 @@ export class TasksService {
 
     const tasks = await this.tasksRepository.getActiveTasks(taskID);
 
-    res.json({ message: "Dodano zadanie", tasks });
+    res.json({ message: "Task added", tasks });
   };
 
   addTaskToMainTask = async (req, res) => {
