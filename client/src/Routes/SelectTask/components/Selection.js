@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 export const Selection = ({ onHandleShowForm, onHandleAddUser }) => {
   const [activeUser, setActiveUser] = useContext(userContext);
   const [, setActiveTask] = useContext(taskContext);
-
   const navigate = useNavigate();
 
   const handleDeleteTask = async (taskID) => {

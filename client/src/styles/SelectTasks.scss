@@ -206,7 +206,7 @@
   align-items: center;
 }
 
-.add-task-form {
+.form-background {
   position: absolute;
   display: flex;
   justify-content: center;
@@ -247,8 +247,9 @@
 .add-task-close {
   margin-right: 1.5rem;
   position: relative;
-  bottom: 0.3rem;
-  font-size: 3.5rem;
+  top: 0.2rem;
+  // font-weight: 300;
+  font-size: 2.5rem;
   cursor: pointer;
 }
 
@@ -334,4 +335,108 @@
 .btn-add-task:hover {
   box-shadow: 0 0 20px #000000;
   transform: scale(1.05);
+}
+
+.add-user-form {
+  background-image: url("#{$picture-tlo}");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 0.5rem;
+  width: 25.5%;
+  min-width: 25rem;
+  max-width: 35rem;
+  // height: 50%;
+  height: max-content;
+  // min-height: 28rem;
+  color: $text-color-primary;
+}
+
+.selected-task-all-users {
+  display: flex;
+  align-items: center;
+  color: $text-color-primary;
+
+  height: 32.5vh;
+  min-height: 18rem;
+
+  flex-direction: column;
+  // background-color: blue;
+}
+
+.selected-task-user {
+  margin: 2rem 1rem 0 1rem;
+  height: 3rem;
+  width: 75%;
+  background-color: rgb(51, 50, 50);
+  border-radius: 6px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+
+.selected-task-user p {
+  margin-left: 1rem;
+
+  width: 17.5vw;
+  min-width: 17rem;
+  max-width: 24rem;
+}
+
+.btn-delete-user-from-task {
+  position: relative;
+  float: right;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  bottom: 4px;
+  cursor: pointer;
+}
+
+.add-new-user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-new-user form {
+  display: flex;
+  flex-direction: row;
+  margin: 2rem;
+  height: 3rem;
+  width: 75%;
+  background-color: rgb(51, 50, 50);
+  border-radius: 6px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgb(97, 97, 97);
+
+  padding: 1px;
+}
+
+.add-new-user input {
+  flex-grow: 2;
+  margin-left: 1rem;
+  font-size: 1.1rem;
+  border: none;
+  background: none;
+  color: $text-color-primary;
+}
+
+.add-new-user input:focus {
+  outline: none;
+}
+
+.add-new-user input::placeholder {
+  color: rgb(0, 0, 0);
+}
+
+.add-new-user button {
+  border: 1px solid blue;
+
+  color: white;
+}
+
+.add-new-user-input {
 }

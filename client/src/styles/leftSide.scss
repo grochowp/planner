@@ -8,6 +8,10 @@
   flex-direction: column;
   justify-content: space-between;
 }
+.left-side-top {
+  display: flex;
+  flex-direction: column;
+}
 
 .image-logo {
   height: 5rem;
@@ -20,29 +24,13 @@
   background-repeat: no-repeat;
 }
 
-.image-tasks {
-  height: 2.75rem;
-  background-image: url("#{$picture-tasks}");
-}
-
-.image-active-task {
-  height: 2.25rem;
-  background-image: url("#{$picture-active-task}");
-}
-
-.image-options {
-  height: 2.75rem;
-  background-image: url("#{$picture-options}");
-}
-
-.image-tasks,
-.image-active-task,
-.image-options {
+.left-bar-icon {
   display: flex;
   margin: 7vh 0 0rem 0rem;
-  background-position: top;
-  background-size: contain;
-  background-repeat: no-repeat;
+  font-size: 2.25rem;
+  display: flex;
+  justify-content: center;
+
   cursor: pointer;
   transition: background-color 1s ease;
 }

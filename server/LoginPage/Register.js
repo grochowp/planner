@@ -2,7 +2,7 @@
 const getNextUserID = (connection) => {
   return new Promise((resolve, reject) => {
     connection.query(
-      "SELECT MAX(UserID) + 1 AS nextUserID FROM UserTasks",
+      "SELECT MAX(UserID) + 1 AS nextUserID FROM Users",
       (error, results) => {
         if (error) {
           reject(error);
@@ -39,7 +39,7 @@ const addDefaultTask = (connection, nextUserID) => {
   return new Promise((resolve, reject) => {
     const tasksInsertSQL = `
       INSERT INTO Tasks (UsersIDs, TaskName, Backlog, ToDo, InProgress, Done, Description)
-      VALUES (?, ?, ?, ?, ?, ?);
+      VALUES (?, ?, ?, ?, ?, ?, ?);
     `;
 
     const defaultTask = {
@@ -51,12 +51,12 @@ const addDefaultTask = (connection, nextUserID) => {
       Description: "List of things to do",
     };
 
-    const usersIDsArray = [nextUserID]; // Teraz UsersIDs to tablica z jednym elementem
+    const usersIDsArray = [nextUserID];
 
     connection.query(
       tasksInsertSQL,
       [
-        JSON.stringify(usersIDsArray), // Konwertuj tablicę na JSON
+        JSON.stringify(usersIDsArray),
         defaultTask.TaskName,
         defaultTask.Backlog,
         defaultTask.ToDo,
@@ -76,7 +76,7 @@ const addDefaultTask = (connection, nextUserID) => {
             ToDo: JSON.parse(defaultTask.ToDo),
             InProgress: JSON.parse(defaultTask.InProgress),
             Done: JSON.parse(defaultTask.Done),
-            description: JSON.parse(defaultTask.Description),
+            description: defaultTask.Description,
           };
           resolve(result);
         }
@@ -116,7 +116,6 @@ export const handleRegister = async (req, res, connection) => {
       name.charAt(0).toUpperCase() + name.substring(1).toLowerCase();
     const correctedSurname =
       surname.charAt(0).toUpperCase() + surname.substring(1).toLowerCase();
-
     const nextUserID = await getNextUserID(connection);
     const newUser = await addUser(
       connection,

@@ -4,6 +4,8 @@ import "../../../styles/FormAnimation.css";
 import Button from "../../../shared/components/Button";
 import { TaskService } from "../../../Services/TaskService";
 import { userContext } from "../../../App";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
   const [activeUser, setActiveUser] = useContext(userContext);
@@ -51,7 +53,7 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
 
   return (
     <CSSTransition in={showForm} timeout={500} classNames="fade" unmountOnExit>
-      <div className="add-task-form">
+      <div className="form-background">
         <CSSTransition
           in={showForm}
           timeout={500}
@@ -68,7 +70,7 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
                   className="add-task-close"
                   onClick={() => onHandleShowForm(false)}
                 >
-                  x
+                  <FontAwesomeIcon icon={faXmark} />
                 </p>
               </div>
               <div className="main-task-container">

@@ -48,13 +48,14 @@ export const Task = ({ tasks, index, taskID }) => {
   };
   return (
     <div className="single-task">
-      <div className="single-task-info">
-        <h3>{tasks[index].name}</h3>
-        <Button styles="add-single-task">
-          <FontAwesomeIcon icon={faPlus} />
-        </Button>
+      <div className="single-task-header">
+        <div className="single-task-info">
+          <h3>{tasks[index].text}</h3>
+          <Button styles="add-single-task">
+            <FontAwesomeIcon icon={faPlus} />
+          </Button>
+        </div>
       </div>
-
       {tasks[index].tasks.map((task) => (
         <div className={`task color-${index}`}>
           <div className="task-left">{task}</div>

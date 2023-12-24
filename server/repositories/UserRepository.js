@@ -7,8 +7,6 @@ export class UserRepository extends BaseRepository {
     const results = await queryAsync(this._connection, query, userID);
     const user = {
       userID: results[0].UserID,
-      login: results[0].Login,
-      password: results[0].Password,
       name: results[0].Name,
       surname: results[0].Surname,
     };
