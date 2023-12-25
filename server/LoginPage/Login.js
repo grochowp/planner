@@ -21,7 +21,6 @@ export const handleLogin = (req, res, connection) => {
           const tasks = {
             taskID: result.TaskID,
             taskName: result.TaskName,
-            usersIDs: JSON.parse(result.UsersIDs),
             Backlog: JSON.parse(result.Backlog),
             ToDo: JSON.parse(result.ToDo),
             InProgress: JSON.parse(result.InProgress),
@@ -32,9 +31,8 @@ export const handleLogin = (req, res, connection) => {
           if (acc.UserID === undefined) {
             acc.userID = result.UserID;
             acc.name = result.Name;
+            acc.email = result.Email;
             acc.surname = result.Surname;
-            acc.login = result.Login;
-            acc.password = result.Password;
           }
           return acc;
         },

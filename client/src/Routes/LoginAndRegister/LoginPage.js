@@ -10,6 +10,7 @@ export const Login = ({ onSetUser }) => {
   const [registerPassword, setRegisterPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
+  const [email, setEmail] = useState("");
 
   const [err, setErr] = useState("");
   const [incorrectData, SetIncorrectData] = useState(false);
@@ -31,9 +32,15 @@ export const Login = ({ onSetUser }) => {
     }
   };
 
-  const handleRegister = async (login, password, name, surname) => {
+  const handleRegister = async (login, password, name, surname, email) => {
     try {
-      const data = await LoginService.register(login, password, name, surname);
+      const data = await LoginService.register(
+        login,
+        password,
+        name,
+        surname,
+        email
+      );
 
       if (data.user) onSetUser(data.user);
       else {
@@ -113,6 +120,14 @@ export const Login = ({ onSetUser }) => {
               placeholder="Password..."
               required
             ></input>
+            <h5>E-mail</h5>
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Name..."
+              required
+            ></input>
             <h5>Name</h5>
             <input
               type="text"
@@ -150,7 +165,13 @@ export const Login = ({ onSetUser }) => {
 
             <Button
               onClick={() =>
-                handleRegister(registerLogin, registerPassword, name, surname)
+                handleRegister(
+                  registerLogin,
+                  registerPassword,
+                  name,
+                  surname,
+                  email
+                )
               }
               styles="register"
             >

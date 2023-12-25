@@ -14,16 +14,24 @@ const getNextUserID = (connection) => {
   });
 };
 
-const addUser = (connection, nextUserID, login, password, name, surname) => {
+const addUser = (
+  connection,
+  nextUserID,
+  login,
+  password,
+  name,
+  surname,
+  email
+) => {
   return new Promise((resolve, reject) => {
     const userInsertSQL = `
-      INSERT INTO Users (UserID, Login, Password, Name, Surname)
-      VALUES (?, ?, ?, ?, ?);
+      INSERT INTO Users (UserID, Login, Password, Name, Surname, Email)
+      VALUES (?, ?, ?, ?, ?, ?);
     `;
 
     connection.query(
       userInsertSQL,
-      [nextUserID, login, password, name, surname],
+      [nextUserID, login, password, name, surname, email],
       (error, userResults) => {
         if (error) {
           reject({ error: "Istnieje użytkownik o podanym loginie" });
@@ -38,8 +46,8 @@ const addUser = (connection, nextUserID, login, password, name, surname) => {
 const addDefaultTask = (connection, nextUserID) => {
   return new Promise((resolve, reject) => {
     const tasksInsertSQL = `
-      INSERT INTO Tasks (UsersIDs, TaskName, Backlog, ToDo, InProgress, Done, Description)
-      VALUES (?, ?, ?, ?, ?, ?, ?);
+      INSERT INTO Tasks (TaskName, Backlog, ToDo, InProgress, Done, Description)
+      VALUES (?, ?, ?, ?, ?, ?);
     `;
 
     const defaultTask = {
@@ -51,12 +59,9 @@ const addDefaultTask = (connection, nextUserID) => {
       Description: "List of things to do",
     };
 
-    const usersIDsArray = [nextUserID];
-
     connection.query(
       tasksInsertSQL,
       [
-        JSON.stringify(usersIDsArray),
         defaultTask.TaskName,
         defaultTask.Backlog,
         defaultTask.ToDo,
@@ -71,7 +76,6 @@ const addDefaultTask = (connection, nextUserID) => {
           const result = {
             taskID: tasksResults.insertId,
             taskName: defaultTask.TaskName,
-            usersIDs: usersIDsArray,
             Backlog: JSON.parse(defaultTask.Backlog),
             ToDo: JSON.parse(defaultTask.ToDo),
             InProgress: JSON.parse(defaultTask.InProgress),
@@ -104,7 +108,7 @@ const addToUsersTask = async (connection, userID, taskID) => {
 
 export const handleRegister = async (req, res, connection) => {
   try {
-    const { login, password, name, surname } = req.body;
+    const { login, password, name, surname, email } = req.body;
 
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     if (!password.match(passwordRegex)) {
@@ -123,7 +127,8 @@ export const handleRegister = async (req, res, connection) => {
       login,
       password,
       correctedName,
-      correctedSurname
+      correctedSurname,
+      email
     );
     if (newUser) {
       const taskResult = await addDefaultTask(connection, nextUserID);
@@ -134,6 +139,7 @@ export const handleRegister = async (req, res, connection) => {
         surname: correctedSurname,
         login,
         password,
+        email,
         tasks: [taskResult],
       };
 

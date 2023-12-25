@@ -1,14 +1,7 @@
 import { BaseRepository } from "./BaseRepository.js";
 import { queryAsync } from "../utils.js";
 
-const findTaskByIdSQL = `SELECT Users.* FROM Users WHERE UserID = ?`;
-
 export class TasksRepository extends BaseRepository {
-  findTaskById = async (taskID) => {
-    //TODO
-    return null;
-  };
-
   createMainTask = async (
     userID,
     newTask,
@@ -19,11 +12,9 @@ export class TasksRepository extends BaseRepository {
     description
   ) => {
     const taskInsertQuery = `
-      INSERT INTO Tasks (UsersIDs, TaskName, Backlog, ToDo, InProgress, Done, Description) 
-      VALUES (?, ?, ?, ?, ?, ?, ?);
+      INSERT INTO Tasks ( TaskName, Backlog, ToDo, InProgress, Done, Description) 
+      VALUES (?, ?, ?, ?, ?, ?);
     `;
-
-    const usersIDs = [userID];
 
     const defaultTask = {
       Backlog: [backlog],
@@ -38,7 +29,6 @@ export class TasksRepository extends BaseRepository {
     defaultTask.Done = done === "" ? [] : defaultTask.Done;
 
     const taskResult = await queryAsync(this._connection, taskInsertQuery, [
-      JSON.stringify(usersIDs),
       newTask,
       JSON.stringify(defaultTask.Backlog),
       JSON.stringify(defaultTask.ToDo),
@@ -49,7 +39,6 @@ export class TasksRepository extends BaseRepository {
 
     const taskID = taskResult.insertId;
 
-    // Dodanie wpisu do tabeli UserTasks
     const userTaskInsertQuery = `
       INSERT INTO UserTasks (UserID, TaskID)
       VALUES (?, ?);
@@ -60,7 +49,6 @@ export class TasksRepository extends BaseRepository {
     const newMainTask = {
       taskID: taskID,
       taskName: newTask,
-      usersIDs: JSON.parse(JSON.stringify(usersIDs)),
       Backlog: defaultTask.Backlog,
       ToDo: defaultTask.ToDo,
       InProgress: defaultTask.InProgress,
@@ -85,7 +73,6 @@ export class TasksRepository extends BaseRepository {
     await queryAsync(this._connection, updateTaskSql, [task, taskID]);
   };
 
-  // Dziwna ta funkcja muszę tą bazę twoją zobaczyć
   removeTask = async (task, from, taskID) => {
     const updateTaskSql = `
                       UPDATE Tasks
@@ -101,7 +88,7 @@ export class TasksRepository extends BaseRepository {
     return results[0].nextTaskIndex || 0;
   };
 
-  getActiveTasks = async (taskID) => {
+  findTaskByID = async (taskID) => {
     const query = `SELECT Tasks.*
     FROM Tasks
     WHERE TaskID = ?`;
@@ -109,15 +96,13 @@ export class TasksRepository extends BaseRepository {
 
     const transformedResults = results.map((result) => ({
       taskID: result.TaskID,
-      usersIDs: JSON.parse(result.UsersIDs),
       taskName: result.TaskName,
       Backlog: JSON.parse(result.Backlog),
       ToDo: JSON.parse(result.ToDo),
       InProgress: JSON.parse(result.InProgress),
       Done: JSON.parse(result.Done),
-      description: results.Description,
+      description: result.Description,
     }));
-
     return transformedResults[0];
   };
 
@@ -132,15 +117,19 @@ export class TasksRepository extends BaseRepository {
     //To powinno być jako oddzielna funkcja np mapTasksToTaskTableFormat
     const transformedResults = results.map((result) => ({
       taskID: result.TaskID,
-      usersIDs: JSON.parse(result.UsersIDs),
       taskName: result.TaskName,
       Backlog: JSON.parse(result.Backlog),
       ToDo: JSON.parse(result.ToDo),
       InProgress: JSON.parse(result.InProgress),
       Done: JSON.parse(result.Done),
-      description: results.Description,
+      description: result.Description,
     }));
 
     return transformedResults;
+  };
+
+  deleteUserFromTask = async (userID, taskID) => {
+    const query = `DELETE FROM UserTasks WHERE UserID = ? AND TaskID = ?`;
+    await queryAsync(this._connection, query, [userID, taskID]);
   };
 }

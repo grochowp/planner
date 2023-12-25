@@ -1,12 +1,55 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TaskService } from "../../../Services/TaskService";
 import { taskContext, userContext } from "../../../App";
 import { useNavigate } from "react-router-dom";
+import { userService } from "../../../Services/userService";
 
-export const Selection = ({ onHandleShowForm, onHandleAddUser }) => {
+export const Selection = ({
+  onHandleShowForm,
+  onHandleAddUser,
+  setCurrentTaskUsers,
+}) => {
   const [activeUser, setActiveUser] = useContext(userContext);
-  const [, setActiveTask] = useContext(taskContext);
+  const [activeTask, setActiveTask] = useContext(taskContext);
+  // const [userCounts, setUserCounts] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (activeTask) {
+          const results = await userService.findUsersFromTask(
+            activeTask.taskID
+          );
+          setCurrentTaskUsers(results.users);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchData();
+  }, [activeTask]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       if (activeUser) {
+  //         const promises = activeUser.tasks.map(async (task) => {
+  //           const results = await userService.findUsersFromTask(task.taskID);
+  //           return results.users.length;
+  //         });
+  //         const counts = await Promise.all(promises);
+  //         console.log(counts);
+  //         setUserCounts(counts);
+  //       }
+  //     } catch (err) {
+  //       console.error(err);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [activeUser]);
 
   const handleDeleteTask = async (taskID) => {
     try {
@@ -42,7 +85,7 @@ export const Selection = ({ onHandleShowForm, onHandleAddUser }) => {
                 }}
                 className="task-card-users"
               >
-                <span>{task.usersIDs.length}</span>
+                {/* <span>{userCounts[index]}</span> */}
                 <i className="gg-user"></i>
                 <i className="gg-math-plus"></i>
               </p>

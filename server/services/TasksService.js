@@ -47,7 +47,7 @@ export class TasksService {
   selectActiveTask = async (req, res) => {
     const { taskID } = req.body;
 
-    const tasks = await this.tasksRepository.getActiveTasks(taskID);
+    const tasks = await this.tasksRepository.findTaskByID(taskID);
 
     res.json({ message: "Task added", tasks });
   };
@@ -71,7 +71,7 @@ export class TasksService {
     try {
       const { task, from, taskID } = req.body;
       await this.tasksRepository.removeTask(task, from, taskID);
-      const tasks = await this.tasksRepository.getActiveTasks(taskID);
+      const tasks = await this.tasksRepository.findTaskByID(taskID);
       res.status(200).json({ tasks });
     } catch (error) {
       console.error("Error during updating task", error);
@@ -84,7 +84,7 @@ export class TasksService {
       const { task, from, destination, taskID } = req.body;
       await this.tasksRepository.removeTask(task, from, taskID);
       await this.tasksRepository.addTask(task, destination, taskID);
-      const tasks = await this.tasksRepository.getActiveTasks(taskID);
+      const tasks = await this.tasksRepository.findTaskByID(taskID);
       res.status(200).json({ tasks });
     } catch (error) {
       console.log("Failed to move", error);
@@ -99,5 +99,17 @@ export class TasksService {
       ...userResult,
       tasks: tasksResult,
     };
+  };
+
+  deleteUserFromTask = async (req, res) => {
+    try {
+      const { userID, taskID } = req.body;
+
+      await this.tasksRepository.deleteUserFromTask(userID, taskID);
+      const users = await this.userRepository.findUsersFromTask(taskID);
+      res.status(200).json({ users });
+    } catch (err) {
+      console.log(err);
+    }
   };
 }

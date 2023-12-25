@@ -3,7 +3,6 @@ import { userContext } from "../../App";
 
 export const User = () => {
   const [activeUser] = useContext(userContext);
-
   function getFormattedDate() {
     const daysOfWeek = [
       "Sunday",
@@ -76,7 +75,7 @@ export const User = () => {
           <h5>
             {formattedName} {formattedSurname}
           </h5>
-          <h5>Email@example.com</h5>
+          <h5>{activeUser.email}</h5>
         </div>
       </div>
     </div>

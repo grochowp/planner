@@ -13,4 +13,23 @@ export class UserService {
 
     res.json({ message: "User found", user });
   };
+
+  findUsersFromTask = async (req, res) => {
+    const { taskID } = req.body;
+
+    const users = await this.userRepository.findUsersFromTask(taskID);
+
+    res.json({ message: "Users found", users });
+  };
+
+  setUserWithTasks = async (req, res) => {
+    const { userID } = req.body;
+
+    const user = await this.userRepository.findUserByID(userID);
+    const tasks = await this.tasksRepository.getUserTasks(userID);
+
+    const result = { ...user, tasks: [...tasks] };
+
+    res.json({ message: "User found", result });
+  };
 }

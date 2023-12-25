@@ -8,6 +8,8 @@ import { taskContext } from "../../App";
 export const SelectTask = () => {
   const [showForm, setShowForm] = useState(false);
   const [showAddUser, setShowAddUser] = useState(false);
+  const [currentTaskUsers, setCurrentTaskUsers] = useState([]);
+
   const [, setActiveTask] = useContext(taskContext);
 
   const handleShowForm = (formState) => {
@@ -16,9 +18,9 @@ export const SelectTask = () => {
 
   const handleAddUser = (formstate, task) => {
     setShowAddUser(formstate);
-    setActiveTask(task);
-  };
 
+    task && setActiveTask(task);
+  };
   return (
     <>
       <div className="right-side">
@@ -26,10 +28,17 @@ export const SelectTask = () => {
         <Selection
           onHandleShowForm={handleShowForm}
           onHandleAddUser={handleAddUser}
+          currentTaskUsers={currentTaskUsers}
+          setCurrentTaskUsers={setCurrentTaskUsers}
         />
       </div>
       <NewTaskForm showForm={showForm} onHandleShowForm={handleShowForm} />
-      <AddUserForm showAddUser={showAddUser} onHandleAddUser={handleAddUser} />
+      <AddUserForm
+        showAddUser={showAddUser}
+        onHandleAddUser={handleAddUser}
+        currentTaskUsers={currentTaskUsers}
+        setCurrentTaskUsers={setCurrentTaskUsers}
+      />
     </>
   );
 };

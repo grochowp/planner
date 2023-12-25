@@ -42,6 +42,14 @@ app.post("/register", (req, res) => {
   }
 });
 
+app.post("/setUserWithTasks", (req, res) => {
+  try {
+    userService.setUserWithTasks(req, res, connection);
+  } catch (error) {
+    res.status(500).json({ message: "Unable to login" });
+  }
+});
+
 app.post("/add", (req, res) => {
   try {
     tasksService.addTaskToMainTask(req, res);
@@ -95,5 +103,21 @@ app.post("/findUser", (req, res) => {
     userService.findUser(req, res);
   } catch (error) {
     res.status(500).json({ message: "Failed to find user" });
+  }
+});
+
+app.post("/findUsersFromTask", (req, res) => {
+  try {
+    userService.findUsersFromTask(req, res);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to find users" });
+  }
+});
+
+app.post("/deleteUserFromTask", (req, res) => {
+  try {
+    tasksService.deleteUserFromTask(req, res);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete user" });
   }
 });

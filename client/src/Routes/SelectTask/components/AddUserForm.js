@@ -1,34 +1,45 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { CSSTransition } from "react-transition-group";
 import { taskContext, userContext } from "../../../App";
-import { userService } from "../../../Services/userService";
 import Button from "../../../shared/components/Button";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { TaskService } from "../../../Services/TaskService";
+import { userService } from "../../../Services/userService";
 
-export const AddUserForm = ({ showAddUser, onHandleAddUser }) => {
+export const AddUserForm = ({
+  showAddUser,
+  onHandleAddUser,
+  currentTaskUsers,
+  setCurrentTaskUsers,
+}) => {
   const [activeTask] = useContext(taskContext);
-  const [activeUser] = useContext(userContext);
-  const [usersToDisplay, setUsersToDisplay] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (activeTask) {
-          const fetchedUsers = await Promise.all(
-            activeTask.usersIDs.map((userID) => userService.findUser(userID))
-          );
-          setUsersToDisplay(fetchedUsers.map((user) => user.user));
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    };
+  const [activeUser, setActiveUser] = useContext(userContext);
 
-    fetchData();
-  }, [activeTask]);
+  const handleDeleteUser = async (userID) => {
+    try {
+      const results = await TaskService.deleteUserFromTask(
+        userID,
+        activeTask.taskID
+      );
+      console.log(activeUser);
+      if (userID === activeUser.userID) handleRerenderUser();
 
-  const handleDeleteUser = (userID) => {
-    console.log(userID);
+      onHandleAddUser(false);
+      setCurrentTaskUsers(results.users);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleRerenderUser = async () => {
+    try {
+      const user = await userService.setUserWithTasks(activeUser.userID);
+
+      setActiveUser(user.result);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -47,7 +58,7 @@ export const AddUserForm = ({ showAddUser, onHandleAddUser }) => {
         >
           <div className="add-user-form">
             <div className="task-card-data add-task-top">
-              <p className="add-task-name">Add a new user</p>
+              <p className="add-task-name">Users</p>
               <p
                 className="add-task-close"
                 onClick={() => {
@@ -58,21 +69,23 @@ export const AddUserForm = ({ showAddUser, onHandleAddUser }) => {
               </p>
             </div>
             <div className="main-task-container selected-task-all-users">
-              {usersToDisplay.map((user, index) => (
+              {currentTaskUsers.map((user, index) => (
                 <div className="selected-task-user">
                   <div key={index}>
                     <p>
-                      {user.name} {user.surname}{" "}
-                      {user.userID === activeUser.userID ? (
-                        <Button
-                          styles="delete-user-from-task"
-                          onClick={() => handleDeleteUser(user.userID)}
-                        >
+                      {user.Name} {user.Surname}
+                      <Button
+                        styles="delete-user-from-task"
+                        onClick={() => handleDeleteUser(user.UserID)}
+                      >
+                        {currentTaskUsers.length > 1 &&
+                        (activeUser.tasks.length > 1 ||
+                          user.UserID !== activeUser.userID) ? (
                           <FontAwesomeIcon icon={faXmark} />
-                        </Button>
-                      ) : (
-                        ""
-                      )}
+                        ) : (
+                          ""
+                        )}
+                      </Button>
                     </p>
                   </div>
                 </div>
@@ -81,7 +94,7 @@ export const AddUserForm = ({ showAddUser, onHandleAddUser }) => {
             <div className="add-new-user">
               <form>
                 <input
-                  placeholder="Search users..."
+                  placeholder="Add user..."
                   className="add-new-user-input"
                 ></input>
                 {/* <Button styles="add-user">---x</Button> */}

@@ -56,4 +56,12 @@ export const TaskService = {
 
     return await sendRequest(url, method, body);
   },
+
+  deleteUserFromTask: async (userID, taskID) => {
+    const url = "http://localhost:3001/deleteUserFromTask";
+    const method = "POST";
+    const body = { userID, taskID };
+
+    return await sendRequest(url, method, body);
+  },
 };
