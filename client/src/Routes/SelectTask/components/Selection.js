@@ -11,7 +11,6 @@ export const Selection = ({
 }) => {
   const [activeUser, setActiveUser] = useContext(userContext);
   const [activeTask, setActiveTask] = useContext(taskContext);
-  // const [userCounts, setUserCounts] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -30,26 +29,6 @@ export const Selection = ({
 
     fetchData();
   }, [activeTask]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       if (activeUser) {
-  //         const promises = activeUser.tasks.map(async (task) => {
-  //           const results = await userService.findUsersFromTask(task.taskID);
-  //           return results.users.length;
-  //         });
-  //         const counts = await Promise.all(promises);
-  //         console.log(counts);
-  //         setUserCounts(counts);
-  //       }
-  //     } catch (err) {
-  //       console.error(err);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [activeUser]);
 
   const handleDeleteTask = async (taskID) => {
     try {
@@ -85,7 +64,6 @@ export const Selection = ({
                 }}
                 className="task-card-users"
               >
-                {/* <span>{userCounts[index]}</span> */}
                 <i className="gg-user"></i>
                 <i className="gg-math-plus"></i>
               </p>

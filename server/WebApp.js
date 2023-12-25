@@ -98,14 +98,6 @@ app.post("/selectTask", (req, res) => {
   }
 });
 
-app.post("/findUser", (req, res) => {
-  try {
-    userService.findUser(req, res);
-  } catch (error) {
-    res.status(500).json({ message: "Failed to find user" });
-  }
-});
-
 app.post("/findUsersFromTask", (req, res) => {
   try {
     userService.findUsersFromTask(req, res);

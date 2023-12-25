@@ -7,13 +7,6 @@ export class UserService {
     this.tasksRepository = new TasksRepository(connection);
   }
 
-  findUser = async (req, res) => {
-    const { userID } = req.body;
-    const user = await this.userRepository.findUserByID(userID);
-
-    res.json({ message: "User found", user });
-  };
-
   findUsersFromTask = async (req, res) => {
     const { taskID } = req.body;
 
