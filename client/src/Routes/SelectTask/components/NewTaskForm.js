@@ -21,11 +21,6 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
   const handleAddTask = async (e) => {
     e.preventDefault();
     try {
-      if (!newTask || !description) {
-        setError("New task and description are required");
-        return;
-      }
-
       const userWithNewTask = await TaskService.addMainTask(
         activeUser.userID,
         newTask,
@@ -38,18 +33,21 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
 
       setActiveUser(userWithNewTask.user);
 
-      onHandleShowForm(false);
-
-      setNewTask("");
-      setBacklog("");
-      setTodo("");
-      setDoing("");
-      setDone("");
-      setDescription("");
-      setError("");
+      handleCloseForm();
     } catch (err) {
-      console.error(err);
+      setError(err.message);
     }
+  };
+
+  const handleCloseForm = () => {
+    onHandleShowForm(false);
+    setNewTask("");
+    setBacklog("");
+    setTodo("");
+    setDoing("");
+    setDone("");
+    setDescription("");
+    setError("");
   };
 
   return (
@@ -67,10 +65,7 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
                 <p className="add-task-name">
                   {error ? error : "Add a new task!"}
                 </p>
-                <p
-                  className="add-task-close"
-                  onClick={() => onHandleShowForm(false)}
-                >
+                <p className="add-task-close" onClick={handleCloseForm}>
                   <FontAwesomeIcon icon={faXmark} />
                 </p>
               </div>

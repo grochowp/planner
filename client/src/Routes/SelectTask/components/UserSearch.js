@@ -8,27 +8,31 @@ const UserSearch = ({ currentTaskUsers, setCurrentTaskUsers }) => {
   const [activeTask] = useContext(taskContext);
 
   useEffect(() => {
-    const searchUsers = async () => {
-      try {
-        const { users } = await userService.findCertainUsers(searchTerm);
-        const filteredResults = users.filter(
-          (user) =>
-            !currentTaskUsers.some(
-              (taskUser) => taskUser.UserID === user.UserID
-            )
-        );
+    const delaySearch = setTimeout(() => {
+      const searchUsers = async () => {
+        try {
+          const { users } = await userService.findCertainUsers(searchTerm);
+          const filteredResults = users.filter(
+            (user) =>
+              !currentTaskUsers.some(
+                (taskUser) => taskUser.UserID === user.UserID
+              )
+          );
 
-        setFilteredUsers(filteredResults);
-      } catch (error) {
-        console.error("Błąd podczas pobierania użytkowników", error);
+          setFilteredUsers(filteredResults);
+        } catch (error) {
+          alert("Błąd podczas pobierania użytkowników", error);
+        }
+      };
+
+      if (searchTerm.trim() !== "") {
+        searchUsers();
+      } else {
+        setFilteredUsers([]);
       }
-    };
+    }, 500);
 
-    if (searchTerm.trim() !== "") {
-      searchUsers();
-    } else {
-      setFilteredUsers([]);
-    }
+    return () => clearTimeout(delaySearch);
   }, [searchTerm, currentTaskUsers]);
 
   const handleInputChange = (e) => {

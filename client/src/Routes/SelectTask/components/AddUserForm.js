@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { CSSTransition } from "react-transition-group";
 import { taskContext, userContext } from "../../../App";
 import Button from "../../../shared/components/Button";
@@ -6,7 +6,6 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TaskService } from "../../../Services/TaskService";
 import { userService } from "../../../Services/userService";
-import { User } from "../../../shared/components/User";
 import UserSearch from "./UserSearch";
 
 export const AddUserForm = ({
@@ -17,6 +16,7 @@ export const AddUserForm = ({
 }) => {
   const [activeTask] = useContext(taskContext);
   const [activeUser, setActiveUser] = useContext(userContext);
+
   const handleDeleteUser = async (userID) => {
     try {
       const results = await TaskService.deleteUserFromTask(

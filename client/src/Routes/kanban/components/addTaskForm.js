@@ -14,23 +14,23 @@ export const AddTaskForm = ({
   const [activeTask, setActiveTask] = useContext(taskContext);
   const [activeUser] = useContext(userContext);
   const [inputValue, setInputValue] = useState("");
+  const [inputPlaceholder, setInputPlaceholder] = useState("Add task...");
 
   const handleAddTask = async (e) => {
     e.preventDefault();
     try {
-      //   setActiveTask("");
       const tasks = await TaskService.add(
         inputValue,
         activeTask.taskID,
         taskState.name,
         activeUser
       );
-
       setActiveTask(tasks.tasks);
       setInputValue("");
       setShowAddTask(false);
     } catch (err) {
-      console.log(err);
+      setInputValue("");
+      setInputPlaceholder(err.message);
     }
   };
 
@@ -57,6 +57,7 @@ export const AddTaskForm = ({
                 className="add-task-close"
                 onClick={() => {
                   onHandleAddTask(false);
+                  setInputPlaceholder("Add task...");
                 }}
               >
                 <FontAwesomeIcon icon={faXmark} />
@@ -66,7 +67,7 @@ export const AddTaskForm = ({
             <div className="add-new-user">
               <form onSubmit={handleAddTask}>
                 <input
-                  placeholder="Add task..."
+                  placeholder={inputPlaceholder}
                   className="add-new-task-input"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}

@@ -8,26 +8,32 @@ export class TasksService {
   }
 
   addMainTask = async (req, res) => {
-    const { userID, newTask, backlog, todo, doing, done, description } =
-      req.body;
+    try {
+      const { userID, newTask, backlog, todo, doing, done, description } =
+        req.body;
 
-    const user = await this.userRepository.findUserByID(userID);
+      if (!newTask) throw new Error("Name of task is required");
+      if (!description) throw new Error("Description is required");
+      const user = await this.userRepository.findUserByID(userID);
 
-    const currentUserTasks = await this.tasksRepository.getUserTasks(userID);
-    const newMainTask = await this.tasksRepository.createMainTask(
-      userID,
-      newTask,
-      backlog,
-      todo,
-      doing,
-      done,
-      description
-    );
-    currentUserTasks.push(newMainTask);
+      const currentUserTasks = await this.tasksRepository.getUserTasks(userID);
+      const newMainTask = await this.tasksRepository.createMainTask(
+        userID,
+        newTask,
+        backlog,
+        todo,
+        doing,
+        done,
+        description
+      );
+      currentUserTasks.push(newMainTask);
 
-    const result = { ...user, tasks: currentUserTasks };
+      const result = { ...user, tasks: currentUserTasks };
 
-    res.json({ message: "Dodano zadanie", user: result });
+      res.json({ message: "Dodano zadanie", user: result });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
   };
 
   deleteMainTask = async (req, res) => {
@@ -54,15 +60,21 @@ export class TasksService {
 
   addTaskToMainTask = async (req, res) => {
     try {
-      const { task, taskID, destination, userID } = req.body;
+      const { task, taskID, destination } = req.body;
+
+      if (task.length < 3) {
+        throw new Error("Task must have at least 3 characters");
+      }
+      if (!destination) {
+        throw new Error("Destination is not defined");
+      }
 
       await this.tasksRepository.addTask(task, destination, taskID);
 
       const tasks = await this.tasksRepository.findTaskByID(taskID);
       res.json({ message: "Task added", tasks });
     } catch (error) {
-      console.error("Error during updating task", error);
-      res.status(500).json({ message: "Failed to update task" });
+      res.status(500).json({ message: error.message });
     }
   };
 
@@ -73,7 +85,6 @@ export class TasksService {
       const tasks = await this.tasksRepository.findTaskByID(taskID);
       res.status(200).json({ tasks });
     } catch (error) {
-      console.error("Error during updating task", error);
       res.status(500).json({ message: "Failed to update task" });
     }
   };

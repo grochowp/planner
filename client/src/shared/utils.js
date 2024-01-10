@@ -27,7 +27,11 @@ export const sendRequest = async (url, method, body) => {
       },
     });
     const data = await res.json();
-    return data;
+    if (res.ok) {
+      return data;
+    } else {
+      throw new Error(data.message);
+    }
   } catch (error) {
     console.error(`Request failed for ${url}`, error);
     throw error;
