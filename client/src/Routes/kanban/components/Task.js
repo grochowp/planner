@@ -9,7 +9,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { TaskService } from "../../../Services/TaskService";
 
-export const Task = ({ tasks, index, taskID }) => {
+export const Task = ({
+  tasks,
+  index,
+  taskID,
+  setShowAddTask,
+  setTaskState,
+}) => {
   const [, setActiveTask] = useContext(taskContext);
 
   const handleDeleteTask = async (task) => {
@@ -27,13 +33,13 @@ export const Task = ({ tasks, index, taskID }) => {
   };
 
   const handleMoveTask = async (task, direction) => {
-    const taskIndex =
-      direction === "left" && index > 0
-        ? index - 1
-        : direction === "right" && index < 3
-        ? index + 1
-        : "";
     try {
+      const taskIndex =
+        direction === "left" && index > 0
+          ? index - 1
+          : direction === "right" && index < 3
+          ? index + 1
+          : "";
       const tasksAfterMove = await TaskService.move(
         task,
         tasks[index].name,
@@ -46,12 +52,21 @@ export const Task = ({ tasks, index, taskID }) => {
       console.log(err);
     }
   };
+
+  const handleAddTask = (task) => {
+    setTaskState({ name: task.name, text: task.text });
+    setShowAddTask(true);
+  };
+
   return (
     <div className="single-task">
       <div className="single-task-header">
         <div className="single-task-info">
           <h3>{tasks[index].text}</h3>
-          <Button styles="add-single-task">
+          <Button
+            styles="add-single-task"
+            onClick={() => handleAddTask(tasks[index])}
+          >
             <FontAwesomeIcon icon={faPlus} />
           </Button>
         </div>

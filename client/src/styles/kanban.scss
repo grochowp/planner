@@ -67,7 +67,7 @@
 
 .single-task {
   margin: 2vh 1vw;
-  width: 24.5rem;
+  width: 24rem;
   height: max-content;
   max-height: 52.5vh;
   background-color: #080808;
@@ -167,4 +167,13 @@
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
+}
+
+.add-task-container {
+  background-image: url("#{$picture-tlo}");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 10vw;
+  min-height: 7rem;
 }

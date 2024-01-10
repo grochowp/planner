@@ -22,10 +22,8 @@ export const AddUserForm = ({
         userID,
         activeTask.taskID
       );
-      console.log(activeUser);
       if (userID === activeUser.userID) handleRerenderUser();
 
-      onHandleAddUser(false);
       setCurrentTaskUsers(results.users);
     } catch (err) {
       console.error(err);
@@ -58,7 +56,7 @@ export const AddUserForm = ({
         >
           <div className="add-user-form">
             <div className="task-card-data add-task-top">
-              <p className="add-task-name">Users</p>
+              <p className="add-task-name">Users - {activeTask.taskName}</p>
               <p
                 className="add-task-close"
                 onClick={() => {

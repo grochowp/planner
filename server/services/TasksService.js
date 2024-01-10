@@ -54,13 +54,13 @@ export class TasksService {
 
   addTaskToMainTask = async (req, res) => {
     try {
-      const { task, destination, userID, taskID } = req.body;
+      const { task, taskID, destination, userID } = req.body;
 
-      await this.tasksRepository.addTask(destination, task, taskID);
+      await this.tasksRepository.addTask(task, destination, taskID);
 
-      const userWithTasks = await this.getUserWithTasks(userID);
-
-      res.status(200).json({ user: userWithTasks });
+      const tasks = await this.tasksRepository.findTaskByID(taskID);
+      console.log(tasks);
+      res.json({ message: "Task added", tasks });
     } catch (error) {
       console.error("Error during updating task", error);
       res.status(500).json({ message: "Failed to update task" });

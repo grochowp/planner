@@ -35,6 +35,7 @@ export const NewTaskForm = ({ showForm, onHandleShowForm }) => {
         done,
         description
       );
+
       setActiveUser(userWithNewTask.user);
 
       onHandleShowForm(false);

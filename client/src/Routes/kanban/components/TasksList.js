@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { Task } from "./Task";
 
-export const TasksList = () => {
+export const TasksList = ({ setShowAddTask, setTaskState }) => {
   const [activeTask, setActiveTask] = useContext(taskContext);
 
   const tasksToDisplay = activeTask
@@ -56,6 +56,8 @@ export const TasksList = () => {
               tasks={tasksToDisplay}
               index={index}
               taskID={activeTask.taskID}
+              setShowAddTask={setShowAddTask}
+              setTaskState={setTaskState}
             />
           ))}
         </div>

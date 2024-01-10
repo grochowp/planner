@@ -5,7 +5,7 @@ import { TasksService } from "./services/TasksService.js";
 import { UserService } from "./services/UserService.js";
 import { connection } from "./database.js";
 //TODO utworzyć service np. UserManagementService
-import { handleLogin } from "./LoginPage/Login.js  ";
+import { handleLogin } from "./LoginPage/Login.js";
 import { handleRegister } from "./LoginPage/Register.js";
 
 const app = express();

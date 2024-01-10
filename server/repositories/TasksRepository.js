@@ -53,6 +53,7 @@ export class TasksRepository extends BaseRepository {
       ToDo: defaultTask.ToDo,
       InProgress: defaultTask.InProgress,
       Done: defaultTask.Done,
+      description: description,
     };
 
     return newMainTask;
@@ -67,6 +68,7 @@ export class TasksRepository extends BaseRepository {
   };
 
   addTask = async (task, destination, taskID) => {
+    console.log(task, destination, taskID);
     const updateTaskSql = `UPDATE Tasks
             SET ${destination} = JSON_ARRAY_APPEND(${destination}, '$', ?)
             WHERE TaskID = ?;`;

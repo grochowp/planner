@@ -1,10 +1,10 @@
 import { sendRequest } from "../shared/utils";
 
 export const TaskService = {
-  add: async (task, destination, userID, taskID) => {
+  add: async (task, taskID, destination, userID) => {
     const url = "http://localhost:3001/add";
     const method = "POST";
-    const body = { task, destination, userID, taskID };
+    const body = { task, taskID, destination, userID };
 
     return await sendRequest(url, method, body);
   },
