@@ -406,8 +406,10 @@
   align-items: center;
   justify-content: center;
   height: 6rem;
+  position: relative;
 }
 
+.add-new-user div,
 .add-new-user form {
   display: flex;
   flex-direction: row;
@@ -420,17 +422,60 @@
   display: flex;
   align-items: center;
   border: 1px solid rgb(97, 97, 97);
-
   padding: 1px;
+  transition: box-shadow 1s, transform 1s;
 }
 
+.add-new-user div:focus,
+.add-new-user div:hover,
+.add-new-user form:focus,
+.add-new-user form:hover {
+  box-shadow: 0 0 20px #000000;
+  transform: scale(1.05);
+}
 .add-new-user input {
   flex-grow: 2;
   margin-left: 1rem;
   font-size: 1.1rem;
   border: none;
   background: none;
+  box-sizing: border-box;
   color: $text-color-primary;
+}
+
+.add-new-user ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  position: absolute;
+  width: 100%;
+
+  background-color: rgb(51, 50, 50);
+  border-radius: 0 0 8px 8px;
+  max-height: 150px;
+  overflow-y: auto;
+  top: 100%;
+  left: 0;
+}
+
+.add-new-user ul::-webkit-scrollbar {
+  width: 6px;
+}
+
+.add-new-user ul::-webkit-scrollbar-thumb {
+  background-color: #505050;
+  border-radius: 6px;
+}
+
+.add-new-user ul li {
+  padding: 8px;
+  cursor: pointer;
+  border-bottom: 1px solid #080808;
+}
+
+.add-new-user ul li:hover {
+  background-color: #585858;
+  color: #080808;
 }
 
 .add-new-user input:focus {
@@ -439,13 +484,4 @@
 
 .add-new-user input::placeholder {
   color: rgb(0, 0, 0);
-}
-
-.add-new-user button {
-  border: 1px solid blue;
-
-  color: white;
-}
-
-.add-new-user-input {
 }

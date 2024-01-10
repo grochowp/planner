@@ -59,7 +59,6 @@ export class TasksService {
       await this.tasksRepository.addTask(task, destination, taskID);
 
       const tasks = await this.tasksRepository.findTaskByID(taskID);
-      console.log(tasks);
       res.json({ message: "Task added", tasks });
     } catch (error) {
       console.error("Error during updating task", error);

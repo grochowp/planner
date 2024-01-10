@@ -113,3 +113,19 @@ app.post("/deleteUserFromTask", (req, res) => {
     res.status(500).json({ message: "Failed to delete user" });
   }
 });
+
+app.post("/findCertainUsers", (req, res) => {
+  try {
+    userService.findCertainUsers(req, res);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete user" });
+  }
+});
+
+app.post("/addUserToCurrentUsers", (req, res) => {
+  try {
+    userService.addUserToCurrentUsers(req, res);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to delete user" });
+  }
+});

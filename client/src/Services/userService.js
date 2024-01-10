@@ -16,4 +16,20 @@ export const userService = {
 
     return await sendRequest(url, method, body);
   },
+
+  findCertainUsers: async (data) => {
+    const url = "http://localhost:3001/findCertainUsers";
+    const method = "POST";
+    const body = { data };
+
+    return await sendRequest(url, method, body);
+  },
+
+  addUserToCurrentUsers: async (userID, taskID) => {
+    const url = "http://localhost:3001/addUserToCurrentUsers";
+    const method = "POST";
+    const body = { userID, taskID };
+
+    return await sendRequest(url, method, body);
+  },
 };

@@ -28,4 +28,16 @@ export class UserRepository extends BaseRepository {
     const query = `DELETE FROM Users WHERE UserID = ?`;
     await queryAsync(this._connection, query, userID);
   };
+
+  findCertainUsers = async (searchTerm) => {
+    const query = `
+      SELECT Users.Name, Users.Surname, Users.UserID
+      FROM Users
+      WHERE Users.Surname LIKE ? OR Users.Name LIKE ?;
+    `;
+    const data = [`%${searchTerm}%`, `%${searchTerm}%`];
+    const results = await queryAsync(this._connection, query, data);
+
+    return results;
+  };
 }

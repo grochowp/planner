@@ -68,7 +68,6 @@ export class TasksRepository extends BaseRepository {
   };
 
   addTask = async (task, destination, taskID) => {
-    console.log(task, destination, taskID);
     const updateTaskSql = `UPDATE Tasks
             SET ${destination} = JSON_ARRAY_APPEND(${destination}, '$', ?)
             WHERE TaskID = ?;`;
@@ -132,6 +131,13 @@ export class TasksRepository extends BaseRepository {
 
   deleteUserFromTask = async (userID, taskID) => {
     const query = `DELETE FROM UserTasks WHERE UserID = ? AND TaskID = ?`;
+    await queryAsync(this._connection, query, [userID, taskID]);
+  };
+
+  addUserToTask = async (taskID, userID) => {
+    const query = `INSERT INTO UserTasks (UserID, TaskID)
+    VALUES (?, ?);
+  `;
     await queryAsync(this._connection, query, [userID, taskID]);
   };
 }

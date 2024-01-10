@@ -1,9 +1,10 @@
 import { userContext } from "../App";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { LoginService } from "../Services/loginService";
 import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faArrowRightFromBracket,
   faClipboard,
   faGear,
   faListCheck,
@@ -11,6 +12,7 @@ import {
 
 export function SideBar() {
   const [, setActiveUser] = useContext(userContext);
+  const [isHovered, setIsHovered] = useState(false);
 
   const location = useLocation();
 
@@ -49,7 +51,7 @@ export function SideBar() {
           </Link>
         </div>
 
-        <div className="left-bar-icon ">
+        {/* <div className="left-bar-icon ">
           <FontAwesomeIcon
             icon={faGear}
             style={{
@@ -58,12 +60,21 @@ export function SideBar() {
               }`,
             }}
           />
-        </div>
+        </div> */}
       </div>
       <div
-        className="left-side-bottom image-logout"
+        className={`image-logout left-bar-icon ${isHovered ? "hovered" : ""}`}
         onClick={handleLogout}
-      ></div>
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <FontAwesomeIcon
+          icon={faArrowRightFromBracket}
+          style={{
+            color: isHovered ? "#f7f7f7" : "#828282",
+          }}
+        />
+      </div>
     </div>
   );
 }

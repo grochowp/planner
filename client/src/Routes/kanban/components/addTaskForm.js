@@ -1,7 +1,6 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSSTransition } from "react-transition-group";
-import Button from "../../../shared/components/Button";
 import { useContext, useState } from "react";
 import { taskContext, userContext } from "../../../App";
 import { TaskService } from "../../../Services/TaskService";
@@ -13,7 +12,7 @@ export const AddTaskForm = ({
   taskState,
 }) => {
   const [activeTask, setActiveTask] = useContext(taskContext);
-  const [activeUser, setActiveUser] = useContext(userContext);
+  const [activeUser] = useContext(userContext);
   const [inputValue, setInputValue] = useState("");
 
   const handleAddTask = async (e) => {
@@ -52,7 +51,7 @@ export const AddTaskForm = ({
           <div className="add-user-form">
             <div className="task-card-data add-task-top">
               <p className="add-task-name">
-                {activeTask.taskName} - {taskState.text}
+                {activeTask?.taskName} - {taskState.text}
               </p>
               <p
                 className="add-task-close"
@@ -68,7 +67,7 @@ export const AddTaskForm = ({
               <form onSubmit={handleAddTask}>
                 <input
                   placeholder="Add task..."
-                  className="add-new-user-input"
+                  className="add-new-task-input"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
                 ></input>

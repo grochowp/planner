@@ -25,4 +25,21 @@ export class UserService {
 
     res.json({ message: "User found", result });
   };
+
+  findCertainUsers = async (req, res) => {
+    const { data } = req.body;
+
+    const users = await this.userRepository.findCertainUsers(data);
+
+    res.json({ message: "Users found", users });
+  };
+
+  addUserToCurrentUsers = async (req, res) => {
+    const { userID, taskID } = req.body;
+
+    await this.tasksRepository.addUserToTask(taskID, userID);
+    const users = await this.userRepository.findUsersFromTask(taskID);
+
+    res.json({ message: "Users found", users });
+  };
 }

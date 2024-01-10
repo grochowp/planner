@@ -21,6 +21,7 @@ export const SelectTask = () => {
 
     task && setActiveTask(task);
   };
+
   return (
     <>
       <div className="right-side">
